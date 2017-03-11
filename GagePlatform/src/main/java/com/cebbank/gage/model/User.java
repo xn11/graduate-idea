@@ -1,35 +1,63 @@
 package com.cebbank.gage.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.validation.constraints.Size;
+import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
- * Created by mark on 4/24/15.
+ * Created by xn on 2017/3/6.
+ *
+ * 系统用户类
  */
-
 @Entity
 @Table
 public class User implements Serializable {
     @Id
     @GeneratedValue
     private int id;
-
     private String name;
-    private RoleEnum roleId;
+
+    @Column(name = "role_id")
+    private int roleId;
+//    private RoleEnum roleId;
+
     private String password;
     private String telephone;
-    private Date registerTime;
+
+    @Column(name = "register_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    private Date registerTime = null;
     private int status;
-    private Date lastLoginTime;
-    private Date lastChangeTime;
+
+    @Column(name = "last_login_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    private Date lastLoginTime = null;
+
+    @Column(name = "last_change_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
+    private Date lastChangeTime = null;
+
     private String note;
 
-    @Size(min = 3)
-    private String username;
+    public User() {
+    }
+
+    public User(String name, int roleId, String password) {
+        this.name = name;
+        this.roleId = roleId;
+        this.password = password;
+    }
+
+
+    public User(String name, int roleId, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
+        this.id = 0;
+        this.name = name;
+        this.roleId = roleId;
+        this.password = password;
+        this.telephone = telephone;
+        this.registerTime = registerTime;
+        this.status = status;
+        this.lastLoginTime = lastLoginTime;
+        this.lastChangeTime = lastChangeTime;
+        this.note = note;
+    }
 
     public int getId() {
         return id;
@@ -39,11 +67,75 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(int roleId) {
+        this.roleId = roleId;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public Date getRegisterTime() {
+        return registerTime;
+    }
+
+    public void setRegisterTime(Date registerTime) {
+        this.registerTime = registerTime;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public Date getLastLoginTime() {
+        return lastLoginTime;
+    }
+
+    public void setLastLoginTime(Date lastLoginTime) {
+        this.lastLoginTime = lastLoginTime;
+    }
+
+    public Date getLastChangeTime() {
+        return lastChangeTime;
+    }
+
+    public void setLastChangeTime(Date lastChangeTime) {
+        this.lastChangeTime = lastChangeTime;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 }

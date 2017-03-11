@@ -1,5 +1,6 @@
-package com.cebbank.gage.DAO;
+package com.cebbank.gage.DAO.impl;
 
+import com.cebbank.gage.DAO.UserDAO;
 import com.cebbank.gage.model.User;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
@@ -9,9 +10,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * Created by mark on 4/24/15.
+ * Created by xn on 2017/3/6.
  */
-
 @Repository
 public class UserDAOImpl implements UserDAO {
 
