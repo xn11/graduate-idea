@@ -1,5 +1,7 @@
 package com.cebbank.gage.model;
 
+import com.cebbank.gage.common.RoleEnum;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -18,8 +20,8 @@ public class User implements Serializable {
     private String name;
 
     @Column(name = "role_id")
-    private int roleId;
-//    private RoleEnum roleId;
+//    private int roleId;
+    private RoleEnum roleId;
 
     private String password;
     private String telephone;
@@ -45,12 +47,12 @@ public class User implements Serializable {
 
     public User(String name, int roleId, String password) {
         this.name = name;
-        this.roleId = roleId;
+        this.roleId = RoleEnum.values()[roleId];
         this.password = password;
     }
 
 
-    public User(String name, int roleId, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
+    public User(String name, RoleEnum roleId, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
         this.id = 0;
         this.name = name;
         this.roleId = roleId;
@@ -79,12 +81,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public int getRoleId() {
+    public RoleEnum getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
+    public void setRoleId(RoleEnum roleId) {
+        this.roleId = roleId;;
     }
 
     public String getPassword() {
