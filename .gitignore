@@ -1,5 +1,6 @@
-.idea/
-out/
+GagePlatform/.idea/
+GagePlatform/out/
+GagePlatform/target/
 plugin/
 theme/
 tmp
