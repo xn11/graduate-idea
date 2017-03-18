@@ -108,7 +108,7 @@
 
 ## DB
 
-### √ 机构st_organization
+### √→ 机构st_organization
 
 机构id、  `auto`
 
@@ -126,7 +126,7 @@ name
 
 
 
-### √ 部门st_department
+### √→ 部门st_department
 
 部门id、  `auto`
 
@@ -140,13 +140,13 @@ name
 
 
 
-### √ 员工ex_staff
+### √→ 员工ex_staff
 
 工号id、(入职年月+计数)
 
 name、
 
-身份证号id_card_num、
+身份证号id_card、
 
 联系方式telephone、
 
@@ -162,9 +162,11 @@ name、
 
 
 
-### √ 企业客户 ex_company
+### √→ 企业客户 ex_company
 
-企业id、name、
+企业id、`auto`
+
+name、
 
 类别、
 
@@ -196,7 +198,7 @@ name、
 
 
 
-### √ 存货gage
+### √→ 存货gage
 
 存货id、  `auto`
 
@@ -248,7 +250,7 @@ id、    `auto`
 
 
 
-### √ 用户user
+### √→ 用户user
 
 用户id， `auto`
 
@@ -362,7 +364,7 @@ ID、  `auto`
 
 ### ？√ 邮件mail
 
-邮件id、   `auto`
+邮件id、  `auto`
 
 标题、描述、
 
@@ -382,13 +384,13 @@ ID、  `auto`
 
 
 
-### √ 预警warning
+### √→ 预警warning
 
-id、
+id、 `auto`
 
 company_id、  `company表`
 
-gage_id、（不填表明是整个公司）、  `gage表`
+> gage_id、（不填表明是整个公司）、  `gage表`
 
 type（数量、价值、监管预警）、
 
@@ -418,7 +420,7 @@ type（数量、价值、监管预警）、
 
 
 
-### √ 角色_role
+### √= 角色_role
 
 id、`auto`
 
@@ -452,9 +454,146 @@ id、 `auto`
 
 
 
-### √ 系统配置_config
+### √→ 系统配置_config
 
 id、  `auto`
 
 key、value
 
+
+
+## model
+
+### → 用户User
+
+？int id， `auto`
+
+name、  （员工s+id，监管机构r+id，监管员=客户企业c+id）
+
+role、    （enum直接映射为int型）
+
+密码password，电话telephone，
+
+注册时间registerTime，
+
+登录状态int status，(0-未登录；1-登录；-1无效)
+
+上一次登录时间lastLoginTime，上一次修改密码时间lastChangeTime，
+
+备注note、
+
+***sendWarnings***
+
+***handleWarnings***
+
+
+
+### → 系统配置Config
+
+id、  `auto`
+
+key、value
+
+
+
+### → 企业客户 Company
+
+？企业id、  `auto`
+
+name、
+
+？类别int type、（enum，产业分类：A—农、牧、林、渔业，B—采矿和采石，C—制造业，D—电、煤气、蒸气和空调供应，等等）
+
+地址address、联系人contact、电话telephone、
+
+评分score、
+
+备注note
+
+
+
+### → 存货Gage
+
+？存货id、  `auto`
+
+name、
+
+？类别int type、 （enum）
+
+最高质押率max_pledge_rate、
+
+警戒线warning_line、
+
+处置线dispose_line、
+
+备注
+
+
+
+### → 预警Warning
+
+id、 `auto`
+
+**company**--无（单向）、 
+
+？int type预警类型、 (enum: 数量、价值、监管预警)
+
+发出人**sender**--User、（不填表明是系统自动发起）
+
+？严重程度、（）
+
+？发送范围sendRange、（）
+
+？状态int status、（enum：1未处理、0处理中、-1已处理）
+
+受理人**handler**--User、 
+
+备注
+
+
+
+### → 机构Organization
+
+？机构id、  `auto` 
+
+name   、
+
+级别level（总行、分行、支行）
+
+地址address、电话phone
+
+上级机构Organization **parentOrg**--无（单向）、
+
+？负责人id（Staff）、未映射为实体类
+
+备注note
+
+
+
+### → 部门Department
+
+部门id、  `auto`
+
+部门名称、
+
+银行机构**organization**--无（单向）
+
+？负责人id（Staff）、未映射为实体类
+
+备注
+
+
+
+### → 员工Staff
+
+工号id、(入职年月201601+计数000+毫秒0)
+
+name、身份证号id_card、联系方式telephone、
+
+入职时间hireDate、
+
+职级level、职位(行政级别)post、
+
+部门**department**--无（单向）、     
+
+备注note（档案记录id）

@@ -4,3 +4,4 @@ GagePlatform/target/
 plugin/
 theme/
 tmp
+*.diff
