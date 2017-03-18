@@ -1,13 +1,8 @@
-package com.cebbank.gage.DAO.impl;
+package com.cebbank.gage.dao.impl;
 
-import com.cebbank.gage.DAO.UserDao;
+import com.cebbank.gage.dao.UserDao;
 import com.cebbank.gage.model.User;
-import com.cebbank.gage.util.Parameter;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.List;
 
 /**
  * Created by xn on 2017/3/6.

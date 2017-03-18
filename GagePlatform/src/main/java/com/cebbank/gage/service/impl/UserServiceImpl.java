@@ -1,6 +1,6 @@
 package com.cebbank.gage.service.impl;
 
-import com.cebbank.gage.DAO.UserDao;
+import com.cebbank.gage.dao.UserDao;
 import com.cebbank.gage.model.User;
 import com.cebbank.gage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
-package com.cebbank.gage.DAO.impl;
+package com.cebbank.gage.dao.impl;
 
-import com.cebbank.gage.DAO.HibernateBaseDao;
+import com.cebbank.gage.dao.HibernateBaseDao;
 import com.cebbank.gage.model.User;
 import com.cebbank.gage.util.Parameter;
 import org.hibernate.Criteria;
