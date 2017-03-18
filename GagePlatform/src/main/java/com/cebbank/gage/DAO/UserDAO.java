@@ -1,9 +1,6 @@
-package com.cebbank.gage.DAO;
+package com.cebbank.gage.dao;
 
 import com.cebbank.gage.model.User;
-import com.cebbank.gage.util.Parameter;
-
-import java.util.List;
 
 /**
  * Created by xn on 2017/3/6.

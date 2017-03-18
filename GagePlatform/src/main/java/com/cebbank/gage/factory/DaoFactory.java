@@ -1,7 +1,7 @@
 package com.cebbank.gage.factory;
 
-import com.cebbank.gage.DAO.*;
-import com.cebbank.gage.DAO.impl.*;
+import com.cebbank.gage.dao.*;
+import com.cebbank.gage.dao.impl.*;
 
 /**
  * Created by xn on 2017/3/11.

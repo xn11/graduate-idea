@@ -12,6 +12,6 @@
 
        <context:component-scan base-package="com.cebbank.gage.service"/>
         <context:component-scan base-package="com.cebbank.gage.model"/>
-        <context:component-scan base-package="com.cebbank.gage.DAO"/>
+        <context:component-scan base-package="com.cebbank.gage.dao"/>
 
 </beans>

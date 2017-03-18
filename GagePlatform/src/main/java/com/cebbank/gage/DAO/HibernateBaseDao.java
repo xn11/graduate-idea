@@ -1,4 +1,4 @@
-package com.cebbank.gage.DAO;
+package com.cebbank.gage.dao;
 
 import com.cebbank.gage.util.Page;
 import com.cebbank.gage.util.Parameter;

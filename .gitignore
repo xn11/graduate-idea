@@ -1,6 +1,8 @@
 GagePlatform/.idea/
 GagePlatform/out/
 GagePlatform/target/
+GagePlatform/*.iml
 plugin/
 theme/
 tmp
+*.diff
