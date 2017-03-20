@@ -31,19 +31,22 @@ public class TestController {
 //        list.add(d);
 //        d = new Department("公司部", organizationService.getAll().get(1));
 //        list.add(d);
-        Company company = new Company("天武金属制造有限公司", 4, 0);
-        list.add(company);
-        company = new Company("景泰陶瓷加工厂", 4, 3);
-        list.add(company);
-        companyService.saveList(list);
+
+//        Company company = new Company("天武金属制造有限公司", 4, 0);
+//        list.add(company);
+//        company = new Company("景泰陶瓷加工厂", 4, 3);
+//        list.add(company);
+
+        Config config = new Config("k", "v");
+        companyService.saveConfig(config);
 
         return "index";
     }
 
     @RequestMapping("/json")
     @ResponseBody
-    public List<Company> json() {
-        return companyService.getAll();
+    public List<Config> json() {
+        return companyService.getAllConfig();
     }
 
 
