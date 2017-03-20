@@ -17,27 +17,33 @@ import java.util.List;
 @RequestMapping("/test")
 public class TestController {
 
+//    @Autowired
+//    private OrganizationService organizationService;
+//    @Autowired
+//    private DepartmentService departmentService;
     @Autowired
-    private OrganizationService organizationService;
-    @Autowired
-    private DepartmentService departmentService;
+    private CompanyService companyService;
 
     @RequestMapping("/")
     public String home() {
-        List<Department> list = new ArrayList<Department>();
-        Department d = new Department("公司部", organizationService.getAll().get(0));
-        list.add(d);
-        d = new Department("公司部", organizationService.getAll().get(1));
-        list.add(d);
-        departmentService.saveList(list);
+        List<Company> list = new ArrayList<Company>();
+//        Department d = new Department("公司部", organizationService.getAll().get(0));
+//        list.add(d);
+//        d = new Department("公司部", organizationService.getAll().get(1));
+//        list.add(d);
+        Company company = new Company("天武金属制造有限公司", 4, 0);
+        list.add(company);
+        company = new Company("景泰陶瓷加工厂", 4, 3);
+        list.add(company);
+        companyService.saveList(list);
 
         return "index";
     }
 
     @RequestMapping("/json")
     @ResponseBody
-    public List<Department> json() {
-        return departmentService.getAll();
+    public List<Company> json() {
+        return companyService.getAll();
     }
 
 
