@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -42,20 +43,21 @@ public class TestController {
 //        list.add(company);
 
 //        Config config = new Config("k", "v");
-        Company company = companyService.getAll().get(0);
-        User user = userService.getAllUsernames().get(0);
+//        Company company = companyService.getAll().get(0);
+//        User user = userService.getAllUsernames().get(0);
+//
+//        Warning warning = new Warning(company, 0, user, 0, 0, 1);
+//        list.add(warning);
+//        warningService.saveList(list);
 
-        Warning warning = new Warning(company, 0, user, 0, 0, 1);
-        list.add(warning);
-        warningService.saveList(list);
 
         return "index";
     }
 
     @RequestMapping("/json")
     @ResponseBody
-    public List<Warning> json() {
-        return warningService.getAll();
+    public Set<Warning> json() {
+        return userService.getAllUsernames().get(0).getSendWarnings();
     }
 
 

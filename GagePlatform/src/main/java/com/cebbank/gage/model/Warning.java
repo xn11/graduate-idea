@@ -30,7 +30,7 @@ public class Warning {
 
     @ManyToOne(cascade={CascadeType.MERGE})
     @JoinColumn(name = "handle_id")
-    private User Handler;      //若null，则为系统自动发起
+    private User handler;      //若null，则为系统自动发起
 
     private String note;
 
@@ -109,11 +109,11 @@ public class Warning {
     }
 
     public User getHandler() {
-        return Handler;
+        return handler;
     }
 
     public void setHandler(User handler) {
-        Handler = handler;
+        this.handler = handler;
     }
 
     public String getNote() {
