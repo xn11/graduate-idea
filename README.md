@@ -492,7 +492,7 @@ role、    （enum直接映射为int型）
 
 id、  `auto`
 
-key、value
+name、value
 
 
 

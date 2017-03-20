@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -23,27 +24,40 @@ public class TestController {
 //    private DepartmentService departmentService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private WarningService warningService;
+    @Autowired
+    private  UserService userService;
 
     @RequestMapping("/")
     public String home() {
-        List<Company> list = new ArrayList<Company>();
+        List<Warning> list = new ArrayList<Warning>();
 //        Department d = new Department("公司部", organizationService.getAll().get(0));
 //        list.add(d);
 //        d = new Department("公司部", organizationService.getAll().get(1));
 //        list.add(d);
-        Company company = new Company("天武金属制造有限公司", 4, 0);
-        list.add(company);
-        company = new Company("景泰陶瓷加工厂", 4, 3);
-        list.add(company);
-        companyService.saveList(list);
+
+//        Company company = new Company("天武金属制造有限公司", 4, 0);
+//        list.add(company);
+//        company = new Company("景泰陶瓷加工厂", 4, 3);
+//        list.add(company);
+
+//        Config config = new Config("k", "v");
+//        Company company = companyService.getAll().get(0);
+//        User user = userService.getAllUsernames().get(0);
+//
+//        Warning warning = new Warning(company, 0, user, 0, 0, 1);
+//        list.add(warning);
+//        warningService.saveList(list);
+
 
         return "index";
     }
 
     @RequestMapping("/json")
     @ResponseBody
-    public List<Company> json() {
-        return companyService.getAll();
+    public Set<Warning> json() {
+        return userService.getAllUsernames().get(0).getSendWarnings();
     }
 
 

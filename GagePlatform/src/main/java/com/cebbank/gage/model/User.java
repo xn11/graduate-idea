@@ -1,10 +1,13 @@
 package com.cebbank.gage.model;
 
 import com.cebbank.gage.common.RoleEnum;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by xn on 2017/3/6.
@@ -19,25 +22,40 @@ public class User implements Serializable {
     private int id;
     private String name;
 
+    //用户角色
     @Column(name = "role_id")
-//    private int roleId;
-    private RoleEnum roleId;
+    private RoleEnum role;
 
     private String password;
     private String telephone;
 
+    //注册时间
     @Column(name = "register_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date registerTime = null;
     private int status;
 
+    //上次登录时间
     @Column(name = "last_login_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date lastLoginTime = null;
 
+    //上次更改密码时间
     @Column(name = "last_change_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date lastChangeTime = null;
 
     private String note;
 
+    //外键关联属性
+    @JsonIgnore
+    @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @OrderBy(value = "id DESC")
+    private Set<Warning> sendWarnings = new HashSet<Warning>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "handler", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @OrderBy(value = "id DESC")
+    private Set<Warning> handleWarnings = new HashSet<Warning>();
+
+    //Constructors
     public User() {
     }
 
@@ -47,15 +65,14 @@ public class User implements Serializable {
 
     public User(String name, int roleId, String password) {
         this.name = name;
-        this.roleId = RoleEnum.values()[roleId];
+        this.role = RoleEnum.values()[roleId];
         this.password = password;
     }
 
-
-    public User(String name, RoleEnum roleId, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
+    public User(String name, RoleEnum role, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
         this.id = 0;
         this.name = name;
-        this.roleId = roleId;
+        this.role = role;
         this.password = password;
         this.telephone = telephone;
         this.registerTime = registerTime;
@@ -65,6 +82,7 @@ public class User implements Serializable {
         this.note = note;
     }
 
+    //Getters and Setters
     public int getId() {
         return id;
     }
@@ -81,12 +99,12 @@ public class User implements Serializable {
         this.name = name;
     }
 
-    public RoleEnum getRoleId() {
-        return roleId;
+    public RoleEnum getRole() {
+        return role;
     }
 
-    public void setRoleId(RoleEnum roleId) {
-        this.roleId = roleId;;
+    public void setRole(RoleEnum role) {
+        this.role = role;
     }
 
     public String getPassword() {
@@ -143,5 +161,21 @@ public class User implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<Warning> getSendWarnings() {
+        return sendWarnings;
+    }
+
+    public void setSendWarnings(Set<Warning> sendWarnings) {
+        this.sendWarnings = sendWarnings;
+    }
+
+    public Set<Warning> getHandleWarnings() {
+        return handleWarnings;
+    }
+
+    public void setHandleWarnings(Set<Warning> handleWarnings) {
+        this.handleWarnings = handleWarnings;
     }
 }
