@@ -23,10 +23,14 @@ public class TestController {
 //    private DepartmentService departmentService;
     @Autowired
     private CompanyService companyService;
+    @Autowired
+    private WarningService warningService;
+    @Autowired
+    private  UserService userService;
 
     @RequestMapping("/")
     public String home() {
-        List<Company> list = new ArrayList<Company>();
+        List<Warning> list = new ArrayList<Warning>();
 //        Department d = new Department("公司部", organizationService.getAll().get(0));
 //        list.add(d);
 //        d = new Department("公司部", organizationService.getAll().get(1));
@@ -37,16 +41,21 @@ public class TestController {
 //        company = new Company("景泰陶瓷加工厂", 4, 3);
 //        list.add(company);
 
-        Config config = new Config("k", "v");
-        companyService.saveConfig(config);
+//        Config config = new Config("k", "v");
+        Company company = companyService.getAll().get(0);
+        User user = userService.getAllUsernames().get(0);
+
+        Warning warning = new Warning(company, 0, user, 0, 0, 1);
+        list.add(warning);
+        warningService.saveList(list);
 
         return "index";
     }
 
     @RequestMapping("/json")
     @ResponseBody
-    public List<Config> json() {
-        return companyService.getAllConfig();
+    public List<Warning> json() {
+        return warningService.getAll();
     }
 
 
