@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 
@@ -20,29 +19,25 @@ public class TestController {
 
     @Autowired
     private OrganizationService organizationService;
+    @Autowired
+    private DepartmentService departmentService;
 
     @RequestMapping("/")
     public String home() {
-        List<Organization> list = new ArrayList<Organization>();
-        Organization o = new Organization("总行", 0, null);
-        list.add(o);
-        Organization oo = new Organization("南京省行", 1, o);
-        list.add(oo);
-        organizationService.saveList(list);
+        List<Department> list = new ArrayList<Department>();
+        Department d = new Department("公司部", organizationService.getAll().get(0));
+        list.add(d);
+        d = new Department("公司部", organizationService.getAll().get(1));
+        list.add(d);
+        departmentService.saveList(list);
 
         return "index";
     }
 
-//    @RequestMapping(value = { "/Error", "/error" }, method = RequestMethod.GET)
-//    public ModelAndView error(HttpServletRequest request,
-//                              HttpServletResponse response) {
-//        return new ModelAndView("error", null);
-//    }
-
     @RequestMapping("/json")
     @ResponseBody
-    public List<Organization> json() {
-        return organizationService.getAll();
+    public List<Department> json() {
+        return departmentService.getAll();
     }
 
 
