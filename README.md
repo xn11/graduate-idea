@@ -562,9 +562,7 @@ name   、
 
 地址address、电话phone
 
-上级机构Organization **parentOrg**--无（单向）、
-
-？负责人id（Staff）、未映射为实体类
+上级机构Organization **parentOrg**--无（单向）、（null则为总行）
 
 备注note
 
@@ -577,8 +575,6 @@ name   、
 部门名称、
 
 银行机构**organization**--无（单向）
-
-？负责人id（Staff）、未映射为实体类
 
 备注
 

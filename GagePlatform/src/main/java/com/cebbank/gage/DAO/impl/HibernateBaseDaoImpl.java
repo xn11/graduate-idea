@@ -102,7 +102,7 @@ public class HibernateBaseDaoImpl<T> extends HibernateDaoSupport implements Hibe
 
     @SuppressWarnings("unchecked")
     public List<T> getAll() {
-        Criteria criteria = getSession().createCriteria(User.class);
+        Criteria criteria = getSession().createCriteria(entityClass);
         return criteria.list();
     }
 
