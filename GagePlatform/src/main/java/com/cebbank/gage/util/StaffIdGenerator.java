@@ -1,6 +1,7 @@
 package com.cebbank.gage.util;
 
 //import com.cebbank.gage.model.Staff;
+import com.cebbank.gage.model.Staff;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
 import org.hibernate.id.IdentifierGenerator;
@@ -43,7 +44,7 @@ public class StaffIdGenerator implements IdentifierGenerator {
      * @throws HibernateException Indicates trouble generating the identifier
      */
     public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
-        /*Format sdf = new SimpleDateFormat("S");
+        Format sdf = new SimpleDateFormat("s");
 
         Staff staff = (Staff) object;
 
@@ -58,9 +59,8 @@ public class StaffIdGenerator implements IdentifierGenerator {
             seq++;
         }
 
-        logger.info("THE STAFF ID IS :" + sb.toString());
+        logger.info("THE STAFF ID IS :" + Integer.parseInt(sb.toString()));
 
-        return Integer.parseInt(sb.toString());*/
-        return null;
+        return Integer.parseInt(sb.toString());
     }
 }

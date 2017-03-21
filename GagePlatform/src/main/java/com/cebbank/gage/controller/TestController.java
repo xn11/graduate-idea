@@ -2,10 +2,14 @@ package com.cebbank.gage.controller;
 
 import com.cebbank.gage.model.*;
 import com.cebbank.gage.service.*;
+import com.cebbank.gage.util.GageUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -17,21 +21,24 @@ import java.util.Set;
 @Controller
 @RequestMapping("/test")
 public class TestController {
+    private Logger logger = LoggerFactory.getLogger(this.getClass());
 
 //    @Autowired
 //    private OrganizationService organizationService;
+    @Autowired
+    private DepartmentService departmentService;
 //    @Autowired
-//    private DepartmentService departmentService;
+//    private CompanyService companyService;
+//    @Autowired
+//    private WarningService warningService;
+//    @Autowired
+//    private  UserService userService;
     @Autowired
-    private CompanyService companyService;
-    @Autowired
-    private WarningService warningService;
-    @Autowired
-    private  UserService userService;
+    private  StaffService staffService;
 
     @RequestMapping("/")
-    public String home() {
-        List<Warning> list = new ArrayList<Warning>();
+    public String home() throws ParseException {
+        List<Staff> list = new ArrayList<Staff>();
 //        Department d = new Department("公司部", organizationService.getAll().get(0));
 //        list.add(d);
 //        d = new Department("公司部", organizationService.getAll().get(1));
@@ -50,14 +57,23 @@ public class TestController {
 //        list.add(warning);
 //        warningService.saveList(list);
 
+        Staff staff = new Staff(200806001, "李四", GageUtils.stringToDate("2008-06-05"), 10, "普通员工", departmentService.getAll().get(0));
+        list.add(staff);
+        staffService.saveList(list);
+
+        staff = staffService.getAll().get(0);
+        staff.setTelephone("12341234123");
+        staffService.update(staff);
+
+        logger.info("staff number: " + staffService.getAll().size());
 
         return "index";
     }
 
     @RequestMapping("/json")
     @ResponseBody
-    public Set<Warning> json() {
-        return userService.getAllUsernames().get(0).getSendWarnings();
+    public List<Staff> json() {
+        return staffService.getAll();
     }
 
 

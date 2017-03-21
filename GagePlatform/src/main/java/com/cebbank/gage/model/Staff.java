@@ -1,0 +1,132 @@
+package com.cebbank.gage.model;
+
+import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Parameter;
+
+import javax.persistence.*;
+import java.util.Date;
+
+/**
+ * Created by xn on 2017/3/15.
+ */
+@Entity
+@Table(name = "ex_staff")
+public class Staff {
+    @Id
+//    @GeneratedValue(generator = "idGenerator")
+//    @GenericGenerator(name = "idGenerator", strategy = "com.cebbank.gage.util.StaffIdGenerator")
+    private int id;
+    private String name;
+
+    @Column(name="id_card")
+    private String idCard;
+    private String telephone;
+
+    @Column(name = "hire_date")
+    private Date hireDate;
+    private int level;  //  职级
+    private String post;    //职位
+
+    @ManyToOne(cascade={CascadeType.MERGE})
+    @JoinColumn(name = "department_id")
+    private Department department;
+    private String note;
+
+    //constructor
+    public Staff() {
+    }
+
+    public Staff(int id) {
+        this.id = id;
+    }
+
+    public Staff(String name, Date hireDate, int level, String post, Department department) {
+        this.name = name;
+        this.hireDate = hireDate;
+        this.level = level;
+        this.post = post;
+        this.department = department;
+    }
+
+    public Staff(int id, String name, Date hireDate, int level, String post, Department department) {
+        this.id = id;
+        this.name = name;
+        this.hireDate = hireDate;
+        this.level = level;
+        this.post = post;
+        this.department = department;
+    }
+
+    //Getter and setter
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(String idCard) {
+        this.idCard = idCard;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public Date getHireDate() {
+        return hireDate;
+    }
+
+    public void setHireDate(Date hireDate) {
+        this.hireDate = hireDate;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public String getPost() {
+        return post;
+    }
+
+    public void setPost(String post) {
+        this.post = post;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+}
