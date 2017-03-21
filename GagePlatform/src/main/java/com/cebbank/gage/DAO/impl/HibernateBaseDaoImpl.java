@@ -59,7 +59,9 @@ public class HibernateBaseDaoImpl<T> extends HibernateDaoSupport implements Hibe
     }
 
     public int save(T entity) {
-        return (Integer) getSession().save(entity);
+        int res = (Integer) getSession().save(entity);
+        getSession().flush();
+        return res;
     }
 
     public void update(T entity) {
@@ -69,6 +71,7 @@ public class HibernateBaseDaoImpl<T> extends HibernateDaoSupport implements Hibe
 
     public void saveOrUpdate(T entity) {
         getSession().saveOrUpdate(entity);
+        getSession().flush();
     }
 
     public void delete(T entity) {

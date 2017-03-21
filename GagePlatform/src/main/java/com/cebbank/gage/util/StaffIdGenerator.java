@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.Serializable;
 import java.text.*;
+import java.util.Date;
 
 /**
  * Created by xn on 2017/3/15.
@@ -44,14 +45,18 @@ public class StaffIdGenerator implements IdentifierGenerator {
      * @throws HibernateException Indicates trouble generating the identifier
      */
     public Serializable generate(SessionImplementor session, Object object) throws HibernateException {
-        Format sdf = new SimpleDateFormat("s");
+
+        Format sdf = new SimpleDateFormat("S");
+        Date current = new Date();
 
         Staff staff = (Staff) object;
+        Date hireDate = staff.getHireDate();
+        hireDate = hireDate == null? current:hireDate;
 
         StringBuffer sb = new StringBuffer();
-        dateFormat.format(staff.getHireDate(), sb, HELPER_POSITION);
+        dateFormat.format(hireDate, sb, HELPER_POSITION);
         numberFormat.format(seq, sb, HELPER_POSITION);
-        sdf.format(staff.getHireDate(), sb, HELPER_POSITION);
+        sdf.format(current, sb, HELPER_POSITION);
 
         if (seq == MAX) {
             seq = 0;
@@ -59,8 +64,8 @@ public class StaffIdGenerator implements IdentifierGenerator {
             seq++;
         }
 
-        logger.info("THE STAFF ID IS :" + Integer.parseInt(sb.toString()));
+        logger.info("THE STAFF ID IS :" + Integer.parseInt(sb.substring(0, 10)));
 
-        return Integer.parseInt(sb.toString());
+        return Integer.parseInt(sb.substring(0, 10));
     }
 }

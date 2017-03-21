@@ -13,8 +13,8 @@ import java.util.Date;
 @Table(name = "ex_staff")
 public class Staff {
     @Id
-//    @GeneratedValue(generator = "idGenerator")
-//    @GenericGenerator(name = "idGenerator", strategy = "com.cebbank.gage.util.StaffIdGenerator")
+    @GeneratedValue(generator = "idGenerator")
+    @GenericGenerator(name = "idGenerator", strategy = "com.cebbank.gage.util.StaffIdGenerator")
     private int id;
     private String name;
 
@@ -22,8 +22,8 @@ public class Staff {
     private String idCard;
     private String telephone;
 
-    @Column(name = "hire_date")
-    private Date hireDate;
+    @Column(name = "hire_date", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    private Date hireDate = null;
     private int level;  //  职级
     private String post;    //职位
 
@@ -40,16 +40,14 @@ public class Staff {
         this.id = id;
     }
 
-    public Staff(String name, Date hireDate, int level, String post, Department department) {
+    public Staff(String name, int level, String post, Department department) {
         this.name = name;
-        this.hireDate = hireDate;
         this.level = level;
         this.post = post;
         this.department = department;
     }
 
-    public Staff(int id, String name, Date hireDate, int level, String post, Department department) {
-        this.id = id;
+    public Staff(String name, Date hireDate, int level, String post, Department department) {
         this.name = name;
         this.hireDate = hireDate;
         this.level = level;
@@ -128,5 +126,20 @@ public class Staff {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "Staff{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", idCard='" + idCard + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", hireDate=" + hireDate +
+                ", level=" + level +
+                ", post='" + post + '\'' +
+                ", department=" + department +
+                ", note='" + note + '\'' +
+                '}';
     }
 }

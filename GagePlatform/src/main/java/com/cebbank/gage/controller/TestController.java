@@ -57,13 +57,16 @@ public class TestController {
 //        list.add(warning);
 //        warningService.saveList(list);
 
-        Staff staff = new Staff(200806001, "李四", GageUtils.stringToDate("2008-06-05"), 10, "普通员工", departmentService.getAll().get(0));
+        Staff staff = new Staff("齐思远", GageUtils.stringToDate("2015-06-05"), 14, "普通员工", departmentService.getAll().get(0));
+        list.add(staff);
+        staff = new Staff("钱天", 14, "普通员工", departmentService.getAll().get(0));
         list.add(staff);
         staffService.saveList(list);
 
-        staff = staffService.getAll().get(0);
-        staff.setTelephone("12341234123");
-        staffService.update(staff);
+//        Staff staff1 = staffService.getAll().get(0);
+//        staff1.setIdCard("320211198001011209");
+//        staffService.update(staff1);
+//        logger.info("staff1: " + staff1.toString());
 
         logger.info("staff number: " + staffService.getAll().size());
 
