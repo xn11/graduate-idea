@@ -1,0 +1,41 @@
+package com.cebbank.gage.service.impl;
+
+import com.cebbank.gage.dao.ContractDao;
+import com.cebbank.gage.model.Contract;
+import com.cebbank.gage.service.ContractService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * Created by xn on 2017/3/6.
+ */
+@Service("contractService")
+public class ContractServiceImpl implements ContractService {
+
+    @Autowired
+    private ContractDao dao;
+
+
+    public void save(Contract contract) {
+        dao.save(contract);
+    }
+
+    public List<Contract> getAll() {
+        return dao.getAll();
+    }
+
+    public Contract getById(int id) {
+        return dao.getById(id);
+    }
+
+    public void update(Contract obj) {
+        dao.update(obj);
+    }
+
+    public void delete(int id) {
+        dao.delete(new Contract(id));
+    }
+
+}

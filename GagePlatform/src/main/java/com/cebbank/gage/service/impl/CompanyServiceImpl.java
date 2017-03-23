@@ -1,10 +1,8 @@
 package com.cebbank.gage.service.impl;
 
 import com.cebbank.gage.dao.CompanyDao;
-import com.cebbank.gage.dao.ConfigDao;
 import com.cebbank.gage.model.Company;
-import com.cebbank.gage.model.Config;
-import com.cebbank.gage.service.*;
+import com.cebbank.gage.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +16,10 @@ public class CompanyServiceImpl implements CompanyService {
 
     @Autowired
     private CompanyDao dao;
-    @Autowired
-    private ConfigDao configDao;
 
 
     public void saveList(List<Company> list) {
-        for (Company obj: list) {
+        for (Company obj : list) {
             dao.save(obj);
         }
     }
@@ -44,11 +40,4 @@ public class CompanyServiceImpl implements CompanyService {
         dao.delete(new Company(id));
     }
 
-    public void saveConfig(Config config) {
-        configDao.save(config);
-    }
-
-    public List<Config> getAllConfig() {
-        return configDao.getAll();
-    }
 }

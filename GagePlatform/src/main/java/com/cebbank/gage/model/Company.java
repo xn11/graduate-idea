@@ -1,9 +1,10 @@
 package com.cebbank.gage.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import org.codehaus.jackson.annotate.JsonIgnore;
+
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by xn on 2017/3/15.
@@ -21,6 +22,12 @@ public class Company {
     private String telephone;
     private double score;
     private String note;
+
+    //外键关联属性
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @OrderBy(value = "fromDate DESC")
+    private Set<Contract> contracts = new HashSet<Contract>();
 
     //constructor
     public Company() {
@@ -99,5 +106,13 @@ public class Company {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
     }
 }

@@ -1,7 +1,6 @@
 package com.cebbank.gage.service;
 
 import com.cebbank.gage.model.Company;
-import com.cebbank.gage.model.Config;
 
 import java.util.List;
 
@@ -18,8 +17,4 @@ public interface CompanyService {
     public void update(Company obj);
 
     public void delete(int id);
-
-    public void saveConfig(Config config);
-
-    public List<Config> getAllConfig();
 }

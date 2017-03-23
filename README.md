@@ -178,7 +178,7 @@ name、
 
 
 
-### √ 合同表ex_contract
+### √→ 合同表ex_contract
 
 合同id、 
 
@@ -214,7 +214,7 @@ name、类别、
 
 
 
-### √ 存货单价（爬虫）gage_price
+### √→ 存货单价（爬虫）gage_price
 
 id、  `auto`
 
@@ -510,6 +510,8 @@ name、
 
 备注note
 
+***contracts***
+
 
 
 ### → 存货Gage
@@ -593,3 +595,42 @@ name、身份证号id_card、联系方式telephone、
 部门**department**--无（单向）、     
 
 备注note（档案记录id）
+
+
+
+### → 存货单价（爬虫）gage_price
+
+id、  `auto`
+
+**gage**
+
+单价、单位、
+
+更新时间、
+
+来源、
+
+备注
+
+
+
+### → 合同表ex_contract
+
+合同id、 
+
+？合同类型type、
+
+企业客户**company**--Staff
+
+客户经理**accountManager**、协办**coManager**、    `staff表`
+
+起始日期from_date、截止日期to_date、
+
+贷款价值loan、
+
+？状态status、（0进行中，-1已结清，1逾期未结清，2处置中，3已处置）
+
+备注note
+
+
+
