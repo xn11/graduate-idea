@@ -1,10 +1,12 @@
 package com.cebbank.gage.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Parameter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by xn on 2017/3/15.
@@ -18,7 +20,7 @@ public class Staff {
     private int id;
     private String name;
 
-    @Column(name="id_card")
+    @Column(name = "id_card")
     private String idCard;
     private String telephone;
 
@@ -27,10 +29,19 @@ public class Staff {
     private int level;  //  职级
     private String post;    //职位
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "department_id")
     private Department department;
     private String note;
+
+    //外键关联属性
+    @JsonIgnore
+    @OneToMany(mappedBy = "accountManager", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    private Set<Contract> contracts = new HashSet<Contract>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "coManager", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    private Set<Contract> coContracts = new HashSet<Contract>();
 
     //constructor
     public Staff() {
@@ -126,6 +137,22 @@ public class Staff {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
+    }
+
+    public Set<Contract> getCoContracts() {
+        return coContracts;
+    }
+
+    public void setCoContracts(Set<Contract> coContracts) {
+        this.coContracts = coContracts;
     }
 
     @Override
