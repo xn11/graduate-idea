@@ -18,6 +18,8 @@ public class Price {
     private Gage gage;
     private double price;
     private String unit;    //单位
+
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date timestamp;
     private String source;  //数据来源
     private String note;
@@ -30,11 +32,10 @@ public class Price {
         this.id = id;
     }
 
-    public Price(Gage gage, double price, String unit, Date timestamp, String source) {
+    public Price(Gage gage, double price, String unit, String source) {
         this.gage = gage;
         this.price = price;
         this.unit = unit;
-        this.timestamp = timestamp;
         this.source = source;
     }
 

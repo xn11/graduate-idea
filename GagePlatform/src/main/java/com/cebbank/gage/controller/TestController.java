@@ -1,18 +1,18 @@
 package com.cebbank.gage.controller;
 
-import com.cebbank.gage.model.*;
-import com.cebbank.gage.service.*;
-import com.cebbank.gage.util.GageUtils;
+import com.cebbank.gage.model.Gage;
+import com.cebbank.gage.model.Price;
+import com.cebbank.gage.service.GageService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 
 /**
@@ -23,7 +23,7 @@ import java.util.Set;
 public class TestController {
     private Logger logger = LoggerFactory.getLogger(this.getClass());
 
-//    @Autowired
+    //    @Autowired
 //    private OrganizationService organizationService;
 //    @Autowired
 //    private DepartmentService departmentService;
@@ -35,8 +35,8 @@ public class TestController {
 //    private  UserService userService;
 //    @Autowired
 //    private  StaffService staffService;
-@Autowired
-private  GageService gageService;
+    @Autowired
+    private GageService gageService;
 
     @RequestMapping("/")
     public String home() throws ParseException {
@@ -64,11 +64,11 @@ private  GageService gageService;
 //        staff = new Staff("钱天", 14, "普通员工", departmentService.getAll().get(0));
 //        list.add(staff);
 
-        Gage gage = new Gage("普钢", 0, 0.6, 0.8, 0.9);
-        list.add(gage);
-        gage.setName("特钢");
-        list.add(gage);
-        gageService.saveList(list);
+//        Gage gage = new Gage("普钢", 0, 0.6, 0.8, 0.9);
+//        list.add(gage);
+
+        gageService.savePrice(new Price(gageService.getById(1), 111.2, "元/吨", "http://index.mysteel.com/xpic/detail.ms?tabName=tegang"));
+//        gageService.saveList(list);
 
 //        Staff staff1 = staffService.getAll().get(0);
 //        staff1.setIdCard("320211198001011209");
@@ -82,10 +82,9 @@ private  GageService gageService;
 
     @RequestMapping("/json")
     @ResponseBody
-    public List<Gage> json() {
-        return gageService.getAll();
+    public List<Price> json() {
+        return gageService.getPrice(1);
     }
-
 
 
 }
