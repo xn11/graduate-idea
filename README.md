@@ -488,7 +488,7 @@ role、    （enum直接映射为int型）
 
 
 
-### → 系统配置Config
+### → 系统配置Config--AdminService
 
 id、  `auto`
 
@@ -602,7 +602,7 @@ name、身份证号id_card、联系方式telephone、
 
 
 
-### → 存货单价（爬虫）gage_price
+### → 存货单价（爬虫）gage_price--GageService
 
 id、  `auto`
 
@@ -642,7 +642,7 @@ id、  `auto`
 
 
 
-### → 合同—存货contract_gage
+### → 合同—存货contract_gage--ContractService
 
 id、    `auto`
 
@@ -658,9 +658,9 @@ id、    `auto`
 
 
 
-### √→ 监管公司regulators
+### → 监管公司regulators
 
-监管公司ID、
+监管公司ID、`auto`
 
 name、
 
@@ -670,58 +670,63 @@ name、
 
 备注
 
+***companies***
 
 
-### √→ 监管公司（监管员）—企业客户regulators_company
 
-监管员账号（企业id+监管公司id+开始时间，自动加到user表，密码为监管公司密码，角色为监管员）regulator_uid、
+### → 监管公司（监管员）—企业客户regulators_company--regulatorsService
 
-企业客户id、  ` company表`
+监管员账号（“1” + 企业id+监管公司id+“0”，自动加到user表，密码为监管公司密码，角色为监管员）id、
 
-监管公司id、    `regulators表`
+企业客户**company**--无
+
+监管公司**regulators**--Regulators
 
 开始时间from_date、到期时间to_date、
 
 监管费（百分比）fee、
 
-状态、
+状态、（进行中，未开始，已结束）
 
 备注
 
-
-
-### √→ 仓单（月报告、盘货报告）warehouse_list
-
-id、  `auto`
-
-*公司id*、    `company表`   
-
-*存货id*、    `gage表`
-
-数量quantity、
-
-规格specification、
-
-*权属owner*、（银行还是自己公司）
-
-记录时间timestamp、
-
-提交人id（监管员id或者客户经理id）submitter_id、    `user表`或者是null（系统自动生成）
-
-备注
+***regulateAccounts***
 
 
 
-### √→ 监管台账 regulate_account
+### → 监管台账 regulate_account--regulatorsService
 
 台账id、       `auto`
 
-公司id、    `company表`
+监管员**regulator**-- `regulators_company表`
 
-存货id、     `gage表`
+存货**gage**--无
 
 出入货数量(正负)quantity、 
 
 时间、 
 
 备注
+
+
+
+### → 仓单（月报告、盘货报告）warehouse_list
+
+id、  `auto`
+
+公司**company**
+
+存货**gage**
+
+数量quantity、
+
+规格specification、
+
+*权属owner*、（0银行，1自己公司，其他-1）
+
+记录时间timestamp、
+
+提交人（监管员id或者客户经理id）**submitter**、    `user表`或者是null（系统自动生成）
+
+备注
+
