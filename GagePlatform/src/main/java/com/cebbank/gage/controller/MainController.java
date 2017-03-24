@@ -30,7 +30,7 @@ public class MainController {
     @RequestMapping("/")
     public String home() {
         List<User> us = new ArrayList<User>();
-        User user = new User("try3", RoleEnum.MARKETING_DIRECTOR.getId(), "try3");
+        User user = new User("try6", RoleEnum.MARKETING_DIRECTOR.getId(), "try6");
 //        Date d = new Date();
 //        User u=new User("b",1,"b","123",d,0,d,null,null);
 
@@ -38,17 +38,17 @@ public class MainController {
 //        u.setName("33");
 //        u.setPassword("33");
         us.add(user);
-//        userService.saveUsers(us);
+        userService.saveUsers(us);
 
 //        us = userService.getAllUsernames();
 //        System.out.println(us.size() + us.get(0).getName());
 
-        User u = userService.getById(28);
-        u.setTelephone("0000");
-        userService.update(u);
-        userService.delete(27);
-        System.out.println(userService.getById(28).getName());
-        System.out.println(userService.getById(27));
+//        User u = userService.getById(28);
+//        u.setTelephone("0000");
+//        userService.update(u);
+//        userService.delete(27);
+//        System.out.println(userService.getById(28).getName());
+//        System.out.println(userService.getById(27));
 //        userService.saveUsers(us);
 
         return "index";

@@ -178,7 +178,7 @@ name、
 
 
 
-### √ 合同表ex_contract
+### √→ 合同表ex_contract
 
 合同id、 
 
@@ -214,7 +214,7 @@ name、类别、
 
 
 
-### √ 存货单价（爬虫）gage_price
+### √→ 存货单价（爬虫）gage_price
 
 id、  `auto`
 
@@ -230,7 +230,7 @@ id、  `auto`
 
 
 
-### √ 合同—存货contract_gage
+### √→ 合同—存货contract_gage
 
 id、    `auto`
 
@@ -274,7 +274,7 @@ id、    `auto`
 
 
 
-### √ 监管公司regulators
+### √→ 监管公司regulators
 
 监管公司ID、
 
@@ -288,7 +288,7 @@ name、
 
 
 
-### √ 监管公司（监管员）—企业客户regulators_company
+### √→ 监管公司（监管员）—企业客户regulators_company
 
 监管员账号（企业id+监管公司id+开始时间，自动加到user表，密码为监管公司密码，角色为监管员）regulator_uid、
 
@@ -306,7 +306,7 @@ name、
 
 
 
-### √ 仓单（月报告、盘货报告）warehouse_list
+### √→ 仓单（月报告、盘货报告）warehouse_list
 
 id、  `auto`
 
@@ -328,7 +328,7 @@ id、  `auto`
 
 
 
-### √ 监管台账 regulate_account
+### √→ 监管台账 regulate_account
 
 台账id、       `auto`
 
@@ -488,11 +488,11 @@ role、    （enum直接映射为int型）
 
 
 
-### → 系统配置Config
+### → 系统配置Config--AdminService
 
 id、  `auto`
 
-key、value
+name、value
 
 
 
@@ -509,6 +509,8 @@ name、
 评分score、
 
 备注note
+
+***contracts***
 
 
 
@@ -593,3 +595,138 @@ name、身份证号id_card、联系方式telephone、
 部门**department**--无（单向）、     
 
 备注note（档案记录id）
+
+***contracts***
+
+***coContracts***
+
+
+
+### → 存货单价（爬虫）gage_price--GageService
+
+id、  `auto`
+
+**gage**
+
+单价、单位、
+
+更新时间、
+
+来源、
+
+备注
+
+
+
+### → 合同表ex_contract
+
+合同id、 
+
+？合同类型type、
+
+企业客户**company**--Company
+
+客户经理**accountManager**--Staff、
+
+协办**coManager**--Staff、
+
+起始日期from_date、截止日期to_date、
+
+贷款价值loan、
+
+？状态status、（0进行中，-1已结清，1逾期未结清，2处置中，3已处置）
+
+备注note
+
+***contractGages***
+
+
+
+### → 合同—存货contract_gage--ContractService
+
+id、    `auto`
+
+合同**contract**--Contract
+
+存货**gage**--无
+
+数量quantity、 规格specifications、
+
+状态、（1入库待复核，2已入库，-1出库待复核，-2已出库）
+
+备注
+
+
+
+### → 监管公司regulators
+
+监管公司ID、`auto`
+
+name、
+
+地址address、联系人contact、电话telephone、邮箱email
+
+评分（误差率）、
+
+备注
+
+***companies***
+
+
+
+### → 监管公司（监管员）—企业客户regulators_company--regulatorsService
+
+监管员账号（“1” + 企业id+监管公司id+“0”，自动加到user表，密码为监管公司密码，角色为监管员）id、
+
+企业客户**company**--无
+
+监管公司**regulators**--Regulators
+
+开始时间from_date、到期时间to_date、
+
+监管费（百分比）fee、
+
+状态、（进行中，未开始，已结束）
+
+备注
+
+***regulateAccounts***
+
+
+
+### → 监管台账 regulate_account--regulatorsService
+
+台账id、       `auto`
+
+监管员**regulator**-- `regulators_company表`
+
+存货**gage**--无
+
+出入货数量(正负)quantity、 
+
+时间、 
+
+备注
+
+
+
+### → 仓单（月报告、盘货报告）warehouse_list
+
+id、  `auto`
+
+公司**company**
+
+存货**gage**
+
+数量quantity、
+
+规格specification、
+
+*权属owner*、（0银行，1自己公司，其他-1）
+
+记录时间timestamp、
+
+提交人（监管员id或者客户经理id）**submitter**、    `user表`或者是null（系统自动生成）
+
+备注
+

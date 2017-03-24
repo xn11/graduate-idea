@@ -2,9 +2,7 @@ package com.cebbank.gage.dao;
 
 import com.cebbank.gage.util.Page;
 import com.cebbank.gage.util.Parameter;
-import org.hibernate.HibernateException;
 
-import java.sql.SQLException;
 import java.util.Collection;
 import java.util.List;
 
