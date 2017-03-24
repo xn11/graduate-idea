@@ -1,7 +1,11 @@
 package com.cebbank.gage.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by xn on 2017/3/15.
@@ -36,6 +40,12 @@ public class Contract {
     private double loan;
     private int status;
     private String note;
+
+    //外键关联属性
+    @JsonIgnore
+    @OneToMany(mappedBy = "contract", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    private Set<ContractGage> contractGages = new HashSet<ContractGage>();
+
 
     //constructor
     public Contract() {
@@ -135,5 +145,13 @@ public class Contract {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<ContractGage> getContractGages() {
+        return contractGages;
+    }
+
+    public void setContractGages(Set<ContractGage> contractGages) {
+        this.contractGages = contractGages;
     }
 }

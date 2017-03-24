@@ -1,7 +1,9 @@
 package com.cebbank.gage.service.impl;
 
 import com.cebbank.gage.dao.ContractDao;
+import com.cebbank.gage.dao.ContractGageDao;
 import com.cebbank.gage.model.Contract;
+import com.cebbank.gage.model.ContractGage;
 import com.cebbank.gage.service.ContractService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +18,8 @@ public class ContractServiceImpl implements ContractService {
 
     @Autowired
     private ContractDao dao;
+    @Autowired
+    private ContractGageDao contractGageDao;
 
 
     public void save(Contract contract) {
@@ -37,5 +41,15 @@ public class ContractServiceImpl implements ContractService {
     public void delete(int id) {
         dao.delete(new Contract(id));
     }
+
+    //gages of contract
+    public void save(ContractGage contractGage) {
+        contractGageDao.save(contractGage);
+    }
+
+    public void update(ContractGage contractGage) {
+        contractGageDao.update(contractGage);
+    }
+
 
 }

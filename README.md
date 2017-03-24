@@ -230,7 +230,7 @@ id、  `auto`
 
 
 
-### √ 合同—存货contract_gage
+### √→ 合同—存货contract_gage
 
 id、    `auto`
 
@@ -274,7 +274,7 @@ id、    `auto`
 
 
 
-### √ 监管公司regulators
+### √→ 监管公司regulators
 
 监管公司ID、
 
@@ -288,7 +288,7 @@ name、
 
 
 
-### √ 监管公司（监管员）—企业客户regulators_company
+### √→ 监管公司（监管员）—企业客户regulators_company
 
 监管员账号（企业id+监管公司id+开始时间，自动加到user表，密码为监管公司密码，角色为监管员）regulator_uid、
 
@@ -306,7 +306,7 @@ name、
 
 
 
-### √ 仓单（月报告、盘货报告）warehouse_list
+### √→ 仓单（月报告、盘货报告）warehouse_list
 
 id、  `auto`
 
@@ -328,7 +328,7 @@ id、  `auto`
 
 
 
-### √ 监管台账 regulate_account
+### √→ 监管台账 regulate_account
 
 台账id、       `auto`
 
@@ -638,5 +638,90 @@ id、  `auto`
 
 备注note
 
+***contractGages***
 
 
+
+### → 合同—存货contract_gage
+
+id、    `auto`
+
+合同**contract**--Contract
+
+存货**gage**--无
+
+数量quantity、 规格specifications、
+
+状态、（1入库待复核，2已入库，-1出库待复核，-2已出库）
+
+备注
+
+
+
+### √→ 监管公司regulators
+
+监管公司ID、
+
+name、
+
+地址address、联系人contact、电话telephone、邮箱email
+
+评分（误差率）、
+
+备注
+
+
+
+### √→ 监管公司（监管员）—企业客户regulators_company
+
+监管员账号（企业id+监管公司id+开始时间，自动加到user表，密码为监管公司密码，角色为监管员）regulator_uid、
+
+企业客户id、  ` company表`
+
+监管公司id、    `regulators表`
+
+开始时间from_date、到期时间to_date、
+
+监管费（百分比）fee、
+
+状态、
+
+备注
+
+
+
+### √→ 仓单（月报告、盘货报告）warehouse_list
+
+id、  `auto`
+
+*公司id*、    `company表`   
+
+*存货id*、    `gage表`
+
+数量quantity、
+
+规格specification、
+
+*权属owner*、（银行还是自己公司）
+
+记录时间timestamp、
+
+提交人id（监管员id或者客户经理id）submitter_id、    `user表`或者是null（系统自动生成）
+
+备注
+
+
+
+### √→ 监管台账 regulate_account
+
+台账id、       `auto`
+
+公司id、    `company表`
+
+存货id、     `gage表`
+
+出入货数量(正负)quantity、 
+
+时间、 
+
+备注

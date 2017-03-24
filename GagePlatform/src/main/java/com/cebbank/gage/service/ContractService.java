@@ -2,6 +2,7 @@ package com.cebbank.gage.service;
 
 
 import com.cebbank.gage.model.Contract;
+import com.cebbank.gage.model.ContractGage;
 
 import java.util.List;
 
@@ -18,4 +19,10 @@ public interface ContractService {
     public void update(Contract contract);
 
     public void delete(int id);
+
+    //gages of contract
+    public void save(ContractGage contractGage);
+
+    public void update(ContractGage contractGage);
+
 }
