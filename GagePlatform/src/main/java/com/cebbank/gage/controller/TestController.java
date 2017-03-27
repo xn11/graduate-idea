@@ -86,12 +86,12 @@ public class TestController {
 //        Contract contract= new Contract(1170300001, 0, companyService.getById(1), staffService.getById(2010060000), staffService.getById(2015060002), GageUtils.stringToDate("2016-06-28"), GageUtils.stringToDate("2017-06-28"), 10000000.00,0);
 //        contractService.save(contract);
 
-        Regulators regulators = new Regulators("金蝶监管公司", "蔡琳", "15021873217", 9.2);
-        regulatorsService.save(regulators);
-        RegulatorsCompany regulatorsCompany = new RegulatorsCompany(companyService.getById(1), regulators, GageUtils.stringToDate("2017-01-01"), GageUtils.stringToDate("2017-07-01"), 0.002, 0);
-        regulatorsService.save(regulatorsCompany);
-        RegulateAccount regulateAccount = new RegulateAccount(regulatorsCompany, gageService.getById(1), 10000);
-        regulatorsService.save(regulateAccount);
+//        Regulators regulators = new Regulators("金蝶监管公司", "蔡琳", "15021873217", 9.2);
+//        regulatorsService.save(regulators);
+//        RegulatorsCompany regulatorsCompany = new RegulatorsCompany(companyService.getById(1), regulators, GageUtils.stringToDate("2017-01-01"), GageUtils.stringToDate("2017-07-01"), 0.002, 0);
+//        regulatorsService.save(regulatorsCompany);
+//        RegulateAccount regulateAccount = new RegulateAccount(regulatorsCompany, gageService.getById(1), 10000);
+//        regulatorsService.save(regulateAccount);
 
         return "index";
     }
@@ -99,7 +99,7 @@ public class TestController {
     @RequestMapping("/json")
     @ResponseBody
     public Set<RegulatorsCompany> json() {
-        return regulatorsService.getById(5).getCompanies();
+        return regulatorsService.getById(1).getCompanies();
     }
 
 

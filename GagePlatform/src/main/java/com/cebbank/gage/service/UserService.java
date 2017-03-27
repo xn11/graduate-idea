@@ -1,5 +1,6 @@
 package com.cebbank.gage.service;
 
+import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.model.User;
 
 import java.util.List;
@@ -17,4 +18,6 @@ public interface UserService {
     public void update(User user);
 
     public void delete(int id);
+
+    public GeneralResult<User> getByIdAndPassword(String id, String password);
 }
