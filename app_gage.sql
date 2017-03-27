@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-03-21 17:05:16
+-- Generation Time: 2017-03-27 21:24:10
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.2
 
@@ -29,10 +29,9 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `contract_gage` (
 `id` int(11) NOT NULL,
   `contract_id` int(11) NOT NULL,
-  `company_id` int(11) NOT NULL,
   `gage_id` int(11) NOT NULL,
   `quantity` double NOT NULL,
-  `specification` varchar(50) NOT NULL,
+  `specification` varchar(50) DEFAULT NULL,
   `status` int(11) NOT NULL,
   `note` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -81,6 +80,13 @@ CREATE TABLE IF NOT EXISTS `ex_contract` (
   `note` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- 转存表中的数据 `ex_contract`
+--
+
+INSERT INTO `ex_contract` (`id`, `type`, `company_id`, `account_manager_id`, `co_manager_id`, `from_date`, `to_date`, `loan`, `status`, `note`) VALUES
+(1170300001, 0, 1, 2010060000, 2015060002, '2017-03-23 17:56:08', '2017-06-27 16:00:00', 10000000, 0, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -104,7 +110,9 @@ CREATE TABLE IF NOT EXISTS `ex_staff` (
 --
 
 INSERT INTO `ex_staff` (`id`, `name`, `id_card`, `telephone`, `hire_date`, `level`, `post`, `department_id`, `note`) VALUES
-(200807000, '张三', NULL, NULL, '2008-06-30 23:38:23', 10, '普通职员', 1, NULL);
+(2010060000, '刘珊珊', NULL, NULL, '2010-06-04 16:00:00', 12, '普通员工', 1, NULL),
+(2015060002, '齐思远', NULL, NULL, '2015-06-04 16:00:00', 14, '普通员工', 1, NULL),
+(2017030014, '钱天', NULL, NULL, '2017-03-21 17:36:51', 14, '普通员工', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -120,7 +128,14 @@ CREATE TABLE IF NOT EXISTS `gage` (
   `warning_line` double NOT NULL,
   `dispose_line` double NOT NULL,
   `note` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `gage`
+--
+
+INSERT INTO `gage` (`id`, `name`, `type`, `max_pledge_rate`, `warning_line`, `dispose_line`, `note`) VALUES
+(1, '特钢', 0, 0.6, 0.8, 0.9, NULL);
 
 -- --------------------------------------------------------
 
@@ -136,7 +151,14 @@ CREATE TABLE IF NOT EXISTS `gage_price` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `source` varchar(200) NOT NULL,
   `note` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `gage_price`
+--
+
+INSERT INTO `gage_price` (`id`, `gage_id`, `price`, `unit`, `timestamp`, `source`, `note`) VALUES
+(1, 1, 111.2, '元/吨', '2017-03-23 13:48:47', 'http://index.mysteel.com/xpic/detail.ms?tabName=tegang', NULL);
 
 -- --------------------------------------------------------
 
@@ -165,12 +187,19 @@ CREATE TABLE IF NOT EXISTS `mail` (
 
 CREATE TABLE IF NOT EXISTS `regulate_account` (
 `id` int(11) NOT NULL,
-  `company_id` int(11) NOT NULL,
+  `regulator_id` int(11) NOT NULL,
   `gage_id` int(11) NOT NULL,
   `quantity` double NOT NULL,
   `timestamp` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `note` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `regulate_account`
+--
+
+INSERT INTO `regulate_account` (`id`, `regulator_id`, `gage_id`, `quantity`, `timestamp`, `note`) VALUES
+(1, 10010050, 1, 10000, '2017-03-24 21:30:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -179,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `regulate_account` (
 --
 
 CREATE TABLE IF NOT EXISTS `regulators` (
-  `id` int(11) NOT NULL,
+`id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `address` varchar(200) DEFAULT NULL,
   `contact` varchar(50) NOT NULL,
@@ -187,7 +216,17 @@ CREATE TABLE IF NOT EXISTS `regulators` (
   `email` varchar(100) DEFAULT NULL,
   `score` double NOT NULL,
   `note` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `regulators`
+--
+
+INSERT INTO `regulators` (`id`, `name`, `address`, `contact`, `telephone`, `email`, `score`, `note`) VALUES
+(1, '信业监管公司', NULL, '周康', '13802138722', NULL, 9.5, NULL),
+(2, '鑫诚监管公司', NULL, '沈晓敏', '18922131252', NULL, 9, NULL),
+(3, '惠友监管公司', NULL, '金婷婷', '17830662941', NULL, 8.8, NULL),
+(5, '金蝶监管公司', NULL, '蔡琳', '15021873217', NULL, 9.2, NULL);
 
 -- --------------------------------------------------------
 
@@ -196,7 +235,7 @@ CREATE TABLE IF NOT EXISTS `regulators` (
 --
 
 CREATE TABLE IF NOT EXISTS `regulators_company` (
-  `regulator_uid` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `company_id` int(11) NOT NULL,
   `regulators_id` int(11) NOT NULL,
   `from_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -205,6 +244,13 @@ CREATE TABLE IF NOT EXISTS `regulators_company` (
   `status` int(11) NOT NULL,
   `note` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `regulators_company`
+--
+
+INSERT INTO `regulators_company` (`id`, `company_id`, `regulators_id`, `from_date`, `to_date`, `fee`, `status`, `note`) VALUES
+(10010050, 1, 5, '2016-12-31 16:00:00', '2017-06-30 16:00:00', 0.002, 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -280,7 +326,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_change_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `note` text
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `user`
@@ -309,8 +355,8 @@ CREATE TABLE IF NOT EXISTS `warehouse_list` (
   `company_id` int(11) NOT NULL,
   `gage_id` int(11) NOT NULL,
   `quantity` double NOT NULL,
-  `specification` varchar(50) NOT NULL,
-  `owner` int(11) NOT NULL,
+  `specification` varchar(50) DEFAULT NULL,
+  `owner` int(11) DEFAULT NULL,
   `timestamp` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `submitter_id` int(11) DEFAULT NULL,
   `note` text
@@ -351,7 +397,7 @@ CREATE TABLE IF NOT EXISTS `_config` (
 `id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
   `value` varchar(100) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `_config`
@@ -359,7 +405,7 @@ CREATE TABLE IF NOT EXISTS `_config` (
 
 INSERT INTO `_config` (`id`, `name`, `value`) VALUES
 (1, 'key', 'value'),
-(2, 'k', 'v');
+(3, 'k', 'v');
 
 -- --------------------------------------------------------
 
@@ -395,7 +441,7 @@ CREATE TABLE IF NOT EXISTS `_view` (
 -- Indexes for table `contract_gage`
 --
 ALTER TABLE `contract_gage`
- ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`company_id`), ADD KEY `contract_id` (`contract_id`), ADD KEY `gage_id` (`gage_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `contract_id` (`contract_id`), ADD KEY `gage_id` (`gage_id`);
 
 --
 -- Indexes for table `ex_company`
@@ -437,7 +483,7 @@ ALTER TABLE `mail`
 -- Indexes for table `regulate_account`
 --
 ALTER TABLE `regulate_account`
- ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`company_id`), ADD KEY `gage_id` (`gage_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`regulator_id`), ADD KEY `gage_id` (`gage_id`);
 
 --
 -- Indexes for table `regulators`
@@ -449,7 +495,7 @@ ALTER TABLE `regulators`
 -- Indexes for table `regulators_company`
 --
 ALTER TABLE `regulators_company`
- ADD PRIMARY KEY (`company_id`,`regulators_id`), ADD KEY `regulators_id` (`regulators_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`company_id`), ADD KEY `regulators_id` (`regulators_id`);
 
 --
 -- Indexes for table `role_view`
@@ -523,12 +569,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `gage`
 --
 ALTER TABLE `gage`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `gage_price`
 --
 ALTER TABLE `gage_price`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `mail`
 --
@@ -538,7 +584,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `regulate_account`
 --
 ALTER TABLE `regulate_account`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT for table `regulators`
+--
+ALTER TABLE `regulators`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `role_view`
 --
@@ -558,7 +609,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
 --
 -- AUTO_INCREMENT for table `warehouse_list`
 --
@@ -573,7 +624,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `_config`
 --
 ALTER TABLE `_config`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `_role`
 --
@@ -593,8 +644,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 ALTER TABLE `contract_gage`
 ADD CONSTRAINT `contract_gage_ibfk_1` FOREIGN KEY (`contract_id`) REFERENCES `ex_contract` (`id`),
-ADD CONSTRAINT `contract_gage_ibfk_3` FOREIGN KEY (`gage_id`) REFERENCES `gage` (`id`),
-ADD CONSTRAINT `contract_gage_ibfk_4` FOREIGN KEY (`company_id`) REFERENCES `ex_company` (`id`);
+ADD CONSTRAINT `contract_gage_ibfk_3` FOREIGN KEY (`gage_id`) REFERENCES `gage` (`id`);
 
 --
 -- 限制表 `ex_contract`
@@ -627,14 +677,14 @@ ADD CONSTRAINT `mail_ibfk_1` FOREIGN KEY (`from_uid`) REFERENCES `user` (`id`);
 --
 ALTER TABLE `regulate_account`
 ADD CONSTRAINT `regulate_account_ibfk_2` FOREIGN KEY (`gage_id`) REFERENCES `gage` (`id`),
-ADD CONSTRAINT `regulate_account_ibfk_3` FOREIGN KEY (`company_id`) REFERENCES `ex_company` (`id`);
+ADD CONSTRAINT `regulate_account_ibfk_3` FOREIGN KEY (`regulator_id`) REFERENCES `regulators_company` (`id`);
 
 --
 -- 限制表 `regulators_company`
 --
 ALTER TABLE `regulators_company`
-ADD CONSTRAINT `regulators_company_ibfk_2` FOREIGN KEY (`regulators_id`) REFERENCES `regulators` (`id`),
-ADD CONSTRAINT `regulators_company_ibfk_3` FOREIGN KEY (`company_id`) REFERENCES `ex_company` (`id`);
+ADD CONSTRAINT `regulators_company_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `ex_company` (`id`),
+ADD CONSTRAINT `regulators_company_ibfk_2` FOREIGN KEY (`regulators_id`) REFERENCES `regulators` (`id`);
 
 --
 -- 限制表 `role_view`

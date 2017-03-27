@@ -11,7 +11,7 @@ public enum RoleEnum {
     ACCOUNT_MANAGER("客户经理", 1),
     MARKETING_DIRECTOR("公司部主任", 2),
     REGULATORS("监管机构", 3),
-    REFULATOR_COMPANY("监管员", 4),
+    REGULATOR("监管员", 4),
     CREDIT_EXECUTION("授信执行人", 5),
     CREDIT_EXECUTION_DIRECTOR("授信执行主任", 6);
 

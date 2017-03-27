@@ -27,18 +27,18 @@ public class MainController {
     @Autowired
     private UserService userService;
 
-    @RequestMapping("/")
-    public String home() {
-        List<User> us = new ArrayList<User>();
-        User user = new User("try6", RoleEnum.MARKETING_DIRECTOR.getId(), "try6");
+//    @RequestMapping("/")
+//    public String home() {
+//        List<User> us = new ArrayList<User>();
+//        User user = new User("try6", RoleEnum.MARKETING_DIRECTOR.getId(), "try6");
 //        Date d = new Date();
 //        User u=new User("b",1,"b","123",d,0,d,null,null);
 
 //        us.add(u);
 //        u.setName("33");
 //        u.setPassword("33");
-        us.add(user);
-        userService.saveUsers(us);
+//        us.add(user);
+//        userService.saveUsers(us);
 
 //        us = userService.getAllUsernames();
 //        System.out.println(us.size() + us.get(0).getName());
@@ -51,8 +51,8 @@ public class MainController {
 //        System.out.println(userService.getById(27));
 //        userService.saveUsers(us);
 
-        return "index";
-    }
+//        return "index";
+//    }
 
 //    @RequestMapping(value = { "/Error", "/error" }, method = RequestMethod.GET)
 //    public ModelAndView error(HttpServletRequest request,
