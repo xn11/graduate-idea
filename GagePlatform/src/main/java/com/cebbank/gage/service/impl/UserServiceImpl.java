@@ -53,6 +53,8 @@ public class UserServiceImpl implements UserService {
         GeneralResult<User> result = new GeneralResult<User>();
         if (null == user) {
             result.setResultCode(ResultEnum.E_NOT_EXIST);
+        } else if (user.getStatus() < 0) {
+            result.setResultCode(ResultEnum.E_INVALID_DATA);
         } else if (!user.getPassword().equals(password)) {
             result.setResultCode(ResultEnum.E_PASSWORD_WRONG);
         } else {
