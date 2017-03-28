@@ -10,8 +10,9 @@ public enum ResultEnum {
     E_DATABASE_UPDATE(3, "数据库更新错误"),
     E_DATABASE_DELETE(4, "数据库删除错误"),
     E_INVALID_PARAMETER(5, "无效参数"),
-    E_NOT_EXIST(6, "数据不存在"),
-    E_PASSWORD_WRONG(7, "密码错误");
+    E_INVALID_DATA(6, "数据无效"),
+    E_NOT_EXIST(7, "数据不存在"),
+    E_PASSWORD_WRONG(8, "密码错误");
 
     private int code;
     private String desc;

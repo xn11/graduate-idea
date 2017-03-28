@@ -36,7 +36,7 @@ public class LoginController {
     }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response)
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
             throws IOException, ServletException {
         HttpSession session = request.getSession();
         String view = "login";
@@ -45,7 +45,6 @@ public class LoginController {
         String uid = request.getParameter("uid");
         String password = request.getParameter("password");
         if (GageUtils.isBlank(uid) || GageUtils.isBlank(password)) {
-//            session.setAttribute("errorMsg", ResultEnum.E_INVALID_PARAMETER.getDesc());
             return new ModelAndView(view, "error", "*  " + ResultEnum.E_INVALID_PARAMETER.getDesc());
         }
 
@@ -55,16 +54,27 @@ public class LoginController {
         GeneralResult<User> userResult = userService.getByIdAndPassword(uid, password);
 
         if (!userResult.isNormal()) {
-//            session.setAttribute("errorMsg", userResult.getResultCode().getDesc());
             return new ModelAndView(view, "error", "*  该用户" + userResult.getResultCode().getDesc());
         }
 
+        //若用户名和密码正确，则签退或按角色登录
         User user = userResult.getData();
-//            session.setAttribute("user", user);
-        session.setAttribute("error", "");
         Cookie myCookie = new Cookie("uid", URLEncoder.encode(uid, "utf-8"));
         response.addCookie(myCookie);
 
+        String action = request.getParameter("action");
+        if (action.equals("logout")) {
+            user.setStatus(0);
+            userService.update(user);
+            view = "logout";
+            return new ModelAndView(new RedirectView(view));
+        } else if (user.getStatus() == 1) {
+            return new ModelAndView(view, "error", "*  该用户已登录，请先签退！");
+        }
+
+        session.setAttribute("error", "");
+        user.setStatus(1);
+        userService.update(user);
         switch (user.getRole()) {
             case ADMIN:
                 view = "admin/home";
@@ -76,16 +86,16 @@ public class LoginController {
                 break;
         }
 
-//        return new ModelAndView(new RedirectView(view), "user", user);
-        return new ModelAndView(view, "user", user);
+        redirectAttributes.addFlashAttribute("user", user);
+        return new ModelAndView(new RedirectView(view));
+//        return new ModelAndView(view, "user", user);
     }
 
     @RequestMapping(value = {"/logout"})
     public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
             throws IOException {
         request.getSession().invalidate();
-//        response.sendRedirect(request.getContextPath() + "/Login");
-//        redirectAttributes.addFlashAttribute("error","ssssssssssss");
+        redirectAttributes.addFlashAttribute("error", "    签退成功！");
         return "redirect:/login";
     }
 }

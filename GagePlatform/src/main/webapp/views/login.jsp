@@ -13,7 +13,10 @@
 <%--<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
 
@@ -26,21 +29,21 @@
     <!-- Favicon -->
     <%--<link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico"/>" type="image/x-icon">--%>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="../assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Fonts  -->
-    <link rel="stylesheet" href="../assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="assets/css/simple-line-icons.css">
     <!-- CSS Animate -->
-    <link rel="stylesheet" href="../assets/css/animate.css">
+    <link rel="stylesheet" href="assets/css/animate.css">
     <!-- Custom styles for this theme -->
-    <link rel="stylesheet" href="../assets/css/main.css">
-    <link rel="stylesheet" href="../assets/css/gage.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/gage.css">
     <!-- Feature detection -->
-    <script src="../assets/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="../assets/js/vendor/html5shiv.js"></script>
-    <script src="../assets/js/vendor/respond.min.js"></script>
+    <script src="assets/js/vendor/html5shiv.js"></script>
+    <script src="assets/js/vendor/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -88,8 +91,9 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <%--<a href="login" class="btn btn-primary btn-block">登 录</a>--%>
-                                    <button type="submit" class="btn btn-primary btn-block">登 录</button>
+                                    <button type="submit" class="btn btn-primary btn-block" name="action" value="login">登 录</button>
                                     <hr/>
+                                        <button type="submit" class="btn btn-default btn-block" name="action" value="logout">签 退</button>
                                     <%--<a href="pages-sign-up.html" class="btn btn-default btn-block">Not a member? Sign--%>
                                     <%--Up</a>--%>
                                 </div>
@@ -103,11 +107,11 @@
 
 </section>
 <!--Global JS-->
-<script src="../assets/js/vendor/jquery-1.11.1.min.js"></script>
-<script src="../assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="../assets/plugins/navgoco/jquery.navgoco.min.js"></script>
-<script src="../assets/plugins/pace/pace.min.js"></script>
-<script src="../assets/js/src/app.js"></script>
+<script src="assets/js/vendor/jquery-1.11.1.min.js"></script>
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/plugins/navgoco/jquery.navgoco.min.js"></script>
+<script src="assets/plugins/pace/pace.min.js"></script>
+<script src="assets/js/src/app.js"></script>
 
 </body>
 
