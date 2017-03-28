@@ -35,6 +35,11 @@ public class LoginController {
         return "login";
     }
 
+    @RequestMapping(value = {"/error"})
+    public String errorView() throws IOException {
+        return "error";
+    }
+
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
             throws IOException, ServletException {

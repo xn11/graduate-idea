@@ -29,21 +29,21 @@
     <!-- Favicon -->
     <%--<link rel="shortcut icon" href="<c:url value="/assets/img/favicon.ico"/>" type="image/x-icon">--%>
     <!-- Bootstrap core CSS -->
-    <link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/plugins/bootstrap/css/bootstrap.min.css">
     <!-- Fonts  -->
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link rel="stylesheet" href="assets/css/simple-line-icons.css">
+    <link rel="stylesheet" href="/assets/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/css/simple-line-icons.css">
     <!-- CSS Animate -->
-    <link rel="stylesheet" href="assets/css/animate.css">
+    <link rel="stylesheet" href="/assets/css/animate.css">
     <!-- Custom styles for this theme -->
-    <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/gage.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/gage.css">
     <!-- Feature detection -->
-    <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
+    <script src="/assets/js/vendor/modernizr-2.6.2.min.js"></script>
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
-    <script src="assets/js/vendor/html5shiv.js"></script>
-    <script src="assets/js/vendor/respond.min.js"></script>
+    <script src="/assets/js/vendor/html5shiv.js"></script>
+    <script src="/assets/js/vendor/respond.min.js"></script>
     <![endif]-->
 </head>
 
@@ -84,7 +84,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <c:if test="${error != null}">
-                                        <p class="error">${error}</p>
+                                        <p class="error-msg">${error}</p>
                                     </c:if>
                                 </div>
                             </div>
@@ -107,11 +107,11 @@
 
 </section>
 <!--Global JS-->
-<script src="assets/js/vendor/jquery-1.11.1.min.js"></script>
-<script src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/plugins/navgoco/jquery.navgoco.min.js"></script>
-<script src="assets/plugins/pace/pace.min.js"></script>
-<script src="assets/js/src/app.js"></script>
+<script src="/assets/js/vendor/jquery-1.11.1.min.js"></script>
+<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/plugins/navgoco/jquery.navgoco.min.js"></script>
+<script src="/assets/plugins/pace/pace.min.js"></script>
+<script src="/assets/js/src/app.js"></script>
 
 </body>
 

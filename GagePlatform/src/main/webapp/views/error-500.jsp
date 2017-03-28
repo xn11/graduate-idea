@@ -45,18 +45,15 @@
         <div class="col-md-6 col-md-offset-3">
             <div id="error-container" class="block-error animated fadeInUp">
                 <header>
-                    <h1 class="error">ERROR</h1>
-                    <p class="text-center">${error}</p>
+                    <h1 class="error">500</h1>
+                    <p class="text-center">服务器错误</p>
                 </header>
 
 
-                <%--<p class="text-center">很抱歉，找不到请求的页面，无法加载页面内容！</p>--%>
+                <p class="text-center">很抱歉，服务器出现错误，请稍后再尝试！</p>
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <a class="btn btn-info btn-block btn-3d" href="login">返回登录页</a>
-                    </div>
-                    <div class="col-md-6">
-                        <button class="btn btn-success btn-block btn-3d" onclick="history.back();">返回上一页</button>
                     </div>
                 </div>
 
