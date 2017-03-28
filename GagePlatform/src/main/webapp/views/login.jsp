@@ -54,7 +54,7 @@
             <div id="login-wrapper">
                 <header>
                     <div class="brand">
-                        <img src="../assets/img/logo.png" alt="光大银行">
+                        <img src="assets/img/logo.png" alt="光大银行">
                     </div>
                 </header>
                 <div class="panel panel-primary">
