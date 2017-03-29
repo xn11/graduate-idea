@@ -1,6 +1,7 @@
 package com.cebbank.gage.service;
 
 import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.RoleEnum;
 import com.cebbank.gage.model.User;
 
 import java.util.List;
@@ -19,5 +20,10 @@ public interface UserService {
 
     public void delete(int id);
 
+    //login
     public GeneralResult<User> getByIdAndPassword(String id, String password);
+
+    //userlist
+    public GeneralResult<List<User>> getValidUsers();
+    public GeneralResult<List<User>> getValidUsers(RoleEnum role);
 }

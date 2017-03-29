@@ -44,15 +44,16 @@
             <li class="dropdown profile hidden-xs">
                 <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown">
                         <span class="meta">
-                            <span class="avatar">
+                            <%--<span class="avatar">
                                 <img src="/assets/img/profile.jpg" class="img-circle" alt="">
-                            </span>
-                        <span class="text">Mike Adams</span>
+                            </span>--%>
+                            <i class="icon-user"></i>
+                        <span class="text">${user.name}</span>
                         <span class="caret"></span>
                         </span>
                 </a>
                 <ul class="dropdown-menu animated fadeInRight" role="menu">
-                    <li>
+                    <%--<li>
                         <span class="arrow top"></span>
                         <h5>
                             <span>80%</span>
@@ -63,27 +64,27 @@
                             </div>
                         </div>
                     </li>
-                    <li class="divider"></li>
+                    <li class="divider"></li>--%>
                     <li>
                         <a href="javascript:void(0);">
                                 <span class="icon"><i class="fa fa-user"></i>
-                                </span>My Account</a>
+                                </span>账户信息</a>
                     </li>
-                    <li>
+                    <%--<li>
                         <a href="javascript:void(0);">
                                 <span class="icon"><i class="fa fa-envelope"></i>
-                                </span>Messages</a>
-                    </li>
+                                </span>账户安全</a>
+                    </li>--%>
                     <li>
                         <a href="javascript:void(0);">
                                 <span class="icon"><i class="fa fa-cog"></i>
-                                </span>Settings</a>
+                                </span>修改密码</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="javascript:void(0);">
+                        <a href="/logout">
                                 <span class="icon"><i class="fa fa-sign-out"></i>
-                                </span>Logout</a>
+                                </span>退出</a>
                     </li>
                 </ul>
             </li>
@@ -196,7 +197,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a href="#" title="user management">
+                    <a href="userlist" title="user management">
                         <i class="fa  fa-fw fa-tachometer"></i> 用户管理
                     </a>
                 </li>
@@ -206,6 +207,8 @@
                     </a>
                     <ul class="nav-sub">
                         <li><a href="#" title="warning">预警</a>
+                        </li>
+                        <li><a href="#" title="info">公告</a>
                         </li>
                     </ul>
                 </li>
@@ -218,8 +221,8 @@
                         </li>
                         <li><a href="#" title="password">修改密码</a>
                         </li>
-                        <li><a href="#" title="safety">账户安全</a>
-                        </li>
+                        <%--<li><a href="#" title="safety">账户安全</a>
+                        </li>--%>
                     </ul>
                 </li>
                 <!--mail-->

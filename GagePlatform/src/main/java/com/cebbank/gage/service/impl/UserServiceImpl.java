@@ -2,6 +2,7 @@ package com.cebbank.gage.service.impl;
 
 import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.common.ResultEnum;
+import com.cebbank.gage.common.RoleEnum;
 import com.cebbank.gage.dao.UserDao;
 import com.cebbank.gage.model.User;
 import com.cebbank.gage.service.UserService;
@@ -59,6 +60,30 @@ public class UserServiceImpl implements UserService {
             result.setResultCode(ResultEnum.E_PASSWORD_WRONG);
         } else {
             result.setData(user);
+        }
+        return result;
+    }
+
+    public GeneralResult<List<User>> getValidUsers() {
+        String hql = "from User where status>=0";
+        List<User> userList = userDao.findList(hql);
+        GeneralResult<List<User>> result = new GeneralResult<List<User>>();
+        if (null == userList || userList.isEmpty()) {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        } else {
+            result.setData(userList);
+        }
+        return result;
+    }
+
+    public GeneralResult<List<User>> getValidUsers(RoleEnum role) {
+        String hql = "from User where status>=0 and role_id=" + role.getId();
+        List<User> userList = userDao.findList(hql);
+        GeneralResult<List<User>> result = new GeneralResult<List<User>>();
+        if (null == userList || userList.isEmpty()) {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        } else {
+            result.setData(userList);
         }
         return result;
     }

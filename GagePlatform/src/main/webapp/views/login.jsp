@@ -1,4 +1,4 @@
-<%--
+<%@ page import="java.net.URLDecoder" %><%--
   Created by IntelliJ IDEA.
   User: xn
   Date: 2017/3/26
@@ -13,9 +13,9 @@
 <%--<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]> <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!-->
 <html class="no-js">
 <!--<![endif]-->
@@ -48,6 +48,25 @@
 </head>
 
 <body>
+
+<!-- 	预填充 :cookie(userid——ui_pre)
+		中文解码：URLDecoder.decode(cookies[i].getName(),"utf-8");-->
+<%
+    Cookie[] cookies = request.getCookies();
+    Cookie cookie = null;
+    String uid_pre = "";
+    if (null != cookies) {
+        for (int i = 0; i < cookies.length; i++) {
+            cookie = cookies[i];
+            String name = URLDecoder.decode(cookies[i].getName(), "utf-8");
+            if (name.equals("uid")) {
+                uid_pre = URLDecoder.decode(cookie.getValue(), "utf-8");
+                break;
+            }
+        }
+    }
+%>
+
 <section class="container animated fadeInUp">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -69,7 +88,7 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <input type="text" class="form-control" id="uid" name="uid" placeholder="用户名 / 用户ID"
-                                           required="required" autocomplete="on">
+                                           required="required" autocomplete="on" value="<%=uid_pre%>">
                                     <i class="fa fa-user"></i>
                                 </div>
                             </div>
@@ -91,9 +110,13 @@
                             <div class="form-group">
                                 <div class="col-md-12">
                                     <%--<a href="login" class="btn btn-primary btn-block">登 录</a>--%>
-                                    <button type="submit" class="btn btn-primary btn-block" name="action" value="login">登 录</button>
+                                    <button type="submit" class="btn btn-primary btn-block" name="action" value="login">
+                                        登 录
+                                    </button>
                                     <hr/>
-                                        <button type="submit" class="btn btn-default btn-block" name="action" value="logout">签 退</button>
+                                    <button type="submit" class="btn btn-default btn-block" name="action"
+                                            value="logout">签 退
+                                    </button>
                                     <%--<a href="pages-sign-up.html" class="btn btn-default btn-block">Not a member? Sign--%>
                                     <%--Up</a>--%>
                                 </div>

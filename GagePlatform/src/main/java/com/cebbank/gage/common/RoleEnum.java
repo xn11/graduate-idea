@@ -6,7 +6,6 @@ package com.cebbank.gage.common;
  * 用户角色Role(name, id)
  */
 public enum RoleEnum {
-
     ADMIN("系统管理员", 0),
     ACCOUNT_MANAGER("客户经理", 1),
     MARKETING_DIRECTOR("公司部主任", 2),

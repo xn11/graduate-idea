@@ -20,6 +20,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by xn on 2017/3/27.
@@ -30,12 +32,11 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public String loginView(HttpServletRequest request,
-                            HttpServletResponse response) throws IOException {
+    public String loginView() throws IOException {
         return "login";
     }
 
-    @RequestMapping(value = {"/error"})
+    @RequestMapping(value = {"/error","*/error"})
     public String errorView() throws IOException {
         return "error";
     }
@@ -67,12 +68,12 @@ public class LoginController {
         Cookie myCookie = new Cookie("uid", URLEncoder.encode(uid, "utf-8"));
         response.addCookie(myCookie);
 
+        //签退,转发给logout
         String action = request.getParameter("action");
         if (action.equals("logout")) {
-            user.setStatus(0);
-            userService.update(user);
-            view = "logout";
-            return new ModelAndView(new RedirectView(view));
+            session.setAttribute("user", user);
+            session.setAttribute("error", "    签退成功！");
+            return new ModelAndView("forward:/logout");
         } else if (user.getStatus() == 1) {
             return new ModelAndView(view, "error", "*  该用户已登录，请先签退！");
         }
@@ -82,25 +83,31 @@ public class LoginController {
         userService.update(user);
         switch (user.getRole()) {
             case ADMIN:
-                view = "admin/home";
+                view = "admin";
                 break;
 //            case REGULATORS:
-//                view = "regulator/home";
+//                view = "regulator";
 //                break;
             default:
                 break;
         }
 
-        redirectAttributes.addFlashAttribute("user", user);
+//        redirectAttributes.addFlashAttribute("user", user);
+        redirectAttributes.addAttribute("user", user);
         return new ModelAndView(new RedirectView(view));
-//        return new ModelAndView(view, "user", user);
     }
 
-    @RequestMapping(value = {"/logout"})
-    public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
+    @RequestMapping(value = {"/logout","*/logout"})
+    public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes)
             throws IOException {
-        request.getSession().invalidate();
-        redirectAttributes.addFlashAttribute("error", "    签退成功！");
+        HttpSession session = request.getSession();
+        //user更新登录状态
+        User user = (User)session.getAttribute("user");
+        user.setStatus(0);
+        userService.update(user);
+        //添加提示信息
+        redirectAttributes.addFlashAttribute("error", session.getAttribute("error"));
+        session.invalidate();
         return "redirect:/login";
     }
 }
