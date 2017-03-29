@@ -20,8 +20,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by xn on 2017/3/27.
@@ -36,7 +34,7 @@ public class LoginController {
         return "login";
     }
 
-    @RequestMapping(value = {"/error","*/error"})
+    @RequestMapping(value = {"/error", "*/error"})
     public String errorView() throws IOException {
         return "error";
     }
@@ -83,30 +81,36 @@ public class LoginController {
         userService.update(user);
         switch (user.getRole()) {
             case ADMIN:
-                view = "admin";
+                view = "admin/home";
                 break;
 //            case REGULATORS:
-//                view = "regulator";
+//                view = "regulator/home";
 //                break;
             default:
                 break;
         }
 
-//        redirectAttributes.addFlashAttribute("user", user);
-        redirectAttributes.addAttribute("user", user);
+        redirectAttributes.addFlashAttribute("user", user);
+//        redirectAttributes.addAttribute("user", user);
         return new ModelAndView(new RedirectView(view));
     }
 
-    @RequestMapping(value = {"/logout","*/logout"})
+    @RequestMapping(value = {"/logout", "*/logout"})
     public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes)
             throws IOException {
         HttpSession session = request.getSession();
+        String error = (String) session.getAttribute("error");
         //user更新登录状态
-        User user = (User)session.getAttribute("user");
-        user.setStatus(0);
-        userService.update(user);
+        User user = (User) session.getAttribute("user");
+        if (null != user) {
+            user.setStatus(0);
+            userService.update(user);
+        } else {
+            error = "*  签退失败，请重新签退！";
+        }
+
         //添加提示信息
-        redirectAttributes.addFlashAttribute("error", session.getAttribute("error"));
+        redirectAttributes.addFlashAttribute("error", error);
         session.invalidate();
         return "redirect:/login";
     }

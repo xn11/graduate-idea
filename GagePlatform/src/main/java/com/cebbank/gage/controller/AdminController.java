@@ -5,6 +5,7 @@ import com.cebbank.gage.model.User;
 import com.cebbank.gage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,9 +26,8 @@ public class AdminController {
     private UserService userService;
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public ModelAndView homeView(HttpServletRequest request) throws IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
+    public ModelAndView homeView(@ModelAttribute("user") User user , HttpServletRequest request) throws IOException {
+        request.getSession().setAttribute("user", user);
         return new ModelAndView("admin/home", "user", user);
     }
 
