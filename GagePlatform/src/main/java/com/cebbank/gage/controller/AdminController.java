@@ -36,7 +36,7 @@ public class AdminController {
         GeneralResult<List<User>> result = userService.getValidUsers();
         String view = "/admin/userlist";
         if (!result.isNormal()){
-            return new ModelAndView(view, "msg", "没有记录！");
+            return new ModelAndView(view, "msg", "暂无记录！");
         }
         return new ModelAndView(view, "userlist", result.getData());
     }

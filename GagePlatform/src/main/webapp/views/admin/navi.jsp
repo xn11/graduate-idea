@@ -196,10 +196,20 @@
                         </li>--%>
                     </ul>
                 </li>
-                <li>
+                <li id="user-management" class="nav-dropdown">
                     <a href="userlist" title="user management">
                         <i class="fa  fa-fw fa-tachometer"></i> 用户管理
                     </a>
+                    <ul class="nav-sub">
+                        <li id="user-management-list"><a href="#" title="user list">用户信息列表</a>
+                        </li>
+                        <li><a href="#" title="add user">新建用户</a>
+                        </li>
+                        <li><a href="#" title="batch add">批量导入</a>
+                        </li>
+                        <li><a href="#" title="batch delete">批量删除</a>
+                        </li>
+                    </ul>
                 </li>
                 <li class="nav-dropdown">
                     <a href="#" title="msg management">

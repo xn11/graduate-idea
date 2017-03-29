@@ -50,5 +50,4 @@
     <![endif]-->
 </head>
 
-<body>
 
