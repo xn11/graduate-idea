@@ -16,7 +16,7 @@
         <!--logo start-->
         <div class="brand">
             <a href="admin/home" class="logo">
-                <img src="/assets/img/logo.png" alt="光大银行">
+                <img src="/assets/img/logo_m.png" alt="光大银行">
             </a>
         </div>
         <!--logo end-->
