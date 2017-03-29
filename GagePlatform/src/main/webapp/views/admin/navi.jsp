@@ -174,6 +174,11 @@
                             </a>
                         </li>
                         <li>
+                            <a href="#" title="regulators management">
+                                监管机构管理
+                            </a>
+                        </li>
+                        <li>
                             <a href="#" title="log management">
                                 日志管理
                             </a>

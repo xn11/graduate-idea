@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by xn on 2017/3/6.
  */
-@Service("organizationService")
+/*@Service("organizationService")
 public class OrganizationServiceImpl implements OrganizationService {
 
     @Autowired
@@ -39,4 +39,4 @@ public class OrganizationServiceImpl implements OrganizationService {
     public void delete(int id) {
         organizationDao.delete(new Organization(id));
     }
-}
+}*/
