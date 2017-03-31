@@ -31,7 +31,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
     public ModelAndView userlistView(HttpServletRequest request) throws IOException {
-        GeneralResult<List<User>> result = userService.getValidUsers();
+        GeneralResult<List<User>> result = userService.getAll();
         String view = "/admin/userlist";
         if (!result.isNormal()){
             return new ModelAndView(view, "msg", "暂无记录！");
