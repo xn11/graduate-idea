@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -39,6 +37,22 @@ public class AdminController {
             return new ModelAndView(view, "msg", "暂无记录！");
         }
         return new ModelAndView(view, "userlist", result.getData());
+    }
+
+    @RequestMapping(value = "/accountInfo", method = RequestMethod.GET)
+    public ModelAndView accountInfoView(HttpServletRequest request) {
+
+        return new ModelAndView("/admin/accountInfo", "user", request.getSession().getAttribute("user"));
+    }
+
+    @RequestMapping(value = "/modifyPassword", method = RequestMethod.GET)
+    public ModelAndView modifyPassword(HttpServletRequest request) {
+        return new ModelAndView("/admin/modifyPassword", "user", request.getSession().getAttribute("user"));
+    }
+
+    @RequestMapping(value = "/modifyPassword", method = RequestMethod.POST)
+    public void modifyPasswordPost(HttpServletRequest request) {
+
     }
 
 }

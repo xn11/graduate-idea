@@ -227,9 +227,9 @@
                         <i class="fa  fa-fw fa-edit"></i> 账户设置
                     </a>
                     <ul class="nav-sub">
-                        <li><a href="#" title="info">账户信息</a>
+                        <li><a href="accountInfo" title="info">账户信息</a>
                         </li>
-                        <li><a href="#" title="password">修改密码</a>
+                        <li><a href="modifyPassword" title="password">修改密码</a>
                         </li>
                         <%--<li><a href="#" title="safety">账户安全</a>
                         </li>--%>
