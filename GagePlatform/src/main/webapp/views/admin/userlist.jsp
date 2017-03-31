@@ -50,7 +50,8 @@
                             <h3>${msg}</h3>
                         </c:if>
                         <c:if test="${userlist != null}">
-                            <table id="userlist-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <%--<table id="userlist-table" class="table table-striped table-bordered" cellspacing="0" width="100%">--%>
+                            <table id="userlist-table" class="table table-striped hover" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>操作</th>
@@ -112,7 +113,12 @@
         $('#user-management').addClass("open active");
         $('#user-management-list').addClass("active");
         //添加table插件
-        $('#userlist-table').dataTable();
+        $('#userlist-table').dataTable({
+            "language": {
+                "url": "/assets/lang/datatable_CN.json"
+            }
+
+        });
     });
 </script>
 

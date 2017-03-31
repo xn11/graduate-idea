@@ -2,3 +2,11 @@
     color: red;
     font-size: 90%;
 }
+
+/*datatable*/
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+    background-color: #f6f6f6;
+}
+table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
+    background-color: #aab7d1;
+}

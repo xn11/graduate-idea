@@ -64,8 +64,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    public GeneralResult<List<User>> getValidUsers() {
-        String hql = "from User where status>=0";
+    public GeneralResult<List<User>> getAll() {
+//        String hql = "from User where status>=0";
+        String hql = "from User";
         List<User> userList = userDao.findList(hql);
         GeneralResult<List<User>> result = new GeneralResult<List<User>>();
         if (null == userList || userList.isEmpty()) {
@@ -76,8 +77,9 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    public GeneralResult<List<User>> getValidUsers(RoleEnum role) {
-        String hql = "from User where status>=0 and role_id=" + role.getId();
+    public GeneralResult<List<User>> getAll(RoleEnum role) {
+//        String hql = "from User where status>=0 and role_id=" + role.getId();
+        String hql = "from User where role_id=" + role.getId();
         List<User> userList = userDao.findList(hql);
         GeneralResult<List<User>> result = new GeneralResult<List<User>>();
         if (null == userList || userList.isEmpty()) {

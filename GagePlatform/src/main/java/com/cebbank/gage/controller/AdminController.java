@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
@@ -33,7 +31,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
     public ModelAndView userlistView(HttpServletRequest request) throws IOException {
-        GeneralResult<List<User>> result = userService.getValidUsers();
+        GeneralResult<List<User>> result = userService.getAll();
         String view = "/admin/userlist";
         if (!result.isNormal()){
             return new ModelAndView(view, "msg", "暂无记录！");

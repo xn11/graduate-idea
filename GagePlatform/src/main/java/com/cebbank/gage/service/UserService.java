@@ -24,6 +24,6 @@ public interface UserService {
     public GeneralResult<User> getByIdAndPassword(String id, String password);
 
     //userlist
-    public GeneralResult<List<User>> getValidUsers();
-    public GeneralResult<List<User>> getValidUsers(RoleEnum role);
+    public GeneralResult<List<User>> getAll();
+    public GeneralResult<List<User>> getAll(RoleEnum role);
 }
