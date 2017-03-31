@@ -15,7 +15,7 @@
 
 
 <!--Global JS-->
-<script src="/assets/js/vendor/jquery-1.11.1.min.js"></script>
+<script src="/assets/js/vendor/jquery-1.12.4.min.js"></script>
 <script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
 <script src="/assets/plugins/navgoco/jquery.navgoco.min.js"></script>
 <script src="/assets/plugins/switchery/switchery.min.js"></script>

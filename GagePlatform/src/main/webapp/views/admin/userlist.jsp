@@ -51,7 +51,7 @@
                         </c:if>
                         <c:if test="${userlist != null}">
                             <%--<table id="userlist-table" class="table table-striped table-bordered" cellspacing="0" width="100%">--%>
-                            <table id="userlist-table" class="table table-striped hover" cellspacing="0" width="100%">
+                            <table id="userlist-table" class="table hover" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>操作</th>
@@ -102,11 +102,21 @@
 
 <jsp:include page="footer.jsp" />
 
-
 <!--Page Level JS -->
 <!--Table插件js引入，需要用到jquery-->
-<script src="/assets/plugins/dataTables/js/jquery.dataTables.js"></script>
+<script src="/assets/plugins/dataTables/js/jquery.dataTables.min.js"></script>
 <script src="/assets/plugins/dataTables/js/dataTables.bootstrap.js"></script>
+<script src="/assets/plugins/dataTables/extensions/Select/js/dataTables.select.js"></script>
+<script src="/assets/plugins/dataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
+<script src="/assets/plugins/dataTables/extensions/Editor/js/dataTables.editor.min.js"></script>
+
+<script src="/assets/plugins/dataTables/extensions/Buttons/js/buttons.flash.min.js"></script>
+<!--<script src="/assets/plugins/dataTables/extensions/Buttons/js/jszip.min.js"></script>-->
+<!--<script src="/assets/plugins/dataTables/extensions/Buttons/build/pdfmake.min.js"></script>-->
+<!--<script src="/assets/plugins/dataTables/extensions/Buttons/build/vfs_fonts.js"></script>-->
+<script src="/assets/plugins/dataTables/extensions/Buttons/js/buttons.html5.js"></script>
+<script src="/assets/plugins/dataTables/extensions/Buttons/js/buttons.print.js"></script>
+
 <script>
     $(document).ready(function() {
         //导航栏激活标识
@@ -116,7 +126,30 @@
         $('#userlist-table').dataTable({
             "language": {
                 "url": "/assets/lang/datatable_CN.json"
-            }
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    text: 'My button',
+                    action: function ( e, dt, node, config ) {
+                        alert( 'Button activated' );
+                    }
+                },
+                {
+                    text: '导出CSV',
+                    extend: 'csv'
+                },
+                {
+                    text: '打印',
+                    extend: 'print'
+                },
+//                'csv',
+//                'print'
+//                { extend: "create", editor: editor, text:'新建'},
+//                { extend: "edit",   editor: editor, text:'修改' },
+//                { extend: "remove", editor: editor, text:'删除' }
+            ],
+            select: true
 
         });
     });
