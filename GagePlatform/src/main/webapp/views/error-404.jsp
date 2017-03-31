@@ -53,7 +53,7 @@
                 <p class="text-center">很抱歉，找不到请求的页面，无法加载页面内容！</p>
                 <div class="row">
                     <div class="col-md-6">
-                        <a class="btn btn-info btn-block btn-3d" href="login">返回登录页</a>
+                        <a class="btn btn-info btn-block btn-3d" href="/login">返回登录页</a>
                     </div>
                     <div class="col-md-6">
                         <button class="btn btn-success btn-block btn-3d" onclick="history.back();">返回上一页</button>

@@ -53,7 +53,7 @@
                 <p class="text-center">很抱歉，服务器出现错误，请稍后再尝试！</p>
                 <div class="row">
                     <div class="col-md-12">
-                        <a class="btn btn-info btn-block btn-3d" href="login">返回登录页</a>
+                        <a class="btn btn-info btn-block btn-3d" href="/login">返回登录页</a>
                     </div>
                 </div>
 
