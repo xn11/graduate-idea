@@ -39,7 +39,7 @@
     <link rel="stylesheet" href="/assets/css/animate.css">
     <!-- DataTables-->
     <link rel="stylesheet" href="/assets/plugins/dataTables/css/dataTables.css">
-    <link rel="stylesheet" href="/assets/plugins/dataTables/extensions/Buttons/css/buttons.dataTables.min.css">
+    <%--<link rel="stylesheet" href="/assets/plugins/dataTables/extensions/Buttons/css/buttons.dataTables.min.css">--%>
     <link rel="stylesheet" href="/assets/plugins/dataTables/extensions/Select/css/select.dataTables.min.css">
     <!--<link rel="stylesheet" href="plugins/dataTables/css/jquery.dataTables.min.css">-->
     <!-- Custom styles for this theme -->
