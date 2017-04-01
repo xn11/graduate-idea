@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +30,7 @@ public class AdminController {
         return new ModelAndView("admin/home", "user", user);
     }
 
-    @RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
+    /*@RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
     public ModelAndView userlistView(HttpServletRequest request) throws IOException {
         GeneralResult<List<User>> result = userService.getAll();
         String view = "/admin/userlist";
@@ -37,6 +38,18 @@ public class AdminController {
             return new ModelAndView(view, "msg", "暂无记录！");
         }
         return new ModelAndView(view, "userlist", result.getData());
+    }*/
+
+    @RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
+    public String userlistView(HttpServletRequest request) throws IOException {
+        return "/admin/userlist";
+    }
+
+    @RequestMapping(value = {"/getUserList"}, method = RequestMethod.GET)
+    @ResponseBody
+    public List<User> getUserList(HttpServletRequest request) throws IOException {
+        GeneralResult<List<User>> result = userService.getAll();
+        return result.getData();
     }
 
     @RequestMapping(value = "/accountInfo", method = RequestMethod.GET)

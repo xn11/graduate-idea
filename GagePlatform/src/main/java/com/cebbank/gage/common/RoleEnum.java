@@ -1,5 +1,7 @@
 package com.cebbank.gage.common;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 /**
  * Created by xn on 2017/3/6.
  *
@@ -22,6 +24,7 @@ public enum RoleEnum {
         this.id = id;
     }
 
+    @JsonValue
     public String getName() {
         return name;
     }

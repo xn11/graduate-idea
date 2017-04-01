@@ -46,15 +46,15 @@
                     </div>
 
                     <div class="panel-body">
-                        <%--<c:if test="${userlist == null}">
+                        <c:if test="${userlist == null}">
                             <h3>${msg}</h3>
-                        </c:if>--%>
-                        <%--<c:if test="${userlist != null}">--%>
+                        </c:if>
+                        <c:if test="${userlist != null}">
                             <%--<table id="userlist-table" class="table table-striped table-bordered" cellspacing="0" width="100%">--%>
                             <table id="userlist-table" class="table hover" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>序号</th>
+                                    <th>操作</th>
                                     <th>用户ID</th>
                                     <th>用户名</th>
                                     <th>角色</th>
@@ -64,13 +64,13 @@
                                 </tr>
                             </thead>
 
-                            <%--<tbody>
+                            <tbody>
                                 <c:forEach items="${userlist}" var="itr">
                                 <tr>
                                 <td>
                                     <div class="radio">
                                         <input class="icheck" type="checkbox" name="check" value="${itr.id}">
-                                        &lt;%&ndash;<input class="icheck" type="checkbox" checked="" name="check1">&ndash;%&gt;
+                                        <%--<input class="icheck" type="checkbox" checked="" name="check1">--%>
                                     </div>
                                 </td>
                                 <td>${itr.id}</td>
@@ -87,9 +87,9 @@
                                 </td>
                             </tr>
                             </c:forEach>
-                            </tbody>--%>
+                            </tbody>
                         </table>
-                        <%--</c:if>--%>
+                        </c:if>
                     </div>
                 </div>
             </div>
@@ -104,8 +104,7 @@
 
 <!--Page Level JS -->
 <!--Table插件js引入，需要用到jquery-->
-<%--<script src="/assets/plugins/dataTables/js/jquery.dataTables.min.js"></script>--%>
-<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="/assets/plugins/dataTables/js/jquery.dataTables.min.js"></script>
 <script src="/assets/plugins/dataTables/js/dataTables.bootstrap.js"></script>
 <script src="/assets/plugins/dataTables/extensions/Select/js/dataTables.select.js"></script>
 <script src="/assets/plugins/dataTables/extensions/Buttons/js/dataTables.buttons.min.js"></script>
@@ -123,83 +122,36 @@
         //导航栏激活标识
         $('#user-management').addClass("open active");
         $('#user-management-list').addClass("active");
-
-        $.get({
-            url:"/admin/getUserList"
-        }, function(data){
-            //添加table插件
-            var t = $('#userlist-table').dataTable({
-                "language": {
-                    "url": "/assets/lang/datatable_CN.json"
-                },
-                data:data,
-//            ajax:{
-//                "url":"http://localhost:8080/admin/getUserList"
-//            },
-                columns:[
-                    {data: null},
-                    {data: "id"},
-                    {data: "name"},
-                    {data: "role"},
-                    {data: "telephone"},
-                    {data: "registerTime"},
-                    {data: "status"}
-                ],
-                order: [[1, 'asc']],
-                columnDefs:[
-                    {
-                        "searchable": false,
-                        "orderable": false,
-                        "targets": 0
-                    },
-                    {
-                        "targets": 6,
-                        "render": function(data, type, row){
-                            switch (data){
-                                case 0: return "未登录";
-                                case 1: return "已登录";
-                                case -1: return "无效";
-                                default: return "error";
-                            }
-                        }
+        //添加table插件
+        $('#userlist-table').dataTable({
+            "language": {
+                "url": "/assets/lang/datatable_CN.json"
+            },
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    text: 'My button',
+                    action: function ( e, dt, node, config ) {
+                        alert( 'Button activated' );
                     }
-
-                ],
-                dom: 'Bfrtip',
-                buttons: [
-                    {
-                        text: 'My button',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
-                        }
-                    },
-                    {
-                        text: '导出CSV',
-                        extend: 'csv'
-                    },
-                    {
-                        text: '打印',
-                        extend: 'print'
-                    },
+                },
+                {
+                    text: '导出CSV',
+                    extend: 'csv'
+                },
+                {
+                    text: '打印',
+                    extend: 'print'
+                },
 //                'csv',
 //                'print'
 //                { extend: "create", editor: editor, text:'新建'},
 //                { extend: "edit",   editor: editor, text:'修改' },
 //                { extend: "remove", editor: editor, text:'删除' }
-                ],
-                select: true,
-                stateSave: true
-            });
+            ],
+            select: true
 
-            //添加序号
-            t.on( 'order.dt search.dt', function () {
-                t.api(true).column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                } );
-            } ).api(true).draw();
         });
-
-
     });
 </script>
 
