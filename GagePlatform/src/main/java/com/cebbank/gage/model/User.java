@@ -88,6 +88,19 @@ public class User implements Serializable {
         this.note = note;
     }
 
+    public User(int id, String name, RoleEnum role, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
+        this.id = id;
+        this.name = name;
+        this.role = role;
+        this.password = password;
+        this.telephone = telephone;
+        this.registerTime = registerTime;
+        this.status = status;
+        this.lastLoginTime = lastLoginTime;
+        this.lastChangeTime = lastChangeTime;
+        this.note = note;
+    }
+
     //Getters and Setters
     public int getId() {
         return id;

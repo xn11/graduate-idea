@@ -45,6 +45,12 @@ public class UserServiceImpl implements UserService {
         userDao.delete(new User(id));
     }
 
+    public void delAll(int[] ids) {
+        for (int i : ids) {
+            delete(i);
+        }
+    }
+
     public GeneralResult<User> getByIdAndPassword(String id, String password) {
         String hql = "from User where name=:uid";
         if (GageUtils.isNumeric(id)) {

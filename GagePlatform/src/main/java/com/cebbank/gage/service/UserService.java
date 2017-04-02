@@ -20,6 +20,8 @@ public interface UserService {
 
     public void delete(int id);
 
+    public void delAll(int[] ids);
+
     //login
     public GeneralResult<User> getByIdAndPassword(String id, String password);
 

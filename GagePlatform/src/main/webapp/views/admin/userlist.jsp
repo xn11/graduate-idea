@@ -110,9 +110,15 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label for="uid" class="col-sm-3 control-label">ID</label>
+                        <label for="uid" class="col-sm-3 control-label">工号</label>
                         <div class="col-sm-6">
-                            <input type="text" class="form-control" id="uid" placeholder="ID">
+                            <input type="text" class="form-control" id="uid" placeholder="工号">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control" id="password" placeholder="密码" value=8888>
                         </div>
                     </div>
                     <div class="form-group">
@@ -133,6 +139,12 @@
                         <label for="telephone" class="col-sm-3 control-label">电话</label>
                         <div class="col-sm-6">
                             <input type="tel" class="form-control" id="telephone" placeholder="电话">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="note" class="col-sm-3 control-label">备注</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" id="note"></textarea>
                         </div>
                     </div>
                 </form>
@@ -208,106 +220,164 @@
     //导航栏激活标识
     $('#user-management').addClass("open active");
     $('#user-management-list').addClass("active");
-
+    var t;
     $(document).ready(function() {
 //        $('#user-management').addClass("open active");
 //        $('#user-management-list').addClass("active");
 
-        $.get({
-            url:"/admin/getUserList"
-        }, function(data){
+//        $.get({
+//            url:"/admin/getUserList"
+//        }, function(data){
             //添加table插件
-            var t = $('#userlist-table').dataTable({
-                "language": {
-                    "url": "/assets/lang/datatable_CN.json"
+        t = $('#userlist-table').dataTable({
+            "language": {
+                "url": "/assets/lang/datatable_CN.json"
+            },
+//                data:data,
+            ajax:{
+                "url":"/admin/getUserListMap"
+            },
+            columns:[
+                {data: null},
+                {data: "id"},
+                {data: "name"},
+                {data: "role"},
+                {data: "telephone"},
+                {data: "registerTime"},
+                {data: "status"}
+            ],
+            order: [[1, 'asc']],
+            columnDefs:[
+                {
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
                 },
-                data:data,
-//            ajax:{
-//                "url":"http://localhost:8080/admin/getUserList"
-//            },
-                columns:[
-                    {data: null},
-                    {data: "id"},
-                    {data: "name"},
-                    {data: "role"},
-                    {data: "telephone"},
-                    {data: "registerTime"},
-                    {data: "status"}
-                ],
-                order: [[1, 'asc']],
-                columnDefs:[
-                    {
-                        "searchable": false,
-                        "orderable": false,
-                        "targets": 0
-                    },
-                    {
-                        "targets": 6,
-                        "render": function(data, type, row){
-                            switch (data){
-                                case 0: return "未登录";
-                                case 1: return "已登录";
-                                case -1: return "无效";
-                                default: return "error";
+                {
+                    "targets": 6,
+                    "render": function(data, type, row){
+                        switch (data){
+                            case 0: return "未登录";
+                            case 1: return "已登录";
+                            case -1: return "无效";
+                            default: return "error";
+                        }
+                    }
+                }
+
+            ],
+            dom: "<'row'<'col-xs-7'B><'col-xs-5'f>r>"+"t" +
+            "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+//                dom: 'Bfrtip',
+            buttons: [
+                {
+                    text: '<button class="btn btn-success btn-trans" data-toggle="modal" data-target="#formModal" id="addBtn">新建</button>',
+                },
+                {
+                    text: '<button class="btn btn-info btn-trans btn-disabled" data-toggle="modal" data-target="#formModal" disabled="disabled" id="editBtn">编辑</button>',
+                    action: function ( e, dt, node, config ) {
+                        alert( 'Button activated' );
+                    }
+                },
+                {
+                    text: '<button class="btn btn-danger btn-trans btn-disabled" disabled="disabled" id="delBtn">删除</button>',
+                    type: "danger",
+                    action: function () {
+                        var rows = this.rows('.selected').data();
+                        var n = rows.count();
+                        if (n > 0) {
+                            var flag = confirm("确定删除选中的" + n + "条记录么？");
+                            if (flag) {
+                                del(rows);
                             }
                         }
                     }
+                },
+                {
+                    text: '导出',
+                    extend: 'csv',
+                    className:"btn btn-primary btn-trans"
+                },
+                {
+                    text: '打印',
+                    extend: 'print',
+                    className:"btn btn-primary btn-trans"
+                }
+            ],
+            select: true,
+            stateSave: true
+        });
 
-                ],
-                dom: "<'row'<'col-xs-7'B><'col-xs-5'f>r>"+"t" +
-                "<'row'<'col-xs-6'i><'col-xs-6'p>>",
-//                dom: 'Bfrtip',
-                buttons: [
-                    {
-//                    <button class="btn btn-primary btn-trans" data-toggle="modal" data-target="#formModal">新建</button>
-                        text: '<button class="btn btn-success btn-trans" data-toggle="modal" data-target="#formModal">新建</button>',
-//                        className:"btn btn-primary btn-trans",
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
-                        }
-                    },
-                    {
-                        text: '<button class="btn btn-info btn-trans" data-toggle="modal" data-target="#formModal">编辑</button>',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
-                        }
-                    },
-                    {
-                        text: '<button class="btn btn-danger btn-trans" data-toggle="modal" data-target="#formModal">删除</button>',
-                        action: function ( e, dt, node, config ) {
-                            alert( 'Button activated' );
-                        }
-                    },
-                    {
-                        text: '导出',
-                        extend: 'csv',
-                        className:"btn btn-primary btn-trans"
-                    },
-                    {
-                        text: '打印',
-                        extend: 'print',
-                        className:"btn btn-primary btn-trans"
-                    }
-//                'csv',
-//                'print'
-//                { extend: "create", editor: editor, text:'新建'},
-//                { extend: "edit",   editor: editor, text:'修改' },
-//                { extend: "remove", editor: editor, text:'删除' }
-                ],
-                select: true,
-                stateSave: true
-            });
+        //添加序号
+        t.on( 'order.dt search.dt', function () {
+            t.api(true).column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).api(true).draw();
 
-            //添加序号
-            t.on( 'order.dt search.dt', function () {
-                t.api(true).column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
-                    cell.innerHTML = i+1;
-                } );
-            } ).api(true).draw();
+        t.on('click.dt dblclick.dt', 'tr',function(e) {
+//            $(this).toggleClass('selected');
+            if (!$(this).is('.selected')) {
+                activeButtons(["delBtn", "editBtn"]);
+            }else if ($("tr.selected").length == 1) {
+                disButtons(["delBtn", "editBtn"]);
+            }
+        });
+//        });
+        //双击事件
+        t.on('dblclick.dt',"tr", function(e) {
+//            var data = table.$('input, select').serialize();
+//            vat cnt = table.rows( { selected: true } ).count();
+//            alert("The following data would have been submitted to the server: \n\n" + data.substr(0, 120) + '...');
+            var name = table.row('.selected').data().name;
+            alert(name);
         });
 
 
     });
+
+    //按钮失效
+    function disButtons(btnIds){
+        for (var i = 0; i < btnIds.length; i++) {
+            var btn = $("#" + btnIds[i]);
+            btn.attr("disabled", true);
+            btn.addClass("btn-disabled");
+        }
+    }
+    //激活按钮
+    function activeButtons(btnIds){
+        for (var i = 0; i < btnIds.length; i++) {
+            var btn = $("#" + btnIds[i]);
+            btn.attr("disabled", false);
+            btn.removeClass("btn-disabled");
+        }
+    }
+
+    function del(rows) {
+        var data = [];
+        for (var i = 0; i < rows.length; i++) {
+            data.push(rows[i].id);
+        }
+        $.ajax({
+            url: "delUsers",
+            method : "post",
+            data: {
+                data: data
+//                data: JSON.stringify(data)
+            },
+            async:false,//异步加载
+//            traditional: true,///阻止深度序列化
+            success: function (result) {
+                alert("删除成功!");
+                t.api().ajax.reload();  //刷新数据
+                disButtons(["delBtn", "editBtn"]);
+//                showSuccess("data");
+            },
+            error:function(error) {
+                console.log("error: " + error);
+            }
+        });
+    }
 </script>
 
 </body>

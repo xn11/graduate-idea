@@ -15,15 +15,21 @@ a.dt-button {
 }
 
 a.dt-button.btn-primary.btn-trans {
-    color: #556b8d;
+    color: #b06dc5;
     background-color: transparent;
-    border: solid thin #556b8d;
+    border: solid thin #b06dc5;
 }
 
 a.dt-button.btn-primary.btn-trans:hover,
 a.dt-button.btn-primary.btn-trans:active,
 a.dt-button.btn-primary.btn-trans:focus {
     color: #fff;
-    background-color: #556b8d;
-    border: solid thin #556b8d;
+    background-color: #b06dc5;
+    border: solid thin #b06dc5;
+}
+
+button.btn-trans.btn-disabled {
+    color: #909aa0;
+    background-color: transparent;
+    border: solid thin #909aa0;
 }

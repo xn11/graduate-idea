@@ -10,8 +10,9 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by xn on 2017/3/28.
@@ -23,7 +24,7 @@ public class AdminController {
     private UserService userService;
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public ModelAndView homeView(@ModelAttribute("user") User user , HttpServletRequest request) throws IOException {
+    public ModelAndView homeView(@ModelAttribute("user") User user, HttpServletRequest request) {
         request.getSession().setAttribute("user", user);
         return new ModelAndView("admin/home", "user", user);
     }
@@ -39,15 +40,40 @@ public class AdminController {
     }*/
 
     @RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
-    public String userlistView(HttpServletRequest request) throws IOException {
+    public String userlistView() {
         return "/admin/userlist";
     }
 
-    @RequestMapping(value = {"/getUserList"}, method = RequestMethod.GET)
+//    @RequestMapping(value = {"/getUserList"}, method = RequestMethod.GET)
+//    @ResponseBody
+//    public List<User> getUserList(HttpServletRequest request) throws IOException {
+//        GeneralResult<List<User>> result = userService.getAll();
+//        return result.getData();
+//    }
+
+    @RequestMapping(value = {"/getUserListMap"})
     @ResponseBody
-    public List<User> getUserList(HttpServletRequest request) throws IOException {
+    public Map<String, Object> getUserListMap() {
         GeneralResult<List<User>> result = userService.getAll();
-        return result.getData();
+        List<User> data = result.getData();
+        Map<String, Object> info = new HashMap<String, Object>();
+        info.put("data", data);
+        info.put("recordsTotal", data.size());
+        return info;
+    }
+
+//    @RequestMapping(value = {"/delUsers"}, method = RequestMethod.POST)
+//    @ResponseBody
+//    public void delUsers(@RequestBody List<User> users) throws IOException {
+//        System.out.println(users.size());
+////        userService.delAll(users);
+//    }
+
+    @RequestMapping(value = {"/delUsers"}, method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResult delUsers(@RequestParam(value = "data[]")  int[]  ids) {
+        userService.delAll(ids);
+        return new GeneralResult();
     }
 
     @RequestMapping(value = "/accountInfo", method = RequestMethod.GET)
