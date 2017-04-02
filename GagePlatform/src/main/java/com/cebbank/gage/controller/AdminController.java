@@ -5,13 +5,11 @@ import com.cebbank.gage.model.User;
 import com.cebbank.gage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
@@ -63,9 +61,15 @@ public class AdminController {
         return new ModelAndView("/admin/modifyPassword", "user", request.getSession().getAttribute("user"));
     }
 
+    @ResponseBody
     @RequestMapping(value = "/modifyPassword", method = RequestMethod.POST)
-    public void modifyPasswordPost(HttpServletRequest request) {
+    public GeneralResult<String> modifyPasswordPost(HttpServletRequest request, HttpServletResponse response) {
+        String newPwd = request.getParameter("newPwd");
+        User user = (User) request.getSession().getAttribute("user");
+        user.setPassword(newPwd);
 
+        userService.update(user);
+        return new GeneralResult();
     }
 
 }
