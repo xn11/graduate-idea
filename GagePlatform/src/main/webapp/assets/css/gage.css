@@ -13,3 +13,17 @@ table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:
 a.dt-button {
     margin-right: 5px;
 }
+
+a.dt-button.btn-primary.btn-trans {
+    color: #556b8d;
+    background-color: transparent;
+    border: solid thin #556b8d;
+}
+
+a.dt-button.btn-primary.btn-trans:hover,
+a.dt-button.btn-primary.btn-trans:active,
+a.dt-button.btn-primary.btn-trans:focus {
+    color: #fff;
+    background-color: #556b8d;
+    border: solid thin #556b8d;
+}

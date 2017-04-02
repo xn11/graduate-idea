@@ -110,13 +110,13 @@
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
-                        <label for="uid" class="col-sm-4 control-label">ID</label>
+                        <label for="uid" class="col-sm-3 control-label">ID</label>
                         <div class="col-sm-6">
                             <input type="text" class="form-control" id="uid" placeholder="ID">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="role" class="col-sm-4 control-label">角色</label>
+                        <label for="role" class="col-sm-3 control-label">角色</label>
                         <div class="col-sm-6">
                             <select class="form-control" id="role">
                                 <option value=0>系统管理员</option>
@@ -130,7 +130,7 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="telephone" class="col-sm-4 control-label">电话</label>
+                        <label for="telephone" class="col-sm-3 control-label">电话</label>
                         <div class="col-sm-6">
                             <input type="tel" class="form-control" id="telephone" placeholder="电话">
                         </div>
@@ -138,7 +138,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary">保存</button>
+                <button type="submit" class="btn btn-primary" id="">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -204,10 +204,14 @@
 <script src="/assets/plugins/dataTables/extensions/Buttons/js/buttons.print.js"></script>
 
 <script>
+
+    //导航栏激活标识
+    $('#user-management').addClass("open active");
+    $('#user-management-list').addClass("active");
+
     $(document).ready(function() {
-        //导航栏激活标识
-        $('#user-management').addClass("open active");
-        $('#user-management-list').addClass("active");
+//        $('#user-management').addClass("open active");
+//        $('#user-management-list').addClass("active");
 
         $.get({
             url:"/admin/getUserList"
@@ -256,14 +260,14 @@
                 buttons: [
                     {
 //                    <button class="btn btn-primary btn-trans" data-toggle="modal" data-target="#formModal">新建</button>
-                        text: '<button class="btn btn-primary btn-trans" data-toggle="modal" data-target="#formModal">新建</button>',
+                        text: '<button class="btn btn-success btn-trans" data-toggle="modal" data-target="#formModal">新建</button>',
 //                        className:"btn btn-primary btn-trans",
                         action: function ( e, dt, node, config ) {
                             alert( 'Button activated' );
                         }
                     },
                     {
-                        text: '<button class="btn btn-primary btn-trans" data-toggle="modal" data-target="#formModal">编辑</button>',
+                        text: '<button class="btn btn-info btn-trans" data-toggle="modal" data-target="#formModal">编辑</button>',
                         action: function ( e, dt, node, config ) {
                             alert( 'Button activated' );
                         }
@@ -275,14 +279,14 @@
                         }
                     },
                     {
-                        text: '导出CSV',
+                        text: '导出',
                         extend: 'csv',
-                        className:"btn btn-s uccessbtn-trans"
+                        className:"btn btn-primary btn-trans"
                     },
                     {
                         text: '打印',
                         extend: 'print',
-                        className:"btn btn-success btn-trans"
+                        className:"btn btn-primary btn-trans"
                     }
 //                'csv',
 //                'print'
