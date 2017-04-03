@@ -23,7 +23,11 @@ public class AdminServiceImpl implements AdminService {
 
     //config
     public void saveConfig(Config config) {
-        configDao.save(config);
+        try {
+            configDao.save(config);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Config> getAllConfig() {
@@ -33,8 +37,12 @@ public class AdminServiceImpl implements AdminService {
 
     //org
     public void saveList(List<Organization> list) {
-        for (Organization org: list) {
-            organizationDao.save(org);
+        try {
+            for (Organization org : list) {
+                organizationDao.save(org);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -47,10 +55,18 @@ public class AdminServiceImpl implements AdminService {
     }
 
     public void update(Organization organization) {
-        organizationDao.update(organization);
+        try {
+            organizationDao.update(organization);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        organizationDao.delete(new Organization(id));
+        try {
+            organizationDao.delete(new Organization(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

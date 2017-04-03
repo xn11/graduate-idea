@@ -23,32 +23,55 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    public void saveUsers(List<User> us) {
+    /*public void saveUsers(List<User> us) {
         for (User u : us) {
             userDao.save(u);
         }
-    }
+    }*/
 
-    public List<User> getAllUsernames() {
+    /*public List<User> getAllUsernames() {
         return userDao.getAll();
-    }
+    }*/
 
-    public User getById(int id) {
-        return userDao.getById(id);
-    }
-
-    public void update(User user) {
-        userDao.update(user);
-    }
-
-    public void delete(int id) {
-        userDao.delete(new User(id));
-    }
-
-    public void delAll(int[] ids) {
-        for (int i : ids) {
-            delete(i);
+    public GeneralResult<User> getById(int id) {
+        User user = userDao.getById(id);
+        GeneralResult<User> result = new GeneralResult<User>();
+        if (null != user) {
+            result.setData(user);
+        } else {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
         }
+        return result;
+    }
+
+    public GeneralResult update(User user) {
+        try {
+            userDao.update(user);
+        } catch (Exception e) {
+            return new GeneralResult(ResultEnum.E_DATABASE_UPDATE);
+        }
+        return new GeneralResult();
+    }
+
+    public GeneralResult delete(int id) {
+        try {
+            userDao.delete(new User(id));
+        } catch (Exception e) {
+            return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
+        }
+        return new GeneralResult();
+    }
+
+    public GeneralResult delAll(int[] ids) {
+        try {
+            for (int i = 0; i < ids.length; i++) {
+                userDao.delete(new User(ids[i]));
+            }
+        } catch (Exception e) {
+            return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
+        }
+        return new GeneralResult();
+
     }
 
     public GeneralResult<User> getByIdAndPassword(String id, String password) {
@@ -92,6 +115,17 @@ public class UserServiceImpl implements UserService {
             result.setResultCode(ResultEnum.E_NOT_EXIST);
         } else {
             result.setData(userList);
+        }
+        return result;
+    }
+
+    public GeneralResult<Integer> save(User user) {
+        GeneralResult<Integer> result = new GeneralResult<Integer>();
+        try {
+            int id = userDao.save(user);
+            result.setData(id);
+        } catch (Exception e) {
+            result.setResultCode(ResultEnum.E_DATABASE_INSERT);
         }
         return result;
     }

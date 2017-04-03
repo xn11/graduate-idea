@@ -19,7 +19,11 @@ public class WarehouseListServiceImpl implements WarehouseListService {
 
 
     public void save(WarehouseList obj) {
-        dao.save(obj);
+        try {
+            dao.save(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<WarehouseList> getAll() {
@@ -31,10 +35,18 @@ public class WarehouseListServiceImpl implements WarehouseListService {
     }
 
     public void update(WarehouseList obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new WarehouseList(id));
+        try {
+            dao.delete(new WarehouseList(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

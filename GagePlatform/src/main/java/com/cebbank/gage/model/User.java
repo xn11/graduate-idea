@@ -75,16 +75,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String name, RoleEnum role, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
-        this.id = 0;
+    public User(String name, int roleId, String password, String telephone, String note) {
         this.name = name;
-        this.role = role;
+        this.role = RoleEnum.values()[roleId];
         this.password = password;
         this.telephone = telephone;
-        this.registerTime = registerTime;
-        this.status = status;
-        this.lastLoginTime = lastLoginTime;
-        this.lastChangeTime = lastChangeTime;
         this.note = note;
     }
 

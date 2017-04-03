@@ -10,22 +10,26 @@ import java.util.List;
  * Created by xn on 2017/3/6.
  */
 public interface UserService {
-    public void saveUsers(List<User> us);
+//    public void saveUsers(List<User> us);
 
-    public List<User> getAllUsernames();
+//    public List<User> getAllUsernames();
 
-    public User getById(int id);
 
-    public void update(User user);
+    public GeneralResult<Integer> save(User user);
 
-    public void delete(int id);
+    public GeneralResult<User> getById(int id);
 
-    public void delAll(int[] ids);
+    public GeneralResult update(User user);
+
+    public GeneralResult delete(int id);
+
+    public GeneralResult delAll(int[] ids);
 
     //login
     public GeneralResult<User> getByIdAndPassword(String id, String password);
 
     //userlist
     public GeneralResult<List<User>> getAll();
+
     public GeneralResult<List<User>> getAll(RoleEnum role);
 }

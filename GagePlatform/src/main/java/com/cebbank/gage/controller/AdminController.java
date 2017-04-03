@@ -1,6 +1,7 @@
 package com.cebbank.gage.controller;
 
 import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.RoleEnum;
 import com.cebbank.gage.model.User;
 import com.cebbank.gage.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,9 +72,24 @@ public class AdminController {
 
     @RequestMapping(value = {"/delUsers"}, method = RequestMethod.POST)
     @ResponseBody
-    public GeneralResult delUsers(@RequestParam(value = "data[]")  int[]  ids) {
-        userService.delAll(ids);
-        return new GeneralResult();
+    public GeneralResult delUsers(@RequestParam(value = "data[]") int[] ids) {
+        return userService.delAll(ids);
+    }
+
+    @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResult addUser(HttpServletRequest request) {
+        int roleId = Integer.parseInt(request.getParameter("role"));
+        String uname = "s";
+        if (roleId == 3) {
+            uname = "r";
+        }
+        uname += request.getParameter("uid");
+        String password = request.getParameter("password");
+        String telephone = request.getParameter("telephone");
+        String note = request.getParameter("note");
+        User user = new User(uname, roleId, password, telephone, note);
+        return userService.save(user);
     }
 
     @RequestMapping(value = "/accountInfo", method = RequestMethod.GET)

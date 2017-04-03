@@ -129,7 +129,7 @@
                                 <option value=1 selected = "selected">客户经理</option>
                                 <option value=2>公司部主任</option>
                                 <option value=3>监管机构</option>
-                                <option value=4>监管员</option>
+                                <%--<option value=4>监管员</option>--%>
                                 <option value=5>授信执行人</option>
                                 <option value=6>授信执行主任</option>
                             </select>
@@ -150,7 +150,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary" id="">保存</button>
+                <button type="button" class="btn btn-primary" id="saveUser" onclick="add();">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -353,6 +353,35 @@
         }
     }
 
+    function clear() {
+        $(".form-control").val("");
+    }
+
+    function add() {
+        var addJson = {
+            "uid": $("#uid").val(),
+            "password": $("#password").val(),
+            "role": $("#role").val(),
+            "telephone": $("#telephone").val(),
+            "note": $("#note").val()
+        };
+        $.ajax({
+            url: "addUser",
+            method : "post",
+            data: addJson,
+            async:false,//异步加载
+            success: function (result) {
+                alert("添加成功!");
+                $("#formModal").modal("hide");
+                t.api().ajax.reload();  //刷新数据
+            },
+            error:function(error) {
+                console.log("error: " + error);
+            }
+        })
+
+    }
+
     function del(rows) {
         var data = [];
         for (var i = 0; i < rows.length; i++) {
@@ -368,10 +397,14 @@
             async:false,//异步加载
 //            traditional: true,///阻止深度序列化
             success: function (result) {
-                alert("删除成功!");
-                t.api().ajax.reload();  //刷新数据
-                disButtons(["delBtn", "editBtn"]);
+                if (result.resultCode == "NORMAL") {
+                    alert("删除成功!");
+                    t.api().ajax.reload();  //刷新数据
+                    disButtons(["delBtn", "editBtn"]);
 //                showSuccess("data");
+                }else {
+                    alert("删除失败!");
+                }
             },
             error:function(error) {
                 console.log("error: " + error);

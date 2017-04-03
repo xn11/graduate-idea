@@ -19,8 +19,12 @@ public class WarningServiceImpl implements WarningService {
 
 
     public void saveList(List<Warning> list) {
-        for (Warning obj: list) {
-            dao.save(obj);
+        try {
+            for (Warning obj : list) {
+                dao.save(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -33,10 +37,18 @@ public class WarningServiceImpl implements WarningService {
     }
 
     public void update(Warning obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new Warning(id));
+        try {
+            dao.delete(new Warning(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
