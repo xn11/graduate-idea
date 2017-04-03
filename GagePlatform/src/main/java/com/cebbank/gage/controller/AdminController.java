@@ -76,6 +76,24 @@ public class AdminController {
         return userService.delAll(ids);
     }
 
+    @RequestMapping(value = {"/updateUser"}, method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResult updateUser(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        GeneralResult<User> result = userService.getById(id);
+        if (result.isNormal()){
+            User user = result.getData();
+            user.setPassword(request.getParameter("password"));
+            user.setTelephone(request.getParameter("telephone"));
+            user.setNote(request.getParameter("note"));
+            user.setStatus(Integer.parseInt(request.getParameter("status")));
+            user.setRole(RoleEnum.values()[Integer.parseInt(request.getParameter("role"))]);
+            return userService.update(user);
+        }else{
+            return result;
+        }
+    }
+
     @RequestMapping(value = {"/addUser"}, method = RequestMethod.POST)
     @ResponseBody
     public GeneralResult addUser(HttpServletRequest request) {

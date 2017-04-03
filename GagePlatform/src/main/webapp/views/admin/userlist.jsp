@@ -99,31 +99,31 @@
 <!--main content end-->
 </section>
 
-<!-- Form Modal -->
-<div class="modal fade" id="formModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<!-- Add user Form Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">新建用户</h4>
+                <h4 class="modal-title" id="addModalLabel">新建用户</h4>
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <label for="uid" class="col-sm-3 control-label">工号</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" id="uid" placeholder="工号">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-sm-3 control-label">密码</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <input type="text" class="form-control" id="password" placeholder="密码" value=8888>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="role" class="col-sm-3 control-label">角色</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <select class="form-control" id="role">
                                 <option value=0>系统管理员</option>
                                 <option value=1 selected = "selected">客户经理</option>
@@ -137,13 +137,13 @@
                     </div>
                     <div class="form-group">
                         <label for="telephone" class="col-sm-3 control-label">电话</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <input type="tel" class="form-control" id="telephone" placeholder="电话">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="note" class="col-sm-3 control-label">备注</label>
-                        <div class="col-sm-6">
+                        <div class="col-sm-7">
                             <textarea class="form-control" id="note"></textarea>
                         </div>
                     </div>
@@ -151,6 +151,76 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="saveUser" onclick="add();">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Form Modal -->
+
+<!-- edit user Form Modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="editModalLabel">编辑信息</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="e-uname" class="col-sm-3 control-label">用户名</label>
+                        <div class="col-sm-7">
+                            <input type="hidden" id="e-id">
+                            <input type="text" class="form-control" id="e-uname" placeholder="用户名" readonly="readonly">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="e-password" class="col-sm-3 control-label">密码</label>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control" id="e-password" placeholder="密码">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="e-role" class="col-sm-3 control-label">角色</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="e-role">
+                                <option value=0>系统管理员</option>
+                                <option value=1>客户经理</option>
+                                <option value=2>公司部主任</option>
+                                <option value=3>监管机构</option>
+                                <%--<option value=4>监管员</option>--%>
+                                <option value=5>授信执行人</option>
+                                <option value=6>授信执行主任</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="e-telephone" class="col-sm-3 control-label">电话</label>
+                        <div class="col-sm-7">
+                            <input type="tel" class="form-control" id="e-telephone" placeholder="电话">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="e-status" class="col-sm-3 control-label">用户状态</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="e-status">
+                                <option value=0 selected = "selected">未登录</option>
+                                <option value=1>已登录</option>
+                                <option value=-1>无效</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="e-note" class="col-sm-3 control-label">备注</label>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" id="e-note"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="e-saveUser" onclick="edit();">保存</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -271,12 +341,24 @@
 //                dom: 'Bfrtip',
             buttons: [
                 {
-                    text: '<button class="btn btn-success btn-trans" data-toggle="modal" data-target="#formModal" id="addBtn">新建</button>',
+                    text: '<button class="btn btn-success btn-trans" data-toggle="modal" data-target="#addModal" id="addBtn">新建</button>',
                 },
                 {
-                    text: '<button class="btn btn-info btn-trans btn-disabled" data-toggle="modal" data-target="#formModal" disabled="disabled" id="editBtn">编辑</button>',
-                    action: function ( e, dt, node, config ) {
-                        alert( 'Button activated' );
+                    text: '<button class="btn btn-info btn-trans btn-disabled" data-toggle="modal" data-target="#editModal" disabled="disabled" id="editBtn">编辑</button>',
+                    action: function () {
+                        var row = this.row(".selected").data();
+                        if()
+                        $("#e-id").val(row.id);
+                        $("#e-uname").val(row.name);
+                        $("#e-password").val(row.password);
+                        $("#e-telephone").val(row.telephone);
+                        $("#e-note").val(row.note);
+                        $("#e-status").val(row.status);
+
+//                        $("#e-status").find("option[text="+row.status+"]").attr("selected",true);
+//                        $("#e-role").find("option[text="+row.role+"]").attr("selected",true);
+                        var selectVal = $("select#e-role option:contains("+row.role+")").val();
+                        $("#e-role").val(selectVal);
                     }
                 },
                 {
@@ -329,8 +411,10 @@
 //            var data = table.$('input, select').serialize();
 //            vat cnt = table.rows( { selected: true } ).count();
 //            alert("The following data would have been submitted to the server: \n\n" + data.substr(0, 120) + '...');
-            var name = table.row('.selected').data().name;
-            alert(name);
+//            $("#addModal").modal("show");
+            activeButtons(["editBtn"]);
+            $("#editBtn").click();
+
         });
 
 
@@ -357,6 +441,36 @@
         $(".form-control").val("");
     }
 
+    function edit() {
+        var editJson = {
+            "id": $("#e-id").val(),
+            "password": $("#e-password").val(),
+            "role": $("#e-role").val(),
+            "telephone": $("#e-telephone").val(),
+            "note": $("#e-note").val(),
+            "status": $("#e-status").val()
+        };
+        $.ajax({
+            url: "updateUser",
+            method : "post",
+            data: editJson,
+            async:false,//异步加载
+            success: function (result) {
+                if (result.resultCode == "NORMAL") {
+
+                    alert("更新成功!");
+                    $("#editModal").modal("hide");
+                    t.api().ajax.reload();  //刷新数据
+                }else{
+                    alert("更新失败！");
+                }
+            },
+            error:function(error) {
+                console.log("error: " + error);
+            }
+        });
+    }
+
     function add() {
         var addJson = {
             "uid": $("#uid").val(),
@@ -371,14 +485,19 @@
             data: addJson,
             async:false,//异步加载
             success: function (result) {
-                alert("添加成功!");
-                $("#formModal").modal("hide");
-                t.api().ajax.reload();  //刷新数据
+                if (result.resultCode == "NORMAL") {
+                    alert("添加成功!");
+                    $("#addModal").modal("hide");
+                    t.api().ajax.reload();  //刷新数据
+                    disButtons(["delBtn", "editBtn"]);
+                }else{
+                    alert("添加失败!");
+                }
             },
             error:function(error) {
                 console.log("error: " + error);
             }
-        })
+        });
 
     }
 
