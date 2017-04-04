@@ -11,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,13 +45,6 @@ public class AdminController {
     public String userlistView() {
         return "/admin/userlist";
     }
-
-//    @RequestMapping(value = {"/getUserList"}, method = RequestMethod.GET)
-//    @ResponseBody
-//    public List<User> getUserList(HttpServletRequest request) throws IOException {
-//        GeneralResult<List<User>> result = userService.getAll();
-//        return result.getData();
-//    }
 
     @RequestMapping(value = {"/getUserListMap"})
     @ResponseBody
@@ -99,7 +93,7 @@ public class AdminController {
     public GeneralResult addUser(HttpServletRequest request) {
         int roleId = Integer.parseInt(request.getParameter("role"));
         String uname = "s";
-        if (roleId == 3) {
+        if (roleId == RoleEnum.REGULATORS.getId()) {
             uname = "r";
         }
         uname += request.getParameter("uid");
@@ -111,19 +105,33 @@ public class AdminController {
     }
 
     @RequestMapping(value = "/accountInfo", method = RequestMethod.GET)
-    public ModelAndView accountInfoView(HttpServletRequest request) {
+    public String accountInfoView() {
+        return "/admin/accountInfo";
+    }
 
-        return new ModelAndView("/admin/accountInfo", "user", request.getSession().getAttribute("user"));
+    @RequestMapping(value = "/accountInfo", method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResult modifyInfo(HttpServletRequest request) {
+        String telephone = request.getParameter("telephone");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        user.setTelephone(telephone);
+        GeneralResult result = userService.update(user);
+        if (result.isNormal()){
+            session.setAttribute("user", user);
+        }
+
+        return result;
     }
 
     @RequestMapping(value = "/modifyPassword", method = RequestMethod.GET)
-    public ModelAndView modifyPassword(HttpServletRequest request) {
-        return new ModelAndView("/admin/modifyPassword", "user", request.getSession().getAttribute("user"));
+    public String modifyPassword() {
+        return "/admin/modifyPassword";
     }
 
     @ResponseBody
     @RequestMapping(value = "/modifyPassword", method = RequestMethod.POST)
-    public GeneralResult<String> modifyPasswordPost(HttpServletRequest request, HttpServletResponse response) {
+    public GeneralResult modifyPasswordPost(HttpServletRequest request, HttpServletResponse response) {
         String newPwd = request.getParameter("newPwd");
         User user = (User) request.getSession().getAttribute("user");
         user.setPassword(newPwd);

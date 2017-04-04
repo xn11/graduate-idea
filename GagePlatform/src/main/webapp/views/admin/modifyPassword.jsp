@@ -13,14 +13,14 @@
 <!--main content start-->
 <section class="main-content-wrapper">
     <div class="pageheader">
-        <h1>用户管理</h1>
+        <h1>修改密码</h1>
         <div class="breadcrumb-wrapper hidden-xs">
             <span class="label">你的位置:</span>
             <ol class="breadcrumb">
                 <li><a href="userlist">主页</a>
                 </li>
                 <%--<li>Pages</li>--%>
-                <li class="active">账号设置</li>
+                <li class="active">个人设置</li>
                 <li class="active">修改密码</li>
             </ol>
         </div>
@@ -40,7 +40,7 @@
                     </div>
 
                     <div class="panel-body">
-                        <form id="form">
+                        <form class="form-horizontal form-border">
                             <div class="form-group">
                                 <label for="oldPassword">原密码</label>
                                 <input id="oldPassword" type="password" class="form-control" required="required"/>
@@ -70,6 +70,10 @@
 <jsp:include page="footer.jsp" />
 
 <script>
+    //导航栏激活标识
+    $('#settings').addClass("open active");
+    $('#settings-password').addClass("active");
+
     $("#submit").click(function() {
         modifyPwd();
     });

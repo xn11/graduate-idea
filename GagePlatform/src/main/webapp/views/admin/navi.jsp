@@ -68,7 +68,7 @@
                     <li>
                         <a href="javascript:void(0);">
                                 <span class="icon"><i class="fa fa-user"></i>
-                                </span>账户信息</a>
+                                </span>账号信息</a>
                     </li>
                     <%--<li>
                         <a href="javascript:void(0);">
@@ -203,11 +203,7 @@
                     <ul class="nav-sub">
                         <li id="user-management-list"><a href="userlist" title="user list">用户信息列表</a>
                         </li>
-                        <li><a href="#" title="add user">新建用户</a>
-                        </li>
                         <li><a href="#" title="batch add">批量导入</a>
-                        </li>
-                        <li><a href="#" title="batch delete">批量删除</a>
                         </li>
                     </ul>
                 </li>
@@ -222,14 +218,14 @@
                         </li>
                     </ul>
                 </li>
-                <li class="nav-dropdown">
+                <li id="settings" class="nav-dropdown">
                     <a href="#" title="settings">
-                        <i class="fa  fa-fw fa-edit"></i> 账户设置
+                        <i class="fa  fa-fw fa-edit"></i> 个人设置
                     </a>
                     <ul class="nav-sub">
-                        <li><a href="accountInfo" title="info">账户信息</a>
+                        <li  id="settings-info"><a href="accountInfo"title="info">账号信息</a>
                         </li>
-                        <li><a href="modifyPassword" title="password">修改密码</a>
+                        <li  id="settings-password"><a href="modifyPassword" title="password">修改密码</a>
                         </li>
                         <%--<li><a href="#" title="safety">账户安全</a>
                         </li>--%>

@@ -43,7 +43,7 @@ public class User implements Serializable {
     @Column(name = "last_login_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date lastLoginTime = null;
 
-    //上次更改密码时间
+    //上次信息变更时间
     @JsonSerialize(using = DateTimeJsonSerializer.class)
     @Column(name = "last_change_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date lastChangeTime = null;

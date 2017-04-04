@@ -20,14 +20,14 @@
 <!--main content start-->
 <section class="main-content-wrapper">
     <div class="pageheader">
-        <h1>用户管理</h1>
+        <h1>用户信息列表</h1>
         <div class="breadcrumb-wrapper hidden-xs">
             <span class="label">你的位置:</span>
             <ol class="breadcrumb">
-                <li><a href="userlist">主页</a>
+                <li><a href="home">主页</a>
                 </li>
-                <%--<li>Pages</li>--%>
                 <li class="active">用户管理</li>
+                <li class="active">用户信息列表</li>
             </ol>
         </div>
     </div>
@@ -292,13 +292,6 @@
     $('#user-management-list').addClass("active");
     var t;
     $(document).ready(function() {
-//        $('#user-management').addClass("open active");
-//        $('#user-management-list').addClass("active");
-
-//        $.get({
-//            url:"/admin/getUserList"
-//        }, function(data){
-            //添加table插件
         t = $('#userlist-table').dataTable({
             "language": {
                 "url": "/assets/lang/datatable_CN.json"
@@ -346,8 +339,11 @@
                 {
                     text: '<button class="btn btn-info btn-trans btn-disabled" data-toggle="modal" data-target="#editModal" disabled="disabled" id="editBtn">编辑</button>',
                     action: function () {
+                        if (this.row(".selected").count() <= 0){
+                            disButtons(["editBtn", "delBtn"]);
+                            return;
+                        }
                         var row = this.row(".selected").data();
-                        if()
                         $("#e-id").val(row.id);
                         $("#e-uname").val(row.name);
                         $("#e-password").val(row.password);
@@ -405,14 +401,14 @@
                 disButtons(["delBtn", "editBtn"]);
             }
         });
-//        });
+
         //双击事件
         t.on('dblclick.dt',"tr", function(e) {
 //            var data = table.$('input, select').serialize();
 //            vat cnt = table.rows( { selected: true } ).count();
 //            alert("The following data would have been submitted to the server: \n\n" + data.substr(0, 120) + '...');
 //            $("#addModal").modal("show");
-            activeButtons(["editBtn"]);
+            activeButtons(["delBtn", "editBtn"]);
             $("#editBtn").click();
 
         });
