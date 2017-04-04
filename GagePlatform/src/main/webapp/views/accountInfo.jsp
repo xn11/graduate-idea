@@ -33,14 +33,13 @@
                         </div>
                     </div>
 
-                    <form class="form-horizontal form-border">
                     <div class="panel-body">
+                        <form class="form-horizontal form-border">
                             <div class="form-group">
                                 <label for="name" class="control-label col-sm-3">用户名</label>
                                 <div class="col-sm-6">
                                     <input type="text" class="form-control" id="name" readonly="readonly" value="${user.name}">
                                 </div>
-
                             </div>
                             <div class="form-group">
                                 <label for="role" class="control-label col-sm-3">角色</label>
@@ -78,8 +77,8 @@
                                     <button type="submit" id="saveBtn" class="btn btn-primary btn-block">保 存</button>
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

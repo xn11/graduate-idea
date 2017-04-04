@@ -121,13 +121,13 @@
                     <div class="form-group">
                         <label for="uid" class="col-sm-3 control-label">工号</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="uid" placeholder="工号">
+                            <input type="text" class="form-control" id="uid" placeholder="工号" required="required">
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="col-sm-3 control-label">密码</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="password" placeholder="密码" value=8888>
+                            <input type="text" class="form-control" id="password" placeholder="密码" required="required" value=8888>
                         </div>
                     </div>
                     <div class="form-group">
@@ -135,7 +135,7 @@
                         <div class="col-sm-7">
                             <select class="form-control" id="role">
                                 <option value=0>系统管理员</option>
-                                <option value=1 selected = "selected">客户经理</option>
+                                <option value=1>客户经理</option>
                                 <option value=2>公司部主任</option>
                                 <option value=3>监管机构</option>
                                 <%--<option value=4>监管员</option>--%>

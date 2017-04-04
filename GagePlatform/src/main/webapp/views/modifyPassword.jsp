@@ -34,20 +34,29 @@
                     <div class="panel-body">
                         <form class="form-horizontal form-border">
                             <div class="form-group">
-                                <label for="oldPassword">原密码</label>
-                                <input id="oldPassword" type="password" class="form-control" required="required"/>
+                                <label for="oldPassword" class="control-label col-sm-3">原密码</label>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control" id="oldPassword" required="required" placeholder="原密码">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="newPassword">新密码</label>
-                                <input id="newPassword" type="password" class="form-control" required="required"/>
+                                <label for="newPassword" class="control-label col-sm-3">新密码</label>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control" id="newPassword" required="required" placeholder="新密码">
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="newPassword2">新密码确认</label>
-                                <input id="newPassword2" type="password" class="form-control required="required"">
+                                <label for="newPassword2" class="control-label col-sm-3">新密码确认</label>
+                                <div class="col-sm-6">
+                                    <input type="password" class="form-control" id="newPassword2" required="required" placeholder="新密码确认">
+                                </div>
                             </div>
-                            <button id="submit" class="btn btn-primary btn-block">
-                                确认修改
-                            </button>
+
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-6">
+                                    <button type="submit" id="submit" class="btn btn-primary btn-block">确认修改</button>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
