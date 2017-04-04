@@ -19,8 +19,12 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     public void saveList(List<Company> list) {
-        for (Company obj : list) {
-            dao.save(obj);
+        try {
+            for (Company obj : list) {
+                dao.save(obj);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -33,11 +37,19 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     public void update(Company obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new Company(id));
+        try {
+            dao.delete(new Company(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

@@ -21,8 +21,12 @@ public class StaffServiceImpl implements StaffService {
 
 
     public void saveList(List<Staff> list) {
-        for (Staff obj: list) {
-            dao.save(obj);
+        try {
+            for (Staff obj : list) {
+                dao.save(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -35,10 +39,18 @@ public class StaffServiceImpl implements StaffService {
     }
 
     public void update(Staff obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new Staff(id));
+        try {
+            dao.delete(new Staff(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

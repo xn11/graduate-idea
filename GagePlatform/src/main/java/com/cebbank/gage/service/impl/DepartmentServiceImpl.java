@@ -19,8 +19,12 @@ public class DepartmentServiceImpl implements DepartmentService {
 
 
     public void saveList(List<Department> list) {
-        for (Department obj: list) {
-            dao.save(obj);
+        try {
+            for (Department obj : list) {
+                dao.save(obj);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -33,10 +37,18 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     public void update(Department obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new Department(id));
+        try {
+            dao.delete(new Department(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

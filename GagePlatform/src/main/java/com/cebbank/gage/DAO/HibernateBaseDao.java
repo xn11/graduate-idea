@@ -1,9 +1,8 @@
 package com.cebbank.gage.dao;
 
-import com.cebbank.gage.util.Page;
 import com.cebbank.gage.util.Parameter;
+import org.hibernate.HibernateException;
 
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -12,26 +11,33 @@ import java.util.List;
 public interface HibernateBaseDao<T> {
 
     //增
-    public int save(T entity);
+    public int save(T entity) throws Exception;
 //    public void saveAll(final List<T> list);
 
     //改
-    public void update(T entity);
-    public void saveOrUpdate(T entity);
+    public void update(T entity) throws Exception;
+
+    public void saveOrUpdate(T entity) throws Exception;
 
     //删
-    public void delete(T entity);
-    public void deleteWithHql(String hql);
+    public void delete(T entity) throws Exception;
+
+    public void deleteWithHql(String hql) throws Exception;
 //    public void deleteAll(final Collection entities);
 
     //查
     public T getById(int id);
+
     public List<T> getAll();
+
     //createQuery（Query）
     public T findOne(String hql);
+
     public T findOne(String hql, Parameter parameter);
+
     //list查询
     public List<T> findList(String hql);
+
     public List<T> findList(String hql, Parameter parameter);
 
     //分页查询

@@ -23,7 +23,11 @@ public class ContractServiceImpl implements ContractService {
 
 
     public void save(Contract contract) {
-        dao.save(contract);
+        try {
+            dao.save(contract);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Contract> getAll() {
@@ -35,20 +39,36 @@ public class ContractServiceImpl implements ContractService {
     }
 
     public void update(Contract obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new Contract(id));
+        try {
+            dao.delete(new Contract(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //gages of contract
     public void save(ContractGage contractGage) {
-        contractGageDao.save(contractGage);
+        try {
+            contractGageDao.save(contractGage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(ContractGage contractGage) {
-        contractGageDao.update(contractGage);
+        try {
+            contractGageDao.update(contractGage);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

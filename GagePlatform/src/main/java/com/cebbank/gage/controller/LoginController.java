@@ -30,9 +30,13 @@ public class LoginController {
     private UserService userService;
 
     @RequestMapping(value = {"/", "/login"}, method = RequestMethod.GET)
-    public String loginView(HttpServletRequest request,
-                            HttpServletResponse response) throws IOException {
+    public String loginView() throws IOException {
         return "login";
+    }
+
+    @RequestMapping(value = {"/error", "*/error"})
+    public String errorView() throws IOException {
+        return "error";
     }
 
     @RequestMapping(value = {"/login"}, method = RequestMethod.POST)
@@ -62,12 +66,12 @@ public class LoginController {
         Cookie myCookie = new Cookie("uid", URLEncoder.encode(uid, "utf-8"));
         response.addCookie(myCookie);
 
+        //签退,转发给logout
         String action = request.getParameter("action");
         if (action.equals("logout")) {
-            user.setStatus(0);
-            userService.update(user);
-            view = "logout";
-            return new ModelAndView(new RedirectView(view));
+            session.setAttribute("user", user);
+            session.setAttribute("error", "    签退成功！");
+            return new ModelAndView("forward:/logout");
         } else if (user.getStatus() == 1) {
             return new ModelAndView(view, "error", "*  该用户已登录，请先签退！");
         }
@@ -87,15 +91,27 @@ public class LoginController {
         }
 
         redirectAttributes.addFlashAttribute("user", user);
+//        redirectAttributes.addAttribute("user", user);
         return new ModelAndView(new RedirectView(view));
-//        return new ModelAndView(view, "user", user);
     }
 
-    @RequestMapping(value = {"/logout"})
-    public String logout(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
+    @RequestMapping(value = {"/logout", "*/logout"})
+    public String logout(HttpServletRequest request, RedirectAttributes redirectAttributes)
             throws IOException {
-        request.getSession().invalidate();
-        redirectAttributes.addFlashAttribute("error", "    签退成功！");
+        HttpSession session = request.getSession();
+        String error = (String) session.getAttribute("error");
+        //user更新登录状态
+        User user = (User) session.getAttribute("user");
+        if (null != user) {
+            user.setStatus(0);
+            userService.update(user);
+        } else {
+            error = "*  签退失败，请重新签退！";
+        }
+
+        //添加提示信息
+        redirectAttributes.addFlashAttribute("error", error);
+        session.invalidate();
         return "redirect:/login";
     }
 }

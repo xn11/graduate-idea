@@ -1,7 +1,10 @@
 package com.cebbank.gage.model;
 
 import com.cebbank.gage.common.RoleEnum;
+import com.cebbank.gage.util.DateJsonSerializer;
+import com.cebbank.gage.util.DateTimeJsonSerializer;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,7 +14,7 @@ import java.util.Set;
 
 /**
  * Created by xn on 2017/3/6.
- *
+ * <p>
  * 系统用户类
  */
 @Entity
@@ -30,15 +33,18 @@ public class User implements Serializable {
     private String telephone;
 
     //注册时间
+    @JsonSerialize(using = DateJsonSerializer.class)
     @Column(name = "register_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date registerTime = null;
     private int status;
 
     //上次登录时间
+    @JsonSerialize(using = DateTimeJsonSerializer.class)
     @Column(name = "last_login_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date lastLoginTime = null;
 
-    //上次更改密码时间
+    //上次信息变更时间
+    @JsonSerialize(using = DateTimeJsonSerializer.class)
     @Column(name = "last_change_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date lastChangeTime = null;
 
@@ -69,8 +75,16 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public User(String name, RoleEnum role, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
-        this.id = 0;
+    public User(String name, int roleId, String password, String telephone, String note) {
+        this.name = name;
+        this.role = RoleEnum.values()[roleId];
+        this.password = password;
+        this.telephone = telephone;
+        this.note = note;
+    }
+
+    public User(int id, String name, RoleEnum role, String password, String telephone, Date registerTime, int status, Date lastLoginTime, Date lastChangeTime, String note) {
+        this.id = id;
         this.name = name;
         this.role = role;
         this.password = password;

@@ -1,12 +1,13 @@
 package com.cebbank.gage.common;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 /**
  * Created by xn on 2017/3/6.
  *
  * 用户角色Role(name, id)
  */
 public enum RoleEnum {
-
     ADMIN("系统管理员", 0),
     ACCOUNT_MANAGER("客户经理", 1),
     MARKETING_DIRECTOR("公司部主任", 2),
@@ -23,6 +24,7 @@ public enum RoleEnum {
         this.id = id;
     }
 
+    @JsonValue
     public String getName() {
         return name;
     }

@@ -27,7 +27,11 @@ public class RegulatorsServiceImpl implements RegulatorsService {
 
 
     public void save(Regulators regulators) {
-        dao.save(regulators);
+        try {
+            dao.save(regulators);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public List<Regulators> getAll() {
@@ -39,29 +43,53 @@ public class RegulatorsServiceImpl implements RegulatorsService {
     }
 
     public void update(Regulators obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new Regulators(id));
+        try {
+            dao.delete(new Regulators(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //gages of contract
     public void save(RegulatorsCompany regulatorsCompany) {
-        regulatorsCompanyDao.save(regulatorsCompany);
+        try {
+            regulatorsCompanyDao.save(regulatorsCompany);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(RegulatorsCompany regulatorsCompany) {
-        regulatorsCompanyDao.update(regulatorsCompany);
+        try {
+            regulatorsCompanyDao.update(regulatorsCompany);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     //regulate account
     public void save(RegulateAccount regulateAccount) {
-        regulateAccountDao.save(regulateAccount);
+        try {
+            regulateAccountDao.save(regulateAccount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void update(RegulateAccount regulateAccount) {
-        regulateAccountDao.update(regulateAccount);
+        try {
+            regulateAccountDao.update(regulateAccount);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
