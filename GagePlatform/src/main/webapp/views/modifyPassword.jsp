@@ -1,26 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<jsp:include page="../header.jsp" />
-</head>
-<body>
-
-<jsp:include page="navi.jsp" />
-<jsp:include page="../modifyPassword.jsp" />
 <!--main content start-->
-<%--<section class="main-content-wrapper">
+<section class="main-content-wrapper">
     <div class="pageheader">
         <h1>修改密码</h1>
         <div class="breadcrumb-wrapper hidden-xs">
             <span class="label">你的位置:</span>
             <ol class="breadcrumb">
-                <li><a href="userlist">主页</a>
+                <li><a href="home">主页</a>
                 </li>
-                &lt;%&ndash;<li>Pages</li>&ndash;%&gt;
+                <%--<li>Pages</li>--%>
                 <li class="active">个人设置</li>
                 <li class="active">修改密码</li>
             </ol>
@@ -63,24 +54,5 @@
             </div>
         </div>
     </section>
-</section>--%>
-<!--main content end-->
 </section>
-
-
-<jsp:include page="../footer.jsp" />
-
-<script>
-    //导航栏激活标识
-    $('#settings').addClass("open active");
-    $('#settings-password').addClass("active");
-
-    $(()=>{
-        modifyPassword();
-    });
-
-</script>
-
-</body>
-
-</html>
+<!--main content end-->

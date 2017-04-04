@@ -109,7 +109,7 @@ public class AdminController {
         return "/admin/accountInfo";
     }
 
-    @RequestMapping(value = "/accountInfo", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/accountInfo", method = RequestMethod.POST)
     @ResponseBody
     public GeneralResult modifyInfo(HttpServletRequest request) {
         String telephone = request.getParameter("telephone");
@@ -122,14 +122,14 @@ public class AdminController {
         }
 
         return result;
-    }
+    }*/
 
     @RequestMapping(value = "/modifyPassword", method = RequestMethod.GET)
     public String modifyPassword() {
         return "/admin/modifyPassword";
     }
 
-    @ResponseBody
+    /*@ResponseBody
     @RequestMapping(value = "/modifyPassword", method = RequestMethod.POST)
     public GeneralResult modifyPasswordPost(HttpServletRequest request, HttpServletResponse response) {
         String newPwd = request.getParameter("newPwd");
@@ -138,6 +138,6 @@ public class AdminController {
 
         userService.update(user);
         return new GeneralResult();
-    }
+    }*/
 
 }

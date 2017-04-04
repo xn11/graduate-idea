@@ -5,14 +5,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<jsp:include page="../header.jsp" />
-</head>
-<body>
-
-<jsp:include page="navi.jsp" />
-<jsp:include page="../accountInfo.jsp" />
 <!--main content start-->
-<%--<section class="main-content-wrapper">
+<section class="main-content-wrapper">
     <div class="pageheader">
         <h1>账号信息</h1>
         <div class="breadcrumb-wrapper hidden-xs">
@@ -90,24 +84,33 @@
             </div>
         </div>
     </section>
-</section>--%>
-<!--main content end-->
 </section>
-
-
-<jsp:include page="../footer.jsp" />
+<!--main content end-->
 
 <script>
     //导航栏激活标识
     $('#settings').addClass("open active");
     $('#settings-info').addClass("active");
 
-    $(()=>{
-        accountInfo();
-    });
+    $('#saveBtn').click(() => {
+        var telephone = $('#telephone').val();
+        $.ajax({
+            url:"/admin/accountInfo",
+            method:"post",
+            data:{
+                telephone: telephone
+            },
+            success(result){
+                if (result.resultCode == "NORMAL") {
+                    alert("保存成功！");
+                } else {
+                    alert(result.resultCode.name);
+                }
+            },
+            error(e){
+                alert(e);
+            }
+        });
+    })
 
 </script>
-
-</body>
-
-</html>

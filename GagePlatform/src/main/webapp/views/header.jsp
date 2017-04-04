@@ -8,9 +8,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" %>
 <%@ page trimDirectiveWhitespaces="true" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<%--<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>--%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
@@ -23,7 +20,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>光大押品管理--管理员</title>
+    <title>光大押品管理系统</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <!-- Favicon -->
@@ -37,11 +34,6 @@
     <link rel="stylesheet" href="/assets/plugins/switchery/switchery.min.css">
     <!-- CSS Animate -->
     <link rel="stylesheet" href="/assets/css/animate.css">
-    <!-- DataTables-->
-    <link rel="stylesheet" href="/assets/plugins/dataTables/css/dataTables.css">
-    <%--<link rel="stylesheet" href="/assets/plugins/dataTables/extensions/Buttons/css/buttons.dataTables.min.css">--%>
-    <link rel="stylesheet" href="/assets/plugins/dataTables/extensions/Select/css/select.dataTables.min.css">
-    <!--<link rel="stylesheet" href="plugins/dataTables/css/jquery.dataTables.min.css">-->
     <!-- Custom styles for this theme -->
     <link rel="stylesheet" href="/assets/css/main.css">
     <link rel="stylesheet" href="/assets/css/gage.css">
@@ -52,6 +44,6 @@
     <script src="/assets/js/vendor/html5shiv.js"></script>
     <script src="/assets/js/vendor/respond.min.js"></script>
     <![endif]-->
-</head>
+
 
 

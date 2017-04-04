@@ -22,6 +22,7 @@
 <script src="/assets/plugins/pace/pace.min.js"></script>
 <script src="/assets/plugins/fullscreen/jquery.fullscreen-min.js"></script>
 <script src="/assets/js/src/app.js"></script>
+<script src="/assets/js/src/gage.js"></script>
 
 
 

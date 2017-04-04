@@ -129,12 +129,8 @@
     </div>
 
 </section>
-<!--Global JS-->
-<script src="/assets/js/vendor/jquery-1.11.1.min.js"></script>
-<script src="/assets/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="/assets/plugins/navgoco/jquery.navgoco.min.js"></script>
-<script src="/assets/plugins/pace/pace.min.js"></script>
-<script src="/assets/js/src/app.js"></script>
+
+<jsp:include page="footer.jsp" />
 
 </body>
 

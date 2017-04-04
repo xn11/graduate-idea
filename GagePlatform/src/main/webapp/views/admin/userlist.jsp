@@ -12,8 +12,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <%--<%@ taglib uri="http://java.sun.com/jstl/fmt_rt" prefix="fmt"%>--%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<jsp:include page="header.jsp" />
 
+
+<jsp:include page="../header.jsp" />
+
+<!-- DataTables-->
+<link rel="stylesheet" href="/assets/plugins/dataTables/css/dataTables.css">
+<%--<link rel="stylesheet" href="/assets/plugins/dataTables/extensions/Buttons/css/buttons.dataTables.min.css">--%>
+<link rel="stylesheet" href="/assets/plugins/dataTables/extensions/Select/css/select.dataTables.min.css">
+<!--<link rel="stylesheet" href="plugins/dataTables/css/jquery.dataTables.min.css">-->
+
+</head>
 <body>
 
 <jsp:include page="navi.jsp" />
@@ -267,7 +276,7 @@
 
 
 
-<jsp:include page="footer.jsp" />
+<jsp:include page="../footer.jsp" />
 
 <!--Page Level JS -->
 <!--Table插件js引入，需要用到jquery-->
@@ -286,10 +295,10 @@
 <script src="/assets/plugins/dataTables/extensions/Buttons/js/buttons.print.js"></script>
 
 <script>
-
     //导航栏激活标识
     $('#user-management').addClass("open active");
     $('#user-management-list').addClass("active");
+
     var t;
     $(document).ready(function() {
         t = $('#userlist-table').dataTable({
@@ -410,9 +419,7 @@
 //            $("#addModal").modal("show");
             activeButtons(["delBtn", "editBtn"]);
             $("#editBtn").click();
-
         });
-
 
     });
 
