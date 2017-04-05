@@ -74,7 +74,7 @@
 
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-6">
-                                    <button type="submit" id="saveBtn" class="btn btn-primary btn-block">保 存</button>
+                                    <button type="button" id="saveBtn" class="btn btn-primary btn-block">保 存</button>
                                 </div>
                             </div>
                         </form>
@@ -85,31 +85,3 @@
     </section>
 </section>
 <!--main content end-->
-
-<script>
-    //导航栏激活标识
-    $('#settings').addClass("open active");
-    $('#settings-info').addClass("active");
-
-    $('#saveBtn').click(() => {
-        var telephone = $('#telephone').val();
-        $.ajax({
-            url:"/admin/accountInfo",
-            method:"post",
-            data:{
-                telephone: telephone
-            },
-            success(result){
-                if (result.resultCode == "NORMAL") {
-                    alert("保存成功！");
-                } else {
-                    alert(result.resultCode.name);
-                }
-            },
-            error(e){
-                alert(e);
-            }
-        });
-    })
-
-</script>

@@ -210,8 +210,8 @@
                                 员工列表
                             </a>
                         </li>
-                        <li>
-                            <a href="#" title="regulators management">
+                        <li id="regulators-list">
+                            <a href="regulatorsList" title="regulators management">
                                 监管机构列表
                             </a>
                         </li>

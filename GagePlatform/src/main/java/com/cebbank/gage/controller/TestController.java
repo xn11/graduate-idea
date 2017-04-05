@@ -96,11 +96,11 @@ public class TestController {
         return "index";
     }
 
-    @RequestMapping("/json")
-    @ResponseBody
-    public Set<RegulatorsCompany> json() {
-        return regulatorsService.getById(1).getCompanies();
-    }
+//    @RequestMapping("/json")
+//    @ResponseBody
+//    public Set<RegulatorsCompany> json() {
+//        return regulatorsService.getById(1).getCompanies();
+//    }
 
 
 }

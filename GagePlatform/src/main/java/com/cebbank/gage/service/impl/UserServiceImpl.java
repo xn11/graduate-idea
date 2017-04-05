@@ -71,7 +71,6 @@ public class UserServiceImpl implements UserService {
             return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
         }
         return new GeneralResult();
-
     }
 
     public GeneralResult<User> getByIdAndPassword(String id, String password) {

@@ -37,6 +37,7 @@
                                 <label for="oldPassword" class="control-label col-sm-3">原密码</label>
                                 <div class="col-sm-6">
                                     <input type="password" class="form-control" id="oldPassword" required="required" placeholder="原密码">
+                                    <input type="hidden" id="password" value="${user.password}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -54,7 +55,7 @@
 
                             <div class="form-group">
                                 <div class="col-sm-offset-3 col-sm-6">
-                                    <button type="submit" id="submit" class="btn btn-primary btn-block">确认修改</button>
+                                    <button type="button" id="submit" class="btn btn-primary btn-block">确认修改</button>
                                 </div>
                             </div>
                         </form>

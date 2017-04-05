@@ -2,18 +2,39 @@
  * Created by xn on 2017/4/4.
  */
 
+//按钮失效
+function disButtons(btnIds) {
+    for (var i = 0; i < btnIds.length; i++) {
+        var btn = $("#" + btnIds[i]);
+        btn.attr("disabled", true);
+        btn.addClass("btn-disabled");
+    }
+}
+
+//激活按钮
+function activeButtons(btnIds) {
+    for (var i = 0; i < btnIds.length; i++) {
+        var btn = $("#" + btnIds[i]);
+        btn.attr("disabled", false);
+        btn.removeClass("btn-disabled");
+    }
+}
+
+//清空modal
+function clear() {
+    $('#addModal .form-control').val("");
+}
+
 function modifyPassword() {
-    $("#submit").click(function() {
+    $("#submit").click(function () {
         modifyPwd();
     });
 
     function checkPwd() {
         var oldPwd = $("#oldPassword").val();
-        var actualPwd = "<c:out value='${user.password}'/>";
-        console.log("oldpwd: " + oldPwd);
-        console.log("actualPwd: " + actualPwd);
+        var actualPwd = $("#password").val();
         if (oldPwd != actualPwd) {
-            alert("旧密码错误， 请重新输入");
+            alert("原密码错误， 请重新输入");
             $("#oldPassword").val("");
             return false;
         }
@@ -33,30 +54,35 @@ function modifyPassword() {
         if (!checkPwd()) return;
         var newPwd = $("#newPassword").val();
         $.ajax({
-            url : "/user/modifyPassword",
-            method : "post",
-            data : {
-                newPwd : newPwd
+            url: "/user/modifyPassword",
+            method: "post",
+            data: {
+                newPwd: newPwd
             },
-            success : function(result) {
+            success: function (result) {
                 if (result.resultCode == "NORMAL") {
                     alert("密码修改成功");
                 } else {
                     alert("未知错误，请稍后重试");
                 }
+            },
+            error(XMLHttpRequest, textStatus, errorThrown){
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
             }
         });
     }
 }
 
-function accountInfo(){
+function accountInfo() {
     //保存用户信息按钮
     $('#saveBtn').click(() => {
         var telephone = $('#telephone').val();
         $.ajax({
-            url:"/user/accountInfo",
-            method:"post",
-            data:{
+            url: "/user/accountInfo",
+            method: "post",
+            data: {
                 telephone: telephone
             },
             success(result){
@@ -66,8 +92,10 @@ function accountInfo(){
                     alert(result.resultCode.name);
                 }
             },
-            error(e){
-                alert(e);
+            error(XMLHttpRequest, textStatus, errorThrown){
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
             }
         });
     })

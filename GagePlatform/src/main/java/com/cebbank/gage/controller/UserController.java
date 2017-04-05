@@ -52,13 +52,17 @@ public class UserController {
 
     @ResponseBody
     @RequestMapping(value = "/modifyPassword", method = RequestMethod.POST)
-    public GeneralResult modifyPasswordPost(HttpServletRequest request, HttpServletResponse response) {
+    public GeneralResult modifyPasswordPost(HttpServletRequest request) {
         String newPwd = request.getParameter("newPwd");
-        User user = (User) request.getSession().getAttribute("user");
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
         user.setPassword(newPwd);
+        GeneralResult result = userService.update(user);
+        if (result.isNormal()){
+            session.setAttribute("user", user);
+        }
 
-        userService.update(user);
-        return new GeneralResult();
+        return result;
     }
 
 }
