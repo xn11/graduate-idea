@@ -205,8 +205,8 @@
                         </li>
                         <li><a href="#" title="batch add">批量导入</a>
                         </li>
-                        <li>
-                            <a href="#" title="regulators management">
+                        <li id="staff-list">
+                            <a href="staffList" title="staff management">
                                 员工列表
                             </a>
                         </li>

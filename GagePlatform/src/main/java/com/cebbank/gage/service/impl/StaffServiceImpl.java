@@ -1,9 +1,10 @@
 package com.cebbank.gage.service.impl;
 
+import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.ResultEnum;
 import com.cebbank.gage.dao.StaffDao;
 import com.cebbank.gage.model.Staff;
 import com.cebbank.gage.service.StaffService;
-import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,6 @@ import java.util.List;
  */
 @Service("staffService")
 public class StaffServiceImpl implements StaffService {
-    private Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private StaffDao dao;
@@ -30,12 +30,27 @@ public class StaffServiceImpl implements StaffService {
         }
     }
 
-    public List<Staff> getAll() {
-        return dao.getAll();
+    public GeneralResult<List<Staff>> getAll() {
+        String hql = "from Staff";
+        List<Staff> staffList = dao.findList(hql);
+        GeneralResult<List<Staff>> result = new GeneralResult<List<Staff>>();
+        if (null == staffList || staffList.isEmpty()) {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        } else {
+            result.setData(staffList);
+        }
+        return result;
     }
 
-    public Staff getById(int id) {
-        return dao.getById(id);
+    public GeneralResult<Staff> getById(int id) {
+        Staff staff = dao.getById(id);
+        GeneralResult<Staff> result = new GeneralResult<Staff>();
+        if (null != staff) {
+            result.setData(staff);
+        } else {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        }
+        return result;
     }
 
     public void update(Staff obj) {

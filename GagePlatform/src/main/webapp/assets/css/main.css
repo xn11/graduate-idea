@@ -344,7 +344,7 @@ canvas {
     padding: 14px 0 0 0;
   }
   #header .logo img {
-    width: 25px;
+    /*width: 25px;*/
     margin-right: 5px;
   }
   #header .navbar-left {

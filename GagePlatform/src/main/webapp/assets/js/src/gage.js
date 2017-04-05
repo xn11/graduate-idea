@@ -25,6 +25,15 @@ function clear() {
     $('#addModal .form-control').val("");
 }
 
+//空字符串则输出“无”
+function printNull(str) {
+    if (null == str || '' == str) {
+        return '无';
+    }else{
+        return str;
+    }
+}
+
 function modifyPassword() {
     $("#submit").click(function () {
         modifyPwd();

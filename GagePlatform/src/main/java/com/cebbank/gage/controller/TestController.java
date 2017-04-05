@@ -38,8 +38,8 @@ public class TestController {
 //    private  StaffService staffService;
     @Autowired
     private GageService gageService;
-//    @Autowired
-//    private AdminService adminService;
+    @Autowired
+    private AdminService adminService;
 //    @Autowired
 //    private ContractService contractService;
     @Autowired
@@ -96,11 +96,11 @@ public class TestController {
         return "index";
     }
 
-//    @RequestMapping("/json")
-//    @ResponseBody
-//    public Set<RegulatorsCompany> json() {
-//        return regulatorsService.getById(1).getCompanies();
-//    }
+    @RequestMapping("/json")
+    @ResponseBody
+    public Set<Organization> json() {
+        return adminService.getAll().get(0).getChildrenOrgs();
+    }
 
 
 }

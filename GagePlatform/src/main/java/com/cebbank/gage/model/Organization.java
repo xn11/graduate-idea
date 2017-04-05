@@ -1,6 +1,10 @@
 package com.cebbank.gage.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by xn on 2017/3/17.
@@ -20,6 +24,12 @@ public class Organization {
     @JoinColumn(name = "parent_id")
     private Organization parentOrg;
     private String note;
+
+    //外键关联属性
+    @JsonIgnore
+    @OneToMany(mappedBy = "parentOrg", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @OrderBy(value = "id DESC")
+    private Set<Organization> childrenOrgs = new HashSet<Organization>();
 
     //Constructor
     public Organization() {
@@ -90,5 +100,13 @@ public class Organization {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<Organization> getChildrenOrgs() {
+        return childrenOrgs;
+    }
+
+    public void setChildrenOrgs(Set<Organization> childrenOrgs) {
+        this.childrenOrgs = childrenOrgs;
     }
 }

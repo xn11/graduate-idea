@@ -3,9 +3,12 @@ package com.cebbank.gage.controller;
 import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.common.RoleEnum;
 import com.cebbank.gage.model.Regulators;
+import com.cebbank.gage.model.Staff;
 import com.cebbank.gage.model.User;
 import com.cebbank.gage.service.RegulatorsService;
+import com.cebbank.gage.service.StaffService;
 import com.cebbank.gage.service.UserService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +26,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private UserService userService;
 
@@ -183,6 +188,29 @@ public class AdminController {
         String note = request.getParameter("note");
         Regulators regulators = new Regulators(name, address, contact, telephone, email, note);
         return regulatorsService.save(regulators);
+    }
+
+    /**
+     * Staff
+     */
+    @Autowired
+    private StaffService staffService;
+
+    @RequestMapping(value = {"/staffList"}, method = RequestMethod.GET)
+    public String staffListView() {
+        return "/admin/staffList";
+    }
+
+
+    @RequestMapping(value = {"/getStaffListMap"})
+    @ResponseBody
+    public Map<String, Object> getStaffListMap() {
+        GeneralResult<List<Staff>> result = staffService.getAll();
+        List<Staff> data = result.getData();
+        Map<String, Object> info = new HashMap<String, Object>();
+        info.put("data", data);
+        info.put("recordsTotal", data.size());
+        return info;
     }
 
 }

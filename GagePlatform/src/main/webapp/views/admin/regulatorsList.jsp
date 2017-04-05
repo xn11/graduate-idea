@@ -79,7 +79,7 @@
 <!--main content end-->
 </section>
 
-<!-- Add user Form Modal -->
+<!-- Add regulators Form Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -136,7 +136,7 @@
 </div>
 <!-- End Form Modal -->
 
-<!-- edit user Form Modal -->
+<!-- edit regulators Form Modal -->
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
