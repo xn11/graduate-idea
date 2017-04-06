@@ -222,7 +222,11 @@
                         <i class="fa  fa-fw fa-bell-o"></i> 通知管理
                     </a>
                     <ul class="nav-sub">
-                        <li><a href="#" title="warning">预警</a>
+                        <li>
+                            <a href="#" title="warning">预警通知</a>
+                        </li>
+                        <li>
+                            <a href="#" title="warning">已发送预警</a>
                         </li>
                         <li><a href="#" title="info">公告</a>
                         </li>

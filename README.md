@@ -568,6 +568,10 @@ name   、
 
 备注note
 
+*text，tags* （不映射数据库，treeview属性）
+
+***nodes***(子机构列表)
+
 
 
 ### → 部门Department
