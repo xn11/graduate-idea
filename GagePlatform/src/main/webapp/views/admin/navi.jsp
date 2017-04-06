@@ -215,20 +215,25 @@
                                 监管机构列表
                             </a>
                         </li>
+                        <li>
+                            <a href="#" title="company management">
+                                企业客户列表
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-dropdown">
-                    <a href="#" title="msg management">
-                        <i class="fa  fa-fw fa-bell-o"></i> 通知管理
+                <li id="warning-management" class="nav-dropdown">
+                    <a href="#" title="warning management">
+                        <i class="fa  fa-fw fa-bell-o"></i> 预警
                     </a>
                     <ul class="nav-sub">
-                        <li>
-                            <a href="#" title="warning">预警通知</a>
+                        <li id="received-warning-list">
+                            <a href="receivedWarningList" title="warning">预警列表</a>
                         </li>
                         <li>
                             <a href="#" title="warning">已发送预警</a>
                         </li>
-                        <li><a href="#" title="info">公告</a>
+                        <li><a href="#" title="info">处理任务</a>
                         </li>
                     </ul>
                 </li>

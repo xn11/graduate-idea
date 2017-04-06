@@ -85,3 +85,19 @@
     </section>
 </section>
 <!--main content end-->
+
+</section>
+
+
+<jsp:include page="footer.jsp" />
+
+<script>
+    //导航栏激活标识
+    $('#settings').addClass("open active");
+    $('#settings-info').addClass("active");
+
+    $(()=>{
+        accountInfo();
+    });
+
+</script>
