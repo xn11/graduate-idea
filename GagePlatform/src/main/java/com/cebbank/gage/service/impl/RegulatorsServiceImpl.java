@@ -1,5 +1,7 @@
 package com.cebbank.gage.service.impl;
 
+import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.ResultEnum;
 import com.cebbank.gage.dao.RegulateAccountDao;
 import com.cebbank.gage.dao.RegulatorsCompanyDao;
 import com.cebbank.gage.dao.RegulatorsDao;
@@ -26,28 +28,47 @@ public class RegulatorsServiceImpl implements RegulatorsService {
     private RegulateAccountDao regulateAccountDao;
 
 
-    public void save(Regulators regulators) {
+    public GeneralResult<Integer> save(Regulators regulators) {
+        GeneralResult<Integer> result = new GeneralResult<Integer>();
         try {
-            dao.save(regulators);
+            int id = dao.save(regulators);
+            result.setData(id);
         } catch (Exception e) {
-            e.printStackTrace();
+            result.setResultCode(ResultEnum.E_DATABASE_INSERT);
         }
+        return result;
     }
 
-    public List<Regulators> getAll() {
-        return dao.getAll();
+    public GeneralResult<List<Regulators>> getAll() {
+        String hql = "from Regulators";
+        List<Regulators> regulatorsList = dao.findList(hql);
+        GeneralResult<List<Regulators>> result = new GeneralResult<List<Regulators>>();
+        if (null == regulatorsList || regulatorsList.isEmpty()) {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        } else {
+            result.setData(regulatorsList);
+        }
+        return result;
     }
 
-    public Regulators getById(int id) {
-        return dao.getById(id);
+    public GeneralResult<Regulators> getById(int id) {
+        Regulators regulators = dao.getById(id);
+        GeneralResult<Regulators> result = new GeneralResult<Regulators>();
+        if (null != regulators) {
+            result.setData(regulators);
+        } else {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        }
+        return result;
     }
 
-    public void update(Regulators obj) {
+    public GeneralResult update(Regulators obj) {
         try {
             dao.update(obj);
         } catch (Exception e) {
-            e.printStackTrace();
+            return new GeneralResult(ResultEnum.E_DATABASE_UPDATE);
         }
+        return new GeneralResult();
     }
 
     public void delete(int id) {
@@ -56,6 +77,17 @@ public class RegulatorsServiceImpl implements RegulatorsService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public GeneralResult delAll(int[] ids) {
+        try {
+            for (int id : ids) {
+                dao.delete(new Regulators(id));
+            }
+        } catch (Exception e) {
+            return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
+        }
+        return new GeneralResult();
     }
 
     //gages of contract

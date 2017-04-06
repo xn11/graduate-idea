@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-03-27 21:24:10
+-- Generation Time: 2017-04-07 03:47:52
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.2
 
@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS `gage_price` (
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `source` varchar(200) NOT NULL,
   `note` text
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `gage_price`
@@ -216,17 +216,18 @@ CREATE TABLE IF NOT EXISTS `regulators` (
   `email` varchar(100) DEFAULT NULL,
   `score` double NOT NULL,
   `note` text
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `regulators`
 --
 
 INSERT INTO `regulators` (`id`, `name`, `address`, `contact`, `telephone`, `email`, `score`, `note`) VALUES
-(1, '信业监管公司', NULL, '周康', '13802138722', NULL, 9.5, NULL),
-(2, '鑫诚监管公司', NULL, '沈晓敏', '18922131252', NULL, 9, NULL),
+(1, '信业监管公司', '南京市', '周康', '13802138722', 'ee@aa.cn', 9.5, ''),
+(2, '鑫诚监管公司', '无锡市', '沈晓敏', '18922131252', '', 9, ''),
 (3, '惠友监管公司', NULL, '金婷婷', '17830662941', NULL, 8.8, NULL),
-(5, '金蝶监管公司', NULL, '蔡琳', '15021873217', NULL, 9.2, NULL);
+(5, '金蝶监管公司', NULL, '蔡琳', '15021873217', NULL, 9.2, NULL),
+(6, '金宝股份有限公司', '无锡市', '刘琦', '12873672899', 'lq@qq.com', 9, '');
 
 -- --------------------------------------------------------
 
@@ -299,15 +300,18 @@ CREATE TABLE IF NOT EXISTS `st_organization` (
   `phone` varchar(50) DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `note` text
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `st_organization`
 --
 
 INSERT INTO `st_organization` (`id`, `name`, `level`, `address`, `phone`, `parent_id`, `note`) VALUES
-(4, '总行', 0, NULL, NULL, NULL, NULL),
-(5, '南京省行', 1, NULL, NULL, 4, NULL);
+(4, '总行', 0, '北京市', '010-8372649', NULL, NULL),
+(5, '南京省行', 1, '南京市新街口', NULL, 4, NULL),
+(6, '无锡分行', 2, '无锡市滨湖区', NULL, 5, NULL),
+(7, '南长支行', 3, '无锡市南长区春生路234号', '0510-82133277', 6, NULL),
+(8, '常州分行', 2, '常州市', NULL, 5, NULL);
 
 -- --------------------------------------------------------
 
@@ -326,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_change_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `note` text
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `user`
@@ -334,15 +338,14 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 INSERT INTO `user` (`id`, `name`, `role_id`, `password`, `telephone`, `register_time`, `status`, `last_login_time`, `last_change_time`, `note`) VALUES
 (1, 'a', 1, 'b', '123', '2017-03-09 08:34:08', 0, '2017-03-09 08:34:08', '2017-03-18 20:37:39', NULL),
-(8, 'c', 1, 'c', '223', '2017-03-09 09:20:51', 0, '2017-03-09 09:20:51', '2017-03-09 09:20:51', NULL),
+(8, 'c', 1, 'c', '223333', '2017-03-09 09:20:51', 0, '2017-03-09 09:20:51', '2017-03-09 09:20:51', ''),
 (9, 'q', 0, 'q', '111', '2017-03-09 14:37:25', 0, '2017-03-09 14:37:25', '2017-03-09 14:37:25', ''),
-(10, 'test', 0, 'test', NULL, '2017-03-09 15:43:43', 0, '2017-03-09 15:43:43', '2017-03-09 15:43:43', NULL),
-(14, 'w', 0, 'w', NULL, '2017-03-11 06:30:54', 0, '2017-03-11 06:30:54', '2017-03-11 06:30:54', NULL),
-(25, 'aa', 0, 'aa', NULL, '2017-03-12 20:34:12', 0, '2017-03-12 20:34:12', '2017-03-12 20:34:12', NULL),
+(14, 'w', 0, 'w', '123123000', '2017-03-11 06:30:54', 1, '2017-03-11 06:30:54', '2017-03-11 06:30:54', ''),
 (26, '33', 0, '33', NULL, '2017-03-12 22:37:58', 0, '2017-03-12 22:37:58', '2017-03-12 22:37:58', NULL),
-(28, 'try2', 2, 'try2', '0000', '2017-03-14 09:15:29', 0, '2017-03-14 09:15:29', '2017-03-14 09:15:29', NULL),
-(29, 'try3', 2, 'try3', NULL, '2017-03-14 14:21:29', 0, '2017-03-14 14:21:29', '2017-03-14 14:21:29', NULL),
-(30, 'try6', 2, 'try6', NULL, '2017-03-21 08:01:31', 0, '2017-03-21 08:01:31', '2017-03-21 08:01:31', NULL);
+(28, 'try2', 6, 't', '12312312312', '2017-03-14 09:15:29', 0, '2017-03-14 09:15:29', '2017-03-14 09:15:29', 'note'),
+(33, 's2314', 1, '8888', '123456324487', '2017-04-03 04:18:26', 0, '2017-04-03 04:18:26', '2017-04-03 04:18:26', ''),
+(34, 's7206460', 5, 's', '15023521732', '2017-04-03 10:09:55', 0, '2017-04-03 10:09:55', '2017-04-03 10:09:55', ''),
+(35, 's23459887', 6, '8888', '', '2017-04-06 16:01:32', 0, '2017-04-06 16:01:32', '2017-04-06 16:01:32', '');
 
 -- --------------------------------------------------------
 
@@ -374,9 +377,9 @@ CREATE TABLE IF NOT EXISTS `warning` (
   `type` int(11) NOT NULL COMMENT '数量、价值、监管预警',
   `from_id` int(11) NOT NULL,
   `severity` int(11) NOT NULL,
-  `send_range` int(11) NOT NULL,
   `status` int(11) NOT NULL COMMENT '未处理、处理中、已处理',
   `handle_id` int(11) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `note` text
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -384,8 +387,28 @@ CREATE TABLE IF NOT EXISTS `warning` (
 -- 转存表中的数据 `warning`
 --
 
-INSERT INTO `warning` (`id`, `company_id`, `type`, `from_id`, `severity`, `send_range`, `status`, `handle_id`, `note`) VALUES
-(1, 1, 0, 1, 0, 0, 1, NULL, NULL);
+INSERT INTO `warning` (`id`, `company_id`, `type`, `from_id`, `severity`, `status`, `handle_id`, `timestamp`, `note`) VALUES
+(1, 1, 0, 1, 0, 1, 14, '2017-04-06 14:20:59', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `warning_user`
+--
+
+CREATE TABLE IF NOT EXISTS `warning_user` (
+  `warning_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `warning_user`
+--
+
+INSERT INTO `warning_user` (`warning_id`, `user_id`) VALUES
+(1, 8),
+(1, 9),
+(1, 14);
 
 -- --------------------------------------------------------
 
@@ -534,6 +557,12 @@ ALTER TABLE `warning`
  ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`company_id`), ADD KEY `from_id` (`from_id`), ADD KEY `handle_id` (`handle_id`);
 
 --
+-- Indexes for table `warning_user`
+--
+ALTER TABLE `warning_user`
+ ADD PRIMARY KEY (`warning_id`,`user_id`), ADD KEY `user_id` (`user_id`);
+
+--
 -- Indexes for table `_config`
 --
 ALTER TABLE `_config`
@@ -574,7 +603,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `gage_price`
 --
 ALTER TABLE `gage_price`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `mail`
 --
@@ -589,7 +618,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `regulators`
 --
 ALTER TABLE `regulators`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `role_view`
 --
@@ -604,12 +633,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 -- AUTO_INCREMENT for table `st_organization`
 --
 ALTER TABLE `st_organization`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=32;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `warehouse_list`
 --
@@ -720,6 +749,13 @@ ALTER TABLE `warning`
 ADD CONSTRAINT `warning_ibfk_3` FOREIGN KEY (`from_id`) REFERENCES `user` (`id`),
 ADD CONSTRAINT `warning_ibfk_4` FOREIGN KEY (`handle_id`) REFERENCES `user` (`id`),
 ADD CONSTRAINT `warning_ibfk_5` FOREIGN KEY (`company_id`) REFERENCES `ex_company` (`id`);
+
+--
+-- 限制表 `warning_user`
+--
+ALTER TABLE `warning_user`
+ADD CONSTRAINT `warning_user_ibfk_1` FOREIGN KEY (`warning_id`) REFERENCES `warning` (`id`),
+ADD CONSTRAINT `warning_user_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

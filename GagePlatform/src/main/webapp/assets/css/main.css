@@ -316,9 +316,9 @@ canvas {
   background-color: #fbfbfb;
   color: #373737;
 }
-#header .profile ul > li:first-child {
-  padding: 10px;
-}
+/*#header .profile ul > li:first-child {*/
+  /*padding: 10px;*/
+/*}*/
 #header .profile ul > li h5,
 #header .profile ul > li p {
   font-size: 0.813em;
@@ -344,7 +344,7 @@ canvas {
     padding: 14px 0 0 0;
   }
   #header .logo img {
-    width: 25px;
+    /*width: 25px;*/
     margin-right: 5px;
   }
   #header .navbar-left {

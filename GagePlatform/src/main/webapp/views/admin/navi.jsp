@@ -66,9 +66,10 @@
                     </li>
                     <li class="divider"></li>--%>
                     <li>
-                        <a href="javascript:void(0);">
-                                <span class="icon"><i class="fa fa-user"></i>
-                                </span>账号信息</a>
+                        <a href="accountInfo">
+                            <span class="icon"><i class="fa fa-user"></i></span>
+                            账号信息
+                        </a>
                     </li>
                     <%--<li>
                         <a href="javascript:void(0);">
@@ -76,9 +77,10 @@
                                 </span>账户安全</a>
                     </li>--%>
                     <li>
-                        <a href="javascript:void(0);">
-                                <span class="icon"><i class="fa fa-cog"></i>
-                                </span>修改密码</a>
+                        <a href="modifyPassword">
+                            <span class="icon"><i class="fa fa-cog"></i></span>
+                            修改密码
+                        </a>
                     </li>
                     <li class="divider"></li>
                     <li>
@@ -164,19 +166,14 @@
                         <i class="fa  fa-fw fa-tachometer"></i> 主页
                     </a>
                 </li>
-                <li class="nav-dropdown">
+                <li id="system-management" class="nav-dropdown">
                     <a href="#"  title="system management">
                         <i class="fa  fa-fw fa-cogs"></i>系统信息管理
                     </a>
                     <ul class="nav-sub">
-                        <li>
-                            <a href="#" title="org management">
-                                组织管理
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" title="regulators management">
-                                监管机构管理
+                        <li  id="organization-list">
+                            <a href="organizationList" title="org management">
+                                组织机构列表
                             </a>
                         </li>
                         <li>
@@ -198,23 +195,45 @@
                 </li>
                 <li id="user-management" class="nav-dropdown">
                     <a href="#" title="user management">
-                        <i class="fa  fa-fw fa-tachometer"></i> 用户管理
+                        <i class="fa  fa-fw  icon-users"></i> 用户管理
                     </a>
                     <ul class="nav-sub">
-                        <li id="user-management-list"><a href="userlist" title="user list">用户信息列表</a>
+                        <li id="user-management-list">
+                            <a href="userlist" title="user list">
+                                用户信息列表
+                            </a>
                         </li>
                         <li><a href="#" title="batch add">批量导入</a>
                         </li>
+                        <li id="staff-list">
+                            <a href="staffList" title="staff management">
+                                员工列表
+                            </a>
+                        </li>
+                        <li id="regulators-list">
+                            <a href="regulatorsList" title="regulators management">
+                                监管机构列表
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="company management">
+                                企业客户列表
+                            </a>
+                        </li>
                     </ul>
                 </li>
-                <li class="nav-dropdown">
-                    <a href="#" title="msg management">
-                        <i class="fa  fa-fw fa-edit"></i> 通知管理
+                <li id="warning-management" class="nav-dropdown">
+                    <a href="#" title="warning management">
+                        <i class="fa  fa-fw fa-bell-o"></i> 预警
                     </a>
                     <ul class="nav-sub">
-                        <li><a href="#" title="warning">预警</a>
+                        <li id="received-warning-list">
+                            <a href="receivedWarningList" title="warning">预警列表</a>
                         </li>
-                        <li><a href="#" title="info">公告</a>
+                        <li>
+                            <a href="#" title="warning">已发送预警</a>
+                        </li>
+                        <li><a href="#" title="info">处理任务</a>
                         </li>
                     </ul>
                 </li>
@@ -227,8 +246,6 @@
                         </li>
                         <li  id="settings-password"><a href="modifyPassword" title="password">修改密码</a>
                         </li>
-                        <%--<li><a href="#" title="safety">账户安全</a>
-                        </li>--%>
                     </ul>
                 </li>
                 <!--mail-->

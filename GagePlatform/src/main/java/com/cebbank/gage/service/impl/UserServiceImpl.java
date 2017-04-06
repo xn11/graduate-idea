@@ -64,14 +64,13 @@ public class UserServiceImpl implements UserService {
 
     public GeneralResult delAll(int[] ids) {
         try {
-            for (int i = 0; i < ids.length; i++) {
-                userDao.delete(new User(ids[i]));
+            for (int id : ids) {
+                userDao.delete(new User(id));
             }
         } catch (Exception e) {
             return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
         }
         return new GeneralResult();
-
     }
 
     public GeneralResult<User> getByIdAndPassword(String id, String password) {

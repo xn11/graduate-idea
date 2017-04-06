@@ -10,7 +10,12 @@
 <body>
 
 <jsp:include page="navi.jsp" />
-<jsp:include page="../modifyPassword.jsp" />
+
+<!--main content start-->
+<jsp:include page="../receivedWarningList.jsp" />
+<!--main content end-->
+
+
 
 </body>
 

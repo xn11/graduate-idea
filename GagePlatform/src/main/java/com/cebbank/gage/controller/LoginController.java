@@ -55,6 +55,10 @@ public class LoginController {
         uid = uid.trim();
         password = password.trim();
 
+        //预填充
+        Cookie myCookie = new Cookie("uid", URLEncoder.encode(uid, "utf-8"));
+        response.addCookie(myCookie);
+
         GeneralResult<User> userResult = userService.getByIdAndPassword(uid, password);
 
         if (!userResult.isNormal()) {
@@ -63,8 +67,6 @@ public class LoginController {
 
         //若用户名和密码正确，则签退或按角色登录
         User user = userResult.getData();
-        Cookie myCookie = new Cookie("uid", URLEncoder.encode(uid, "utf-8"));
-        response.addCookie(myCookie);
 
         //签退,转发给logout
         String action = request.getParameter("action");

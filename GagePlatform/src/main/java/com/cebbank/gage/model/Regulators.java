@@ -20,7 +20,7 @@ public class Regulators {
     private String contact;
     private String telephone;
     private String email;
-    private double score;
+    private double score = 9;
     private String note;
 
     //外键关联属性
@@ -41,6 +41,16 @@ public class Regulators {
         this.contact = contact;
         this.telephone = telephone;
         this.score = score;
+    }
+
+    public Regulators(String name, String address, String contact, String telephone, String email, String note) {
+        this.name = name;
+        this.address = address;
+        this.contact = contact;
+        this.telephone = telephone;
+        this.email = email;
+        this.score = score;
+        this.note = note;
     }
 
     public int getId() {

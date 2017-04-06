@@ -1,6 +1,15 @@
 package com.cebbank.gage.model;
 
+import com.cebbank.gage.common.StatusTypeEnum;
+import com.cebbank.gage.common.WarningTypeEnum;
+import com.cebbank.gage.util.DateTimeJsonSerializer;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import javax.persistence.*;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by xn on 2017/3/15.
@@ -12,27 +21,37 @@ public class Warning {
     @GeneratedValue
     private int id;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "company_id")
     private Company company;
 
-    private int type;
+    private WarningTypeEnum type;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "from_id")
     private User sender;      //若null，则为系统自动发起
 
     private int severity;
 
-    @Column(name = "send_range")
-    private int sendRange;
-    private int status;
+    //    @Column(name = "send_range")
+//    private int sendRange;
+    private StatusTypeEnum status;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "handle_id")
     private User handler;      //若null，则为系统自动发起
 
+    @JsonSerialize(using = DateTimeJsonSerializer.class)
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    private Date timestamp = null;
     private String note;
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "warning_user",
+            joinColumns = {@JoinColumn(name = "warning_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<User> receivers = new HashSet<User>();
 
     //constructor
     public Warning() {
@@ -40,15 +59,6 @@ public class Warning {
 
     public Warning(int id) {
         this.id = id;
-    }
-
-    public Warning(Company company, int type, User sender, int severity, int sendRange, int status) {
-        this.company = company;
-        this.type = type;
-        this.sender = sender;
-        this.severity = severity;
-        this.sendRange = sendRange;
-        this.status = status;
     }
 
     //Getter and Setter
@@ -68,11 +78,11 @@ public class Warning {
         this.company = company;
     }
 
-    public int getType() {
+    public WarningTypeEnum getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(WarningTypeEnum type) {
         this.type = type;
     }
 
@@ -92,19 +102,11 @@ public class Warning {
         this.severity = severity;
     }
 
-    public int getSendRange() {
-        return sendRange;
-    }
-
-    public void setSendRange(int sendRange) {
-        this.sendRange = sendRange;
-    }
-
-    public int getStatus() {
+    public StatusTypeEnum getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(StatusTypeEnum status) {
         this.status = status;
     }
 
@@ -116,11 +118,27 @@ public class Warning {
         this.handler = handler;
     }
 
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
+    }
+
     public String getNote() {
         return note;
     }
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<User> getReceivers() {
+        return receivers;
+    }
+
+    public void setReceivers(Set<User> receivers) {
+        this.receivers = receivers;
     }
 }

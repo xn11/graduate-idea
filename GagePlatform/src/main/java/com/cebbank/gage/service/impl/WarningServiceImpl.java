@@ -1,5 +1,7 @@
 package com.cebbank.gage.service.impl;
 
+import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.ResultEnum;
 import com.cebbank.gage.dao.WarningDao;
 import com.cebbank.gage.model.Warning;
 import com.cebbank.gage.service.WarningService;
@@ -32,23 +34,52 @@ public class WarningServiceImpl implements WarningService {
         return dao.getAll();
     }
 
-    public Warning getById(int id) {
-        return dao.getById(id);
+    public GeneralResult<Warning> getById(int id) {
+        Warning warning = dao.getById(id);
+        GeneralResult<Warning> result = new GeneralResult<Warning>();
+        if (null != warning) {
+            result.setData(warning);
+        } else {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        }
+        return result;
     }
 
-    public void update(Warning obj) {
+    public GeneralResult update(Warning obj) {
         try {
             dao.update(obj);
         } catch (Exception e) {
-            e.printStackTrace();
+            return new GeneralResult(ResultEnum.E_DATABASE_UPDATE);
         }
+        return new GeneralResult();
     }
 
-    public void delete(int id) {
+    public GeneralResult saveOrUpdate(Warning obj) {
+        try {
+            dao.saveOrUpdate(obj);
+        } catch (Exception e) {
+            return new GeneralResult(ResultEnum.E_DATABASE_UPDATE);
+        }
+        return new GeneralResult();
+    }
+
+    public GeneralResult delete(int id) {
         try {
             dao.delete(new Warning(id));
         } catch (Exception e) {
-            e.printStackTrace();
+            return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
         }
+        return new GeneralResult();
+    }
+
+    public GeneralResult delAll(int[] ids) {
+        try {
+            for (int id : ids) {
+                dao.delete(new Warning(id));
+            }
+        } catch (Exception e) {
+            return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
+        }
+        return new GeneralResult();
     }
 }

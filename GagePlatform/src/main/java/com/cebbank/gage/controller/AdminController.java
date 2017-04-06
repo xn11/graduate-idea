@@ -2,15 +2,21 @@ package com.cebbank.gage.controller;
 
 import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.common.RoleEnum;
+import com.cebbank.gage.model.Organization;
+import com.cebbank.gage.model.Regulators;
+import com.cebbank.gage.model.Staff;
 import com.cebbank.gage.model.User;
+import com.cebbank.gage.service.AdminService;
+import com.cebbank.gage.service.RegulatorsService;
+import com.cebbank.gage.service.StaffService;
 import com.cebbank.gage.service.UserService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.List;
@@ -22,6 +28,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
+
     @Autowired
     private UserService userService;
 
@@ -75,15 +83,23 @@ public class AdminController {
     public GeneralResult updateUser(HttpServletRequest request) {
         int id = Integer.parseInt(request.getParameter("id"));
         GeneralResult<User> result = userService.getById(id);
-        if (result.isNormal()){
+        if (result.isNormal()) {
             User user = result.getData();
             user.setPassword(request.getParameter("password"));
             user.setTelephone(request.getParameter("telephone"));
             user.setNote(request.getParameter("note"));
             user.setStatus(Integer.parseInt(request.getParameter("status")));
             user.setRole(RoleEnum.values()[Integer.parseInt(request.getParameter("role"))]);
-            return userService.update(user);
-        }else{
+            GeneralResult update = userService.update(user);
+
+            //若更新为当前user则更新session中user
+            HttpSession session = request.getSession();
+            User currentUser = (User) session.getAttribute("user");
+            if (id == currentUser.getId() && update.isNormal()) {
+                session.setAttribute("user", user);
+            }
+            return update;
+        } else {
             return result;
         }
     }
@@ -109,35 +125,124 @@ public class AdminController {
         return "/admin/accountInfo";
     }
 
-    @RequestMapping(value = "/accountInfo", method = RequestMethod.POST)
-    @ResponseBody
-    public GeneralResult modifyInfo(HttpServletRequest request) {
-        String telephone = request.getParameter("telephone");
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
-        user.setTelephone(telephone);
-        GeneralResult result = userService.update(user);
-        if (result.isNormal()){
-            session.setAttribute("user", user);
-        }
-
-        return result;
-    }
-
     @RequestMapping(value = "/modifyPassword", method = RequestMethod.GET)
     public String modifyPassword() {
         return "/admin/modifyPassword";
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/modifyPassword", method = RequestMethod.POST)
-    public GeneralResult modifyPasswordPost(HttpServletRequest request, HttpServletResponse response) {
-        String newPwd = request.getParameter("newPwd");
-        User user = (User) request.getSession().getAttribute("user");
-        user.setPassword(newPwd);
+    /**
+     * Regulators
+     */
+    @Autowired
+    private RegulatorsService regulatorsService;
 
-        userService.update(user);
-        return new GeneralResult();
+    @RequestMapping(value = {"/regulatorsList"}, method = RequestMethod.GET)
+    public String regulatorsListView() {
+        return "/admin/regulatorsList";
+    }
+
+
+    @RequestMapping(value = {"/getRegulatorsListMap"})
+    @ResponseBody
+    public Map<String, Object> getRegulatorsListMap() {
+        GeneralResult<List<Regulators>> result = regulatorsService.getAll();
+        List<Regulators> data = result.getData();
+        Map<String, Object> info = new HashMap<String, Object>();
+        info.put("data", data);
+        info.put("recordsTotal", data.size());
+        return info;
+    }
+
+    @RequestMapping(value = {"/delRegulators"}, method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResult delRegulators(@RequestParam(value = "data[]") int[] ids) {
+        return regulatorsService.delAll(ids);
+    }
+
+    @RequestMapping(value = {"/updateRegulators"}, method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResult updateRegulators(HttpServletRequest request) {
+        int id = Integer.parseInt(request.getParameter("id"));
+        GeneralResult<Regulators> result = regulatorsService.getById(id);
+        if (result.isNormal()) {
+            Regulators regulators = result.getData();
+            regulators.setName(request.getParameter("name"));
+            regulators.setAddress(request.getParameter("address"));
+            regulators.setContact(request.getParameter("contact"));
+            regulators.setTelephone(request.getParameter("telephone"));
+            regulators.setEmail(request.getParameter("email"));
+            regulators.setScore(Double.parseDouble(request.getParameter("score")));
+            regulators.setNote(request.getParameter("note"));
+            return regulatorsService.update(regulators);
+        } else {
+            return result;
+        }
+    }
+
+    @RequestMapping(value = {"/addRegulators"}, method = RequestMethod.POST)
+    @ResponseBody
+    public GeneralResult addRegulators(HttpServletRequest request) {
+        String name = request.getParameter("name");
+        String address = request.getParameter("address");
+        String contact = request.getParameter("contact");
+        String telephone = request.getParameter("telephone");
+        String email = request.getParameter("email");
+        String note = request.getParameter("note");
+        Regulators regulators = new Regulators(name, address, contact, telephone, email, note);
+        return regulatorsService.save(regulators);
+    }
+
+    /**
+     * Staff
+     */
+    @Autowired
+    private StaffService staffService;
+
+    @RequestMapping(value = {"/staffList"}, method = RequestMethod.GET)
+    public String staffListView() {
+        return "/admin/staffList";
+    }
+
+
+    @RequestMapping(value = {"/getStaffListMap"})
+    @ResponseBody
+    public Map<String, Object> getStaffListMap() {
+        GeneralResult<List<Staff>> result = staffService.getAll();
+        List<Staff> data = result.getData();
+        Map<String, Object> info = new HashMap<String, Object>();
+        info.put("data", data);
+        info.put("recordsTotal", data.size());
+        return info;
+    }
+
+    /**
+     * Org
+     */
+    @Autowired
+    private AdminService adminService;
+
+    @RequestMapping(value = {"/organizationList"}, method = RequestMethod.GET)
+    public String organizationListView() {
+        return "/admin/organizationList";
+    }
+
+
+    @RequestMapping(value = {"/getRootOrgList"}, method = RequestMethod.POST)
+    @ResponseBody
+    public List<Organization> getRootOrgList() {
+        GeneralResult<List<Organization>> result = adminService.getRootOrg();
+        if (result.isNormal()) {
+            return result.getData();
+        }
+        return null;
+    }
+
+    /*
+     * warning
+     */
+    @RequestMapping(value = {"/receivedWarningList"}, method = RequestMethod.GET)
+    public String receivedWarningListView() {
+        return "/admin/receivedWarningList";
     }
 
 }
