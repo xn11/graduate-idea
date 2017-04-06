@@ -1,6 +1,13 @@
 package com.cebbank.gage.model;
 
+import com.cebbank.gage.common.StatusTypeEnum;
+import com.cebbank.gage.common.WarningTypeEnum;
+import com.cebbank.gage.util.DateTimeJsonSerializer;
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -18,7 +25,7 @@ public class Warning {
     @JoinColumn(name = "company_id")
     private Company company;
 
-    private int type;
+    private WarningTypeEnum type;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "from_id")
@@ -28,14 +35,18 @@ public class Warning {
 
     //    @Column(name = "send_range")
 //    private int sendRange;
-    private int status;
+    private StatusTypeEnum status;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "handle_id")
     private User handler;      //若null，则为系统自动发起
 
+    @JsonSerialize(using = DateTimeJsonSerializer.class)
+    @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
+    private Date timestamp = null;
     private String note;
 
+    @JsonIgnore
     @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(name = "warning_user",
             joinColumns = {@JoinColumn(name = "warning_id")},
@@ -67,11 +78,11 @@ public class Warning {
         this.company = company;
     }
 
-    public int getType() {
+    public WarningTypeEnum getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(WarningTypeEnum type) {
         this.type = type;
     }
 
@@ -91,11 +102,11 @@ public class Warning {
         this.severity = severity;
     }
 
-    public int getStatus() {
+    public StatusTypeEnum getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(StatusTypeEnum status) {
         this.status = status;
     }
 
@@ -105,6 +116,14 @@ public class Warning {
 
     public void setHandler(User handler) {
         this.handler = handler;
+    }
+
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
 
     public String getNote() {

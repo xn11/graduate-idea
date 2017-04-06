@@ -109,10 +109,10 @@ public class TestController {
     public Set<User> json2() {
 //        List<Organization> data = adminService.getRootOrg().getData();
 //        data.get(0).getNodes().iterator().next().setNodes(null);
-        Warning w = warningService.getById(1);
+        Warning w = warningService.getById(1).getData();
         w.getReceivers().add(userService.getById(14).getData());
         warningService.saveOrUpdate(w);
-        return warningService.getById(1).getReceivers();
+        return warningService.getById(1).getData().getReceivers();
     }
 
 

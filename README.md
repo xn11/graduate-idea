@@ -540,7 +540,7 @@ id、 `auto`
 
 **company**--无（单向）、 
 
-？int type预警类型、 (enum: 数量、价值、监管预警)
+type预警类型、 (enum:0其他、 1数量、2价值、3监管预警)
 
 发出人**sender**--User、（不填表明是系统自动发起）
 
@@ -548,7 +548,7 @@ id、 `auto`
 
 > ？发送范围sendRange、（）
 
-？状态int status、（enum：1未处理、0处理中、-1已处理）
+？状态int status、（enum：0未处理、1处理中、2已处理）
 
 受理人**handler**--User、 
 

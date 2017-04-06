@@ -237,4 +237,12 @@ public class AdminController {
         return null;
     }
 
+    /*
+     * warning
+     */
+    @RequestMapping(value = {"/receivedWarningList"}, method = RequestMethod.GET)
+    public String receivedWarningListView() {
+        return "/admin/receivedWarningList";
+    }
+
 }

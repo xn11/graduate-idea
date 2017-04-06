@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-04-06 18:24:51
+-- Generation Time: 2017-04-07 03:47:52
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.2
 
@@ -330,7 +330,7 @@ CREATE TABLE IF NOT EXISTS `user` (
   `last_login_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `last_change_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `note` text
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `user`
@@ -344,7 +344,8 @@ INSERT INTO `user` (`id`, `name`, `role_id`, `password`, `telephone`, `register_
 (26, '33', 0, '33', NULL, '2017-03-12 22:37:58', 0, '2017-03-12 22:37:58', '2017-03-12 22:37:58', NULL),
 (28, 'try2', 6, 't', '12312312312', '2017-03-14 09:15:29', 0, '2017-03-14 09:15:29', '2017-03-14 09:15:29', 'note'),
 (33, 's2314', 1, '8888', '123456324487', '2017-04-03 04:18:26', 0, '2017-04-03 04:18:26', '2017-04-03 04:18:26', ''),
-(34, 's7206460', 5, 's', '15023521732', '2017-04-03 10:09:55', 0, '2017-04-03 10:09:55', '2017-04-03 10:09:55', '');
+(34, 's7206460', 5, 's', '15023521732', '2017-04-03 10:09:55', 0, '2017-04-03 10:09:55', '2017-04-03 10:09:55', ''),
+(35, 's23459887', 6, '8888', '', '2017-04-06 16:01:32', 0, '2017-04-06 16:01:32', '2017-04-06 16:01:32', '');
 
 -- --------------------------------------------------------
 
@@ -378,6 +379,7 @@ CREATE TABLE IF NOT EXISTS `warning` (
   `severity` int(11) NOT NULL,
   `status` int(11) NOT NULL COMMENT '未处理、处理中、已处理',
   `handle_id` int(11) DEFAULT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `note` text
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
@@ -385,8 +387,8 @@ CREATE TABLE IF NOT EXISTS `warning` (
 -- 转存表中的数据 `warning`
 --
 
-INSERT INTO `warning` (`id`, `company_id`, `type`, `from_id`, `severity`, `status`, `handle_id`, `note`) VALUES
-(1, 1, 0, 1, 0, 1, NULL, NULL);
+INSERT INTO `warning` (`id`, `company_id`, `type`, `from_id`, `severity`, `status`, `handle_id`, `timestamp`, `note`) VALUES
+(1, 1, 0, 1, 0, 1, 14, '2017-04-06 14:20:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -636,7 +638,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=35;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=36;
 --
 -- AUTO_INCREMENT for table `warehouse_list`
 --
