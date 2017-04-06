@@ -28,6 +28,12 @@ public class GageUtils {
         return dateToString(date, "yyyy-MM-dd");
     }
 
+    public static String nullToString(String s){
+        if(isBlank(s)){
+            return "暂无";
+        }
+        return s;
+    }
 
     /**
      * <p>Checks if a CharSequence is whitespace, empty ("") or null.</p>

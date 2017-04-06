@@ -98,9 +98,16 @@ public class TestController {
 
     @RequestMapping("/json")
     @ResponseBody
-    public Set<Organization> json() {
-        return adminService.getAll().get(0).getChildrenOrgs();
+    public List<Organization> json() {
+//        List<Organization> data = adminService.getRootOrg().getData();
+//        data.get(0).getNodes().iterator().next().setNodes(null);
+        return adminService.getRootOrg().getData();
     }
 
 
+
+//    class TreeNode{
+//        String text;
+//        List<Node>
+//    }
 }
