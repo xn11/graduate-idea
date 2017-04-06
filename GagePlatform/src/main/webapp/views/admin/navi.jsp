@@ -166,14 +166,14 @@
                         <i class="fa  fa-fw fa-tachometer"></i> 主页
                     </a>
                 </li>
-                <li class="nav-dropdown">
+                <li id="system-management" class="nav-dropdown">
                     <a href="#"  title="system management">
                         <i class="fa  fa-fw fa-cogs"></i>系统信息管理
                     </a>
                     <ul class="nav-sub">
-                        <li>
-                            <a href="#" title="org management">
-                                组织管理
+                        <li  id="organization-list">
+                            <a href="organizationList" title="org management">
+                                组织机构列表
                             </a>
                         </li>
                         <li>

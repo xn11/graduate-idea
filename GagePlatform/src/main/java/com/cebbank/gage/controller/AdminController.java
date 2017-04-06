@@ -2,9 +2,11 @@ package com.cebbank.gage.controller;
 
 import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.common.RoleEnum;
+import com.cebbank.gage.model.Organization;
 import com.cebbank.gage.model.Regulators;
 import com.cebbank.gage.model.Staff;
 import com.cebbank.gage.model.User;
+import com.cebbank.gage.service.AdminService;
 import com.cebbank.gage.service.RegulatorsService;
 import com.cebbank.gage.service.StaffService;
 import com.cebbank.gage.service.UserService;
@@ -211,6 +213,28 @@ public class AdminController {
         info.put("data", data);
         info.put("recordsTotal", data.size());
         return info;
+    }
+
+    /**
+     * Org
+     */
+    @Autowired
+    private AdminService adminService;
+
+    @RequestMapping(value = {"/organizationList"}, method = RequestMethod.GET)
+    public String organizationListView() {
+        return "/admin/organizationList";
+    }
+
+
+    @RequestMapping(value = {"/getRootOrgList"}, method = RequestMethod.POST)
+    @ResponseBody
+    public List<Organization> getRootOrgList() {
+        GeneralResult<List<Organization>> result = adminService.getRootOrg();
+        if (result.isNormal()) {
+            return result.getData();
+        }
+        return null;
     }
 
 }
