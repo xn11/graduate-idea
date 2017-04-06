@@ -26,8 +26,8 @@ public class Warning {
 
     private int severity;
 
-        @Column(name = "send_range")
-    private int sendRange;
+    //    @Column(name = "send_range")
+//    private int sendRange;
     private int status;
 
     @ManyToOne(cascade = {CascadeType.MERGE})
@@ -48,15 +48,6 @@ public class Warning {
 
     public Warning(int id) {
         this.id = id;
-    }
-
-    public Warning(Company company, int type, User sender, int severity, int sendRange, int status) {
-        this.company = company;
-        this.type = type;
-        this.sender = sender;
-        this.severity = severity;
-        this.sendRange = sendRange;
-        this.status = status;
     }
 
     //Getter and Setter
@@ -98,14 +89,6 @@ public class Warning {
 
     public void setSeverity(int severity) {
         this.severity = severity;
-    }
-
-    public int getSendRange() {
-        return sendRange;
-    }
-
-    public void setSendRange(int sendRange) {
-        this.sendRange = sendRange;
     }
 
     public int getStatus() {

@@ -482,6 +482,8 @@ role、    （enum直接映射为int型）
 
 备注note、
 
+***receiveWarnings***
+
 ***sendWarnings***
 
 ***handleWarnings***
@@ -544,13 +546,23 @@ id、 `auto`
 
 ？严重程度、（）
 
-？发送范围sendRange、（）
+> ？发送范围sendRange、（）
 
 ？状态int status、（enum：1未处理、0处理中、-1已处理）
 
 受理人**handler**--User、 
 
 备注
+
+***reveivers***(多对多，warning_user表，映射User的receivelist)
+
+
+
+**Warning_User**
+
+warning_id,
+
+user_id
 
 
 

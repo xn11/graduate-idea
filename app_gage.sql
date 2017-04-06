@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-04-06 17:09:35
+-- Generation Time: 2017-04-06 18:24:51
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.2
 
@@ -376,7 +376,6 @@ CREATE TABLE IF NOT EXISTS `warning` (
   `type` int(11) NOT NULL COMMENT '数量、价值、监管预警',
   `from_id` int(11) NOT NULL,
   `severity` int(11) NOT NULL,
-  `send_range` int(11) NOT NULL,
   `status` int(11) NOT NULL COMMENT '未处理、处理中、已处理',
   `handle_id` int(11) DEFAULT NULL,
   `note` text
@@ -386,8 +385,28 @@ CREATE TABLE IF NOT EXISTS `warning` (
 -- 转存表中的数据 `warning`
 --
 
-INSERT INTO `warning` (`id`, `company_id`, `type`, `from_id`, `severity`, `send_range`, `status`, `handle_id`, `note`) VALUES
-(1, 1, 0, 1, 0, 0, 1, NULL, NULL);
+INSERT INTO `warning` (`id`, `company_id`, `type`, `from_id`, `severity`, `status`, `handle_id`, `note`) VALUES
+(1, 1, 0, 1, 0, 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `warning_user`
+--
+
+CREATE TABLE IF NOT EXISTS `warning_user` (
+  `warning_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `warning_user`
+--
+
+INSERT INTO `warning_user` (`warning_id`, `user_id`) VALUES
+(1, 8),
+(1, 9),
+(1, 14);
 
 -- --------------------------------------------------------
 
@@ -534,6 +553,12 @@ ALTER TABLE `warehouse_list`
 --
 ALTER TABLE `warning`
  ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`company_id`), ADD KEY `from_id` (`from_id`), ADD KEY `handle_id` (`handle_id`);
+
+--
+-- Indexes for table `warning_user`
+--
+ALTER TABLE `warning_user`
+ ADD PRIMARY KEY (`warning_id`,`user_id`), ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `_config`
@@ -722,6 +747,13 @@ ALTER TABLE `warning`
 ADD CONSTRAINT `warning_ibfk_3` FOREIGN KEY (`from_id`) REFERENCES `user` (`id`),
 ADD CONSTRAINT `warning_ibfk_4` FOREIGN KEY (`handle_id`) REFERENCES `user` (`id`),
 ADD CONSTRAINT `warning_ibfk_5` FOREIGN KEY (`company_id`) REFERENCES `ex_company` (`id`);
+
+--
+-- 限制表 `warning_user`
+--
+ALTER TABLE `warning_user`
+ADD CONSTRAINT `warning_user_ibfk_1` FOREIGN KEY (`warning_id`) REFERENCES `warning` (`id`),
+ADD CONSTRAINT `warning_user_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
