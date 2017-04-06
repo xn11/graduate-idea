@@ -28,22 +28,22 @@ public class TestController {
 //    private OrganizationService organizationService;
 //    @Autowired
 //    private DepartmentService departmentService;
+//    @Autowired
+//    private CompanyService companyService;
     @Autowired
-    private CompanyService companyService;
-//    @Autowired
-//    private WarningService warningService;
-//    @Autowired
-//    private  UserService userService;
+    private WarningService warningService;
+    @Autowired
+    private  UserService userService;
 //    @Autowired
 //    private  StaffService staffService;
-    @Autowired
-    private GageService gageService;
-    @Autowired
-    private AdminService adminService;
+//    @Autowired
+//    private GageService gageService;
+//    @Autowired
+//    private AdminService adminService;
 //    @Autowired
 //    private ContractService contractService;
-    @Autowired
-    private RegulatorsService regulatorsService;
+//    @Autowired
+//    private RegulatorsService regulatorsService;
 
     @RequestMapping("/")
     public String home() throws ParseException {
@@ -98,10 +98,21 @@ public class TestController {
 
     @RequestMapping("/json")
     @ResponseBody
-    public List<Organization> json() {
+    public Set<Warning> json() {
 //        List<Organization> data = adminService.getRootOrg().getData();
 //        data.get(0).getNodes().iterator().next().setNodes(null);
-        return adminService.getRootOrg().getData();
+        return userService.getById(8).getData().getReceiveWarnings();
+    }
+
+    @RequestMapping("/json2")
+    @ResponseBody
+    public Set<User> json2() {
+//        List<Organization> data = adminService.getRootOrg().getData();
+//        data.get(0).getNodes().iterator().next().setNodes(null);
+        Warning w = warningService.getById(1);
+        w.getReceivers().add(userService.getById(14).getData());
+        warningService.saveOrUpdate(w);
+        return warningService.getById(1).getReceivers();
     }
 
 

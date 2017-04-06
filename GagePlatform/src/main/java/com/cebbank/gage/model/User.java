@@ -52,6 +52,10 @@ public class User implements Serializable {
 
     //外键关联属性
     @JsonIgnore
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "receivers")
+    private Set<Warning> receiveWarnings = new HashSet<Warning>();
+
+    @JsonIgnore
     @OneToMany(mappedBy = "sender", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
     @OrderBy(value = "id DESC")
     private Set<Warning> sendWarnings = new HashSet<Warning>();
@@ -175,6 +179,14 @@ public class User implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<Warning> getReceiveWarnings() {
+        return receiveWarnings;
+    }
+
+    public void setReceiveWarnings(Set<Warning> receiveWarnings) {
+        this.receiveWarnings = receiveWarnings;
     }
 
     public Set<Warning> getSendWarnings() {

@@ -44,6 +44,14 @@ public class WarningServiceImpl implements WarningService {
         }
     }
 
+    public void saveOrUpdate(Warning obj) {
+        try {
+            dao.saveOrUpdate(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void delete(int id) {
         try {
             dao.delete(new Warning(id));
