@@ -16,5 +16,7 @@ public interface WarningService {
 
     public void update(Warning obj);
 
+    public void saveOrUpdate(Warning obj);
+
     public void delete(int id);
 }

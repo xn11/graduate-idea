@@ -1,6 +1,8 @@
 package com.cebbank.gage.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by xn on 2017/3/15.
@@ -12,27 +14,33 @@ public class Warning {
     @GeneratedValue
     private int id;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "company_id")
     private Company company;
 
     private int type;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "from_id")
     private User sender;      //若null，则为系统自动发起
 
     private int severity;
 
-    @Column(name = "send_range")
+        @Column(name = "send_range")
     private int sendRange;
     private int status;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "handle_id")
     private User handler;      //若null，则为系统自动发起
 
     private String note;
+
+    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
+    @JoinTable(name = "warning_user",
+            joinColumns = {@JoinColumn(name = "warning_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+    private Set<User> receivers = new HashSet<User>();
 
     //constructor
     public Warning() {
@@ -122,5 +130,13 @@ public class Warning {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Set<User> getReceivers() {
+        return receivers;
+    }
+
+    public void setReceivers(Set<User> receivers) {
+        this.receivers = receivers;
     }
 }
