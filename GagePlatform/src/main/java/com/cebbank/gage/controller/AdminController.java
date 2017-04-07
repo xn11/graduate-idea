@@ -2,14 +2,8 @@ package com.cebbank.gage.controller;
 
 import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.common.RoleEnum;
-import com.cebbank.gage.model.Organization;
-import com.cebbank.gage.model.Regulators;
-import com.cebbank.gage.model.Staff;
-import com.cebbank.gage.model.User;
-import com.cebbank.gage.service.AdminService;
-import com.cebbank.gage.service.RegulatorsService;
-import com.cebbank.gage.service.StaffService;
-import com.cebbank.gage.service.UserService;
+import com.cebbank.gage.model.*;
+import com.cebbank.gage.service.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -56,7 +50,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/getUserListMap"})
     @ResponseBody
-    public Map<String, Object> getUserListMap() {
+    public Map<String, Object> getUserListMap(HttpServletRequest request) {
         GeneralResult<List<User>> result = userService.getAll();
         List<User> data = result.getData();
         Map<String, Object> info = new HashMap<String, Object>();
@@ -244,5 +238,62 @@ public class AdminController {
     public String receivedWarningListView() {
         return "/admin/receivedWarningList";
     }
+
+    @RequestMapping(value = {"/sendWarningList"}, method = RequestMethod.GET)
+    public String sendWarningListView(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        //companyList放入session
+        @SuppressWarnings("unchecked")
+        List<Company> companyList = (List<Company>) session.getAttribute("companyList");
+        if (null == companyList) {
+            GeneralResult<List<Company>> result = companyService.getAll();
+            if (result.isNormal()) {
+                request.getSession().setAttribute("companyList", result.getData());
+            }
+        }
+
+        //userList放入session
+        @SuppressWarnings("unchecked")
+        List<User> userList = (List<User>) session.getAttribute("userList");
+
+        if (null == userList) {
+            GeneralResult<List<User>> result = userService.getAll();
+            if (result.isNormal()) {
+                request.getSession().setAttribute("userList", result.getData());
+            }
+        }
+
+        return "/admin/sendWarningList";
+    }
+
+    @RequestMapping(value = {"/handleWarningList"}, method = RequestMethod.GET)
+    public String handleWarningListView() {
+        return "/admin/handleWarningList";
+    }
+
+    /**
+     * company
+     */
+    @Autowired
+    private CompanyService companyService;
+
+    /*@RequestMapping(value = {"/getCompanyList"}, method = RequestMethod.GET)
+    public GeneralResult getCompanyList(HttpServletRequest request) {
+        GeneralResult<List<Company>> result = companyService.getAll();
+        if (result.isNormal()) {
+            request.getSession().setAttribute("companyList", result.getData());
+        }
+        return result;
+    }*/
+
+    /*@RequestMapping(value = {"/getUserList"}, method = RequestMethod.GET)
+    private GeneralResult<List<User>> getUserList(HttpServletRequest request) {
+        GeneralResult<List<User>> result = userService.getAll();
+        if (result.isNormal()) {
+            request.getSession().setAttribute("userList", result.getData());
+        }
+        return result;
+    }*/
 
 }

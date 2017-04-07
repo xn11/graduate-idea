@@ -34,6 +34,12 @@ function printNull(str) {
     }
 }
 
+function handleAjaxError(XMLHttpRequest, textStatus, errorThrown) {
+    console.log(XMLHttpRequest.status);
+    console.log(XMLHttpRequest.readyState);
+    console.log(textStatus);
+}
+
 function modifyPassword() {
     $("#submit").click(function () {
         modifyPwd();
@@ -76,9 +82,7 @@ function modifyPassword() {
                 }
             },
             error(XMLHttpRequest, textStatus, errorThrown){
-                console.log(XMLHttpRequest.status);
-                console.log(XMLHttpRequest.readyState);
-                console.log(textStatus);
+                handleAjaxError(XMLHttpRequest, textStatus, errorThrown);
             }
         });
     }
@@ -102,9 +106,7 @@ function accountInfo() {
                 }
             },
             error(XMLHttpRequest, textStatus, errorThrown){
-                console.log(XMLHttpRequest.status);
-                console.log(XMLHttpRequest.readyState);
-                console.log(textStatus);
+                handleAjaxError(XMLHttpRequest, textStatus, errorThrown);
             }
         });
     })

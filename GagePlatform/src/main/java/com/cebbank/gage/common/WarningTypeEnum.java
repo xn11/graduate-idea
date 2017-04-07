@@ -8,10 +8,10 @@ import org.codehaus.jackson.annotate.JsonValue;
  * 用户角色Role(name, id)
  */
 public enum WarningTypeEnum {
-    QUANTITY_WARNING(0, "数量预警"),
-    VALUE_WARNING(1, "价值预警"),
-    REGULATE_WARNING(2, "监管预警"),
-    OTHER_WARNING(-1, "其他预警");
+    OTHER_WARNING(0, "其他预警"),
+    QUANTITY_WARNING(1, "数量预警"),
+    VALUE_WARNING(2, "价值预警"),
+    REGULATE_WARNING(3, "监管预警");
 
     private int id;
     private String name;

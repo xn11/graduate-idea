@@ -61,6 +61,15 @@ public class Warning {
         this.id = id;
     }
 
+    public Warning(Company company, WarningTypeEnum type, User sender, int severity, String note) {
+        this.company = company;
+        this.type = type;
+        this.sender = sender;
+        this.severity = severity;
+        this.note = note;
+        this.status = StatusTypeEnum.UNPROCESSED;
+    }
+
     //Getter and Setter
     public int getId() {
         return id;

@@ -8,14 +8,14 @@
 <!--main content start-->
 <section class="main-content-wrapper">
     <div class="pageheader">
-        <h1>预警列表</h1>
+        <h1>已发预警列表</h1>
         <div class="breadcrumb-wrapper hidden-xs">
             <span class="label">你的位置:</span>
             <ol class="breadcrumb">
                 <li><a href="home">主页</a>
                 </li>
                 <li class="active">预警</li>
-                <li class="active">预警列表</li>
+                <li class="active">已发预警列表</li>
             </ol>
         </div>
     </div>
@@ -25,7 +25,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">预警列表</h3>
+                        <h3 class="panel-title">已发预警列表</h3>
                         <div class="actions pull-right">
                             <i class="fa fa-expand"></i>
                             <i class="fa fa-chevron-down"></i>
@@ -60,6 +60,77 @@
 </section>
 
 
+<!-- Add warning Form Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="addModalLabel">新建预警</h4>
+            </div>
+            <div class="modal-body">
+                <form class="form-horizontal" role="form">
+                    <div class="form-group">
+                        <label for="a-company" class="col-sm-3 control-label">企业客户</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="a-company" required="required">
+                                <option value="" selected>请选择</option>
+                                <c:if test="${companyList != null}">
+                                    <c:forEach items="${companyList}" var="itr">
+                                        <option value="${itr.id}">${itr.name}</option>
+                                    </c:forEach>
+                                </c:if>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="a-type" class="col-sm-3 control-label">预警类型</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" id="a-type" required="required">
+                                <option value="" selected>请选择</option>
+                                <option value=1>数量预警</option>
+                                <option value=2>价值预警</option>
+                                <option value=3>监管预警</option>
+                                <option value=0>其他预警</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="a-severity" class="col-sm-3 control-label">严重等级</label>
+                        <div class="col-sm-7">
+                            <input type="number" class="form-control" id="a-severity" placeholder="严重等级(0-最低，10-最高)" required="required" min=0 max=10>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="a-receivers" class="col-sm-3 control-label">通知人员</label>
+                        <div class="col-sm-7">
+                            <select class="form-control" multiple="multiple" id="a-receivers" required="required">
+                                <option value="0" selected>全体人员</option>
+                                <c:if test="${userList != null}">
+                                    <c:forEach items="${userList}" var="itr">
+                                        <option value="${itr.id}">${itr.name}</option>
+                                    </c:forEach>
+                                </c:if>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="a-note" class="col-sm-3 control-label">备注</label>
+                        <div class="col-sm-7">
+                            <textarea class="form-control" id="a-note"></textarea>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="saveBtn" onclick="add();">保存</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End Form Modal -->
+
 <!-- check warning Form Modal -->
 <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="checkModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -70,6 +141,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
+                    <input type="hidden" id="warningId">
                     <div class="form-group" id="system-auto">
                         <label for="system" class="col-sm-3 control-label">发起方</label>
                         <div class="col-sm-7">
@@ -114,7 +186,6 @@
                         <label for="company" class="col-sm-3 control-label">企业客户</label>
                         <div class="col-sm-7">
                             <input type="text" class="form-control" id="company" readonly="readonly">
-                            <input type="hidden" id="companyId">
                         </div>
                     </div>
                     <div class="form-group">
@@ -154,13 +225,13 @@
                     <div class="form-group">
                         <label for="note" class="col-sm-3 control-label">备注</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="note" readonly="readonly">
+                            <textarea class="form-control" id="note"></textarea>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="accept-warning" onclick="accept();">接受任务</button>
+                <button type="button" class="btn btn-primary" id="e-saveUser" onclick="cancel();">取消预警</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -191,20 +262,19 @@
 <script>
     //导航栏激活标识
     $('#warning-management').addClass("open active");
-    $('#received-warning-list').addClass("active");
+    $('#send-warning-list').addClass("active");
 
     let t;
     $(()=>{
+        <%--let userList = <%=session.getAttribute("userList")%>;--%>
+        <%--let companyList = <%=session.getAttribute("companyList")%>;--%>
+
         t = $('#warning-list-table').dataTable({
             "language": {
                 "url": "/assets/lang/datatable_CN.json"
             },
             ajax:{
-                <%--data: {--%>
-                    <%--uid: "${user.id}"--%>
-                <%--},--%>
-                <%--method: "post",--%>
-                url:"/user/getReceivedWarningListMap"
+                url:"/user/getSendWarningListMap"
             },
             columns:[
                 {data: null},
@@ -239,6 +309,14 @@
             "<'row'<'col-xs-6'i><'col-xs-6'p>>",
             buttons: [
                 {
+                    text: '<button class="btn btn-success btn-trans" data-toggle="modal" data-target="#addModal" id="addBtn">新建</button>',
+//                    action:function () {
+//                        if (null == userList || null == companyList) {
+//                            getUserAndCompanyList();
+//                        }
+//                    }
+                },
+                {
                     text: '<button class="btn btn-info btn-trans btn-disabled" data-toggle="modal" data-target="#checkModal" disabled="disabled" id="checkBtn">查看</button>',
                     action: function () {
                         if (this.row(".selected").count() != 1){
@@ -258,6 +336,7 @@
                             $("#senderTel").val(printNull(row.sender.telephone));
                         }
 
+                        $("#warningId").val(row.id);
                         $("#timestamp").val(row.timestamp);
                         $("#severity").val(row.severity);
                         $("#type").val(row.type);
@@ -277,13 +356,6 @@
                         }
 
                         $("#note").val(printNull(row.note));
-
-                        if (row.status != "未处理") {
-                            $('#accept-warning').hide();
-                        }else {
-                            $('#accept-warning').show();
-
-                        }
                     }
                 },
                 {
@@ -325,19 +397,52 @@
 
     });
 
-    function accept() {
-        let companyId = $('#companyId').val();
+    function add() {
+        let addJson = {
+            company: $("#a-company").val(),
+            type: $("#a-type").val(),
+            severity: $("#a-severity").val(),
+            receivers:$("#a-receivers").val(),
+            note:$("#a-note").val(),
+        };
         $.ajax({
-            url: "/user/acceptWarning",
+            url: "/user/addWarning",
             method : "post",
-            data: {
-                id: companyId
+            data: addJson,
+            async:false,//异步加载
+            success: function (result) {
+                if (result.resultCode == "NORMAL") {
+                    alert("发送成功!");
+                    clear();
+                    t.api().ajax.reload();  //刷新数据
+                    disButtons(["checkBtn"]);
+                }else{
+                    alert("发送失败!");
+                }
             },
+            error(XMLHttpRequest, textStatus, errorThrown){
+                handleAjaxError(XMLHttpRequest, textStatus, errorThrown);
+            }
+        });
+
+    }
+
+    function cancel() {
+        let finishJson = {
+            warningId: $("#warningId").val(),
+            status: 3,
+            note: $("#note").val()
+        };
+
+        $.ajax({
+            url: "/user/handleWarning",
+            method : "post",
+            data: finishJson,
             async:false,//异步加载
             success: function (result) {
                 if (result.resultCode == "NORMAL") {
 
-                    alert("已接受该任务!");
+                    alert("已取消该预警!");
                     $("#checkModal").modal("hide");
                     t.api().ajax.reload();  //刷新数据
                     //若有无选中行则按钮失效
@@ -345,7 +450,7 @@
                         disButtons(["checkBtn"]);
                     }
                 }else{
-                    alert("无法接受任务，请稍后重试！");
+                    alert("取消预警失败，请稍后重试！");
                 }
             },
             error(XMLHttpRequest, textStatus, errorThrown){
@@ -355,5 +460,4 @@
             }
         });
     }
-
 </script>

@@ -118,6 +118,18 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    public GeneralResult<List<User>> getValidAll() {
+        String hql = "from User where status>=0";
+        List<User> userList = userDao.findList(hql);
+        GeneralResult<List<User>> result = new GeneralResult<List<User>>();
+        if (null == userList || userList.isEmpty()) {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        } else {
+            result.setData(userList);
+        }
+        return result;
+    }
+
     public GeneralResult<Integer> save(User user) {
         GeneralResult<Integer> result = new GeneralResult<Integer>();
         try {

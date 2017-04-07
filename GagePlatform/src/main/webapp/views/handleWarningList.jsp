@@ -8,14 +8,14 @@
 <!--main content start-->
 <section class="main-content-wrapper">
     <div class="pageheader">
-        <h1>预警列表</h1>
+        <h1>预警处理任务列表</h1>
         <div class="breadcrumb-wrapper hidden-xs">
             <span class="label">你的位置:</span>
             <ol class="breadcrumb">
                 <li><a href="home">主页</a>
                 </li>
                 <li class="active">预警</li>
-                <li class="active">预警列表</li>
+                <li class="active">预警处理任务列表</li>
             </ol>
         </div>
     </div>
@@ -25,7 +25,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">预警列表</h3>
+                        <h3 class="panel-title">预警处理任务列表</h3>
                         <div class="actions pull-right">
                             <i class="fa fa-expand"></i>
                             <i class="fa fa-chevron-down"></i>
@@ -59,7 +59,6 @@
 <!--main content end-->
 </section>
 
-
 <!-- check warning Form Modal -->
 <div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="checkModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -70,6 +69,7 @@
             </div>
             <div class="modal-body">
                 <form class="form-horizontal" role="form">
+                    <input type="hidden" id="warningId">
                     <div class="form-group" id="system-auto">
                         <label for="system" class="col-sm-3 control-label">发起方</label>
                         <div class="col-sm-7">
@@ -133,7 +133,7 @@
                             <input type="text" class="form-control" id="status" readonly="readonly">
                         </div>
                     </div>
-                    <div id="handler-div">
+                    <%--<div id="handler-div">
                     <div class="form-group">
                         <label for="handler" class="col-sm-3 control-label">负责人</label>
                         <div class="col-sm-3">
@@ -150,17 +150,17 @@
                             <input type="text" class="form-control" id="handlerTel" readonly="readonly">
                         </div>
                     </div>
-                    </div>
+                    </div>--%>
                     <div class="form-group">
                         <label for="note" class="col-sm-3 control-label">备注</label>
                         <div class="col-sm-7">
-                            <input type="text" class="form-control" id="note" readonly="readonly">
+                            <textarea class="form-control" id="note"></textarea>
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="accept-warning" onclick="accept();">接受任务</button>
+                <button type="button" class="btn btn-primary" id="e-saveUser" onclick="finish();">确认完成</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -191,20 +191,19 @@
 <script>
     //导航栏激活标识
     $('#warning-management').addClass("open active");
-    $('#received-warning-list').addClass("active");
+    $('#handle-warning-list').addClass("active");
 
     let t;
     $(()=>{
+        <%--let userList = <%=session.getAttribute("userList")%>;--%>
+        <%--let companyList = <%=session.getAttribute("companyList")%>;--%>
+
         t = $('#warning-list-table').dataTable({
             "language": {
                 "url": "/assets/lang/datatable_CN.json"
             },
             ajax:{
-                <%--data: {--%>
-                    <%--uid: "${user.id}"--%>
-                <%--},--%>
-                <%--method: "post",--%>
-                url:"/user/getReceivedWarningListMap"
+                url:"/user/getHandleWarningListMap"
             },
             columns:[
                 {data: null},
@@ -215,7 +214,7 @@
                 {data: "sender"},
                 {data: "timestamp"}
             ],
-            order: [[6, 'desc']],    //默认排序列（desc降序，asc升序）
+            order: [[4, 'asc'], [6, 'desc']],    //默认排序列（desc降序，asc升序）
             columnDefs:[
                 {
                     "searchable": false,
@@ -254,10 +253,11 @@
                             $("#system-auto").hide();
                             $("#sender-div").show();
                             $("#sender").val(row.sender.name);
-                            $("#senderRole").val(row.sender.role);
+                            $("#swarningIdenderRole").val(row.sender.role);
                             $("#senderTel").val(printNull(row.sender.telephone));
                         }
 
+                        $("#warningId").val(row.id);
                         $("#timestamp").val(row.timestamp);
                         $("#severity").val(row.severity);
                         $("#type").val(row.type);
@@ -277,13 +277,6 @@
                         }
 
                         $("#note").val(printNull(row.note));
-
-                        if (row.status != "未处理") {
-                            $('#accept-warning').hide();
-                        }else {
-                            $('#accept-warning').show();
-
-                        }
                     }
                 },
                 {
@@ -325,19 +318,22 @@
 
     });
 
-    function accept() {
-        let companyId = $('#companyId').val();
+    function finish() {
+        let finishJson = {
+            warningId: $("#warningId").val(),
+            status: 2,
+            note: $("#note").val()
+        };
+
         $.ajax({
-            url: "/user/acceptWarning",
+            url: "/user/handleWarning",
             method : "post",
-            data: {
-                id: companyId
-            },
+            data: finishJson,
             async:false,//异步加载
             success: function (result) {
                 if (result.resultCode == "NORMAL") {
 
-                    alert("已接受该任务!");
+                    alert("标记成功!");
                     $("#checkModal").modal("hide");
                     t.api().ajax.reload();  //刷新数据
                     //若有无选中行则按钮失效
@@ -345,7 +341,7 @@
                         disButtons(["checkBtn"]);
                     }
                 }else{
-                    alert("无法接受任务，请稍后重试！");
+                    alert("标记失败，请稍后重试！");
                 }
             },
             error(XMLHttpRequest, textStatus, errorThrown){
@@ -355,5 +351,4 @@
             }
         });
     }
-
 </script>

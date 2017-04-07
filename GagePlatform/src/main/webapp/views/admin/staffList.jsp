@@ -256,7 +256,7 @@
             } );
         } ).api(true).draw();
 
-        t.on('click.dt dblclick.dt', 'tr',function(e) {
+        t.on('click.dt dblclick.dt', 'tr',function() {
             if (!$(this).is('.selected')) {
                 activeButtons(["checkBtn"]);
             }else {
