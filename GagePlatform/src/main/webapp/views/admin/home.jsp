@@ -12,6 +12,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <jsp:include page="../header.jsp" />
+
+<!-- Daterange Picker -->
+<link rel="stylesheet" href="../../assets/plugins/daterangepicker/daterangepicker-bs3.css">
+<!-- Calendar demo -->
+<%--<link rel="stylesheet" href="/assets/css/clndr.css">--%>
+<!-- Switchery -->
+<link rel="stylesheet" href="../../assets/plugins/switchery/switchery.min.css">
+
 </head>
 <body>
 <%--<h1>${user.name}</h1>--%>

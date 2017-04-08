@@ -278,22 +278,4 @@ public class AdminController {
     @Autowired
     private CompanyService companyService;
 
-    /*@RequestMapping(value = {"/getCompanyList"}, method = RequestMethod.GET)
-    public GeneralResult getCompanyList(HttpServletRequest request) {
-        GeneralResult<List<Company>> result = companyService.getAll();
-        if (result.isNormal()) {
-            request.getSession().setAttribute("companyList", result.getData());
-        }
-        return result;
-    }*/
-
-    /*@RequestMapping(value = {"/getUserList"}, method = RequestMethod.GET)
-    private GeneralResult<List<User>> getUserList(HttpServletRequest request) {
-        GeneralResult<List<User>> result = userService.getAll();
-        if (result.isNormal()) {
-            request.getSession().setAttribute("userList", result.getData());
-        }
-        return result;
-    }*/
-
 }
