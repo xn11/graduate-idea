@@ -1,5 +1,6 @@
 package com.cebbank.gage.service;
 
+import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.model.Warning;
 
 import java.util.List;
@@ -12,9 +13,13 @@ public interface WarningService {
 
     public List<Warning> getAll();
 
-    public Warning getById(int id);
+    public GeneralResult<Warning> getById(int id);
 
-    public void update(Warning obj);
+    public GeneralResult update(Warning obj);
 
-    public void delete(int id);
+    public GeneralResult saveOrUpdate(Warning obj);
+
+    public GeneralResult delete(int id);
+
+    public GeneralResult delAll(int[] ids);
 }

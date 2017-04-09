@@ -60,11 +60,11 @@ public class MainController {
 //        return new ModelAndView("error", null);
 //    }
 
-    @RequestMapping("/json")
+    /*@RequestMapping("/json")
     @ResponseBody
     public List<User> json() {
         return userService.getAllUsernames();
-    }
+    }*/
 
     //http://localhost:8080/gage/hello/?name=nnn
     @RequestMapping("/hello")
@@ -73,11 +73,11 @@ public class MainController {
         return "hello";
     }
 
-    @RequestMapping("/user")
+    /*@RequestMapping("/user")
     @ModelAttribute
     public User getUser() {
         return userService.getAllUsernames().get(1);
-    }
+    }*/
 
     @InitBinder
     public void initBinder(WebDataBinder binder) {

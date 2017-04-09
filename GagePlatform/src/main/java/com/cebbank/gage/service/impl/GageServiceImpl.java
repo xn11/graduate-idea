@@ -24,8 +24,12 @@ public class GageServiceImpl implements GageService {
 
 
     public void saveList(List<Gage> list) {
-        for (Gage obj : list) {
-            gageDao.save(obj);
+        try {
+            for (Gage obj : list) {
+                gageDao.save(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -38,11 +42,19 @@ public class GageServiceImpl implements GageService {
     }
 
     public void update(Gage obj) {
-        gageDao.update(obj);
+        try {
+            gageDao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        gageDao.delete(new Gage(id));
+        try {
+            gageDao.delete(new Gage(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public double getLatestPrice(int id) {
@@ -60,15 +72,27 @@ public class GageServiceImpl implements GageService {
     }
 
     public void savePrice(Price price) {
-        priceDao.save(price);
+        try {
+            priceDao.save(price);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void updatePrice(Price price) {
-        priceDao.update(price);
+        try {
+            priceDao.update(price);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void deletePrice(int id) {
-        priceDao.delete(new Price(id));
+        try {
+            priceDao.delete(new Price(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

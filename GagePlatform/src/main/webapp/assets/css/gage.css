@@ -1,4 +1,43 @@
-.error {
+.error-msg {
     color: red;
     font-size: 90%;
+}
+
+.form-control[disabled], .form-control[readonly] {
+    border: none;
+    cursor: default;
+    background-color: #ffffff;
+}
+
+/*datatable*/
+table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
+    background-color: #f6f6f6;
+}
+
+table.dataTable.hover tbody tr:hover.selected, table.dataTable.display tbody tr:hover.selected {
+    background-color: #aab7d1;
+}
+
+a.dt-button {
+    margin-right: 5px;
+}
+
+a.dt-button.btn-primary.btn-trans {
+    color: #b06dc5;
+    background-color: transparent;
+    border: solid thin #b06dc5;
+}
+
+a.dt-button.btn-primary.btn-trans:hover,
+a.dt-button.btn-primary.btn-trans:active,
+a.dt-button.btn-primary.btn-trans:focus {
+    color: #fff;
+    background-color: #b06dc5;
+    border: solid thin #b06dc5;
+}
+
+button.btn-trans.btn-disabled {
+    color: #909aa0;
+    background-color: transparent;
+    border: solid thin #909aa0;
 }

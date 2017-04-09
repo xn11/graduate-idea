@@ -1,5 +1,7 @@
 package com.cebbank.gage.service.impl;
 
+import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.ResultEnum;
 import com.cebbank.gage.dao.CompanyDao;
 import com.cebbank.gage.model.Company;
 import com.cebbank.gage.service.CompanyService;
@@ -19,13 +21,28 @@ public class CompanyServiceImpl implements CompanyService {
 
 
     public void saveList(List<Company> list) {
-        for (Company obj : list) {
-            dao.save(obj);
+        try {
+            for (Company obj : list) {
+                dao.save(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public List<Company> getAll() {
-        return dao.getAll();
+    public GeneralResult<List<Company>> getAll() {
+        List<Company> companyList = dao.getAll();
+        GeneralResult<List<Company>> result = new GeneralResult<List<Company>>();
+
+        if (null == companyList) {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        } else if (companyList.isEmpty()) {
+            result.setResultCode(ResultEnum.E_EMPTY_LIST);
+        } else {
+            result.setData(companyList);
+        }
+
+        return result;
     }
 
     public Company getById(int id) {
@@ -33,11 +50,19 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     public void update(Company obj) {
-        dao.update(obj);
+        try {
+            dao.update(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void delete(int id) {
-        dao.delete(new Company(id));
+        try {
+            dao.delete(new Company(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }

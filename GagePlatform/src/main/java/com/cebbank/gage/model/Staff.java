@@ -1,6 +1,8 @@
 package com.cebbank.gage.model;
 
+import com.cebbank.gage.util.DateJsonSerializer;
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -24,6 +26,7 @@ public class Staff {
     private String idCard;
     private String telephone;
 
+    @JsonSerialize(using = DateJsonSerializer.class)
     @Column(name = "hire_date", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date hireDate = null;
     private int level;  //  职级

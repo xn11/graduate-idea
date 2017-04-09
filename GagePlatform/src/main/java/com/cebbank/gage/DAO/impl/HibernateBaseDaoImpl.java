@@ -1,12 +1,8 @@
 package com.cebbank.gage.dao.impl;
 
 import com.cebbank.gage.dao.HibernateBaseDao;
-import com.cebbank.gage.model.User;
 import com.cebbank.gage.util.Parameter;
-import org.hibernate.Criteria;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 import javax.annotation.Resource;
@@ -58,23 +54,23 @@ public class HibernateBaseDaoImpl<T> extends HibernateDaoSupport implements Hibe
         }
     }
 
-    public int save(T entity) {
+    public int save(T entity) throws Exception{
         int res = (Integer) getSession().save(entity);
         getSession().flush();
         return res;
     }
 
-    public void update(T entity) {
+    public void update(T entity) throws Exception {
         getSession().update(entity);
         getSession().flush();
     }
 
-    public void saveOrUpdate(T entity) {
+    public void saveOrUpdate(T entity) throws Exception {
         getSession().saveOrUpdate(entity);
         getSession().flush();
     }
 
-    public void delete(T entity) {
+    public void delete(T entity) throws Exception {
         getSession().delete(entity);
         getSession().flush();
     }
@@ -85,7 +81,6 @@ public class HibernateBaseDaoImpl<T> extends HibernateDaoSupport implements Hibe
      * @throws NoSuchMethodException
      * @throws IllegalAccessException
      * @throws InvocationTargetException
-     * @throws InstantiationException
      */
     public void delete(int id) throws Exception {
         T entity = entityClass.getConstructor(int.class).newInstance(id);
@@ -93,7 +88,7 @@ public class HibernateBaseDaoImpl<T> extends HibernateDaoSupport implements Hibe
         getSession().flush();
     }
 
-    public void deleteWithHql(String hql) {
+    public void deleteWithHql(String hql) throws Exception {
         Query query = getSession().createQuery(hql);
         query.executeUpdate();
     }
