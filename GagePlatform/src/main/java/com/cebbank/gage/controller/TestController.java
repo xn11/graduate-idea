@@ -1,18 +1,24 @@
 package com.cebbank.gage.controller;
 
-import com.cebbank.gage.model.*;
-import com.cebbank.gage.service.*;
-import com.cebbank.gage.util.GageUtils;
+import com.cebbank.gage.model.MyBlog;
+import com.cebbank.gage.model.Mysteel;
+import com.cebbank.gage.model.User;
+import com.cebbank.gage.model.Warning;
+import com.cebbank.gage.service.MysteelService;
+import com.cebbank.gage.service.UserService;
+import com.cebbank.gage.service.WarningService;
+import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import us.codecraft.webmagic.Site;
+import us.codecraft.webmagic.model.ConsolePageModelPipeline;
+import us.codecraft.webmagic.model.OOSpider;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 
@@ -33,7 +39,7 @@ public class TestController {
     @Autowired
     private WarningService warningService;
     @Autowired
-    private  UserService userService;
+    private UserService userService;
 //    @Autowired
 //    private  StaffService staffService;
 //    @Autowired
@@ -115,10 +121,28 @@ public class TestController {
         return warningService.getById(1).getData().getReceivers();
     }
 
+    @Autowired
+    MysteelService myPipeline;
 
+    @RequestMapping("/spider")
+    @ResponseBody
+    public void spider() {
+        /*BasicConfigurator.configure();
+        OOSpider.create(Site.me(), Mysteel.class)
+                .addPageModel(new ConsolePageModelPipeline())
+                .addUrl("http://www.100ppi.com/sf")
+                .run();*/
+//        spider.addPipeline(new ConsolePageModelPipeline()).run();
 
-//    class TreeNode{
-//        String text;
-//        List<Node>
-//    }
+        BasicConfigurator.configure();
+        OOSpider.create(
+                Site.me(),
+                myPipeline,
+                Mysteel.class)
+                .addPageModel(new ConsolePageModelPipeline())
+                .addUrl("http://www.100ppi.com/sf/")
+//                .thread(5)
+                .run();
+    }
+
 }
