@@ -1,9 +1,10 @@
 package com.cebbank.gage.controller;
 
 import com.cebbank.gage.model.MyBlog;
+import com.cebbank.gage.model.Mysteel;
 import com.cebbank.gage.model.User;
 import com.cebbank.gage.model.Warning;
-import com.cebbank.gage.service.MyBlogService;
+import com.cebbank.gage.service.MysteelService;
 import com.cebbank.gage.service.UserService;
 import com.cebbank.gage.service.WarningService;
 import org.apache.log4j.BasicConfigurator;
@@ -121,17 +122,27 @@ public class TestController {
     }
 
     @Autowired
-    MyBlogService myBlogPipeline;
+    MysteelService myPipeline;
 
     @RequestMapping("/spider")
     @ResponseBody
     public void spider() {
-        BasicConfigurator.configure();
-        OOSpider.create(Site.me(), myBlogPipeline, MyBlog.class)
+        /*BasicConfigurator.configure();
+        OOSpider.create(Site.me(), Mysteel.class)
                 .addPageModel(new ConsolePageModelPipeline())
-                .addUrl("http://blog.csdn.net/xn_28/article/details")
-                .run();
+                .addUrl("http://www.100ppi.com/sf")
+                .run();*/
 //        spider.addPipeline(new ConsolePageModelPipeline()).run();
+
+        BasicConfigurator.configure();
+        OOSpider.create(
+                Site.me(),
+                myPipeline,
+                Mysteel.class)
+                .addPageModel(new ConsolePageModelPipeline())
+                .addUrl("http://www.100ppi.com/sf/")
+//                .thread(5)
+                .run();
     }
 
 }
