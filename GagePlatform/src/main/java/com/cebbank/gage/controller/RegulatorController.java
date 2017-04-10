@@ -20,9 +20,9 @@ import java.util.Map;
  * Created by xn on 2017/3/28.
  */
 @Controller
-@RequestMapping("/admin")
-public class AdminController {
-    private Logger logger = org.slf4j.LoggerFactory.getLogger("gage.file");
+@RequestMapping("/regulator")
+public class RegulatorController {
+    private Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
 
     @Autowired
     private UserService userService;
@@ -68,8 +68,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/delUsers"}, method = RequestMethod.POST)
     @ResponseBody
-    public GeneralResult delUsers(@RequestParam(value = "data[]") int[] ids, HttpServletRequest request) {
-        logger.info(request.getSession().getAttribute("uid") + "," + "删除用户" + ids);
+    public GeneralResult delUsers(@RequestParam(value = "data[]") int[] ids) {
         return userService.delAll(ids);
     }
 
@@ -93,9 +92,6 @@ public class AdminController {
             if (id == currentUser.getId() && update.isNormal()) {
                 session.setAttribute("user", user);
             }
-
-            logger.info(session.getAttribute("uid") + "," + "更新用户" + user.getId());
-
             return update;
         } else {
             return result;
@@ -115,9 +111,6 @@ public class AdminController {
         String telephone = request.getParameter("telephone");
         String note = request.getParameter("note");
         User user = new User(uname, roleId, password, telephone, note);
-
-        logger.info(request.getSession().getAttribute("uid") + "," + "添加用户name=" + uname);
-
         return userService.save(user);
     }
 
@@ -156,8 +149,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/delRegulators"}, method = RequestMethod.POST)
     @ResponseBody
-    public GeneralResult delRegulators(@RequestParam(value = "data[]") int[] ids, HttpServletRequest request) {
-        logger.info(request.getSession().getAttribute("uid") + "," + "删除监管机构" + ids);
+    public GeneralResult delRegulators(@RequestParam(value = "data[]") int[] ids) {
         return regulatorsService.delAll(ids);
     }
 
@@ -175,8 +167,6 @@ public class AdminController {
             regulators.setEmail(request.getParameter("email"));
             regulators.setScore(Double.parseDouble(request.getParameter("score")));
             regulators.setNote(request.getParameter("note"));
-
-            logger.info(request.getSession().getAttribute("uid") + "," + "更新监管机构" + id);
             return regulatorsService.update(regulators);
         } else {
             return result;
@@ -193,8 +183,6 @@ public class AdminController {
         String email = request.getParameter("email");
         String note = request.getParameter("note");
         Regulators regulators = new Regulators(name, address, contact, telephone, email, note);
-
-        logger.info(request.getSession().getAttribute("uid") + "," + "添加监管机构name=" + name);
         return regulatorsService.save(regulators);
     }
 

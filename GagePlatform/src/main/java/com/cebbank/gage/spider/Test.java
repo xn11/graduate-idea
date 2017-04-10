@@ -1,12 +1,18 @@
 package com.cebbank.gage.spider;
 
 import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.PropertyConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.model.ConsolePageModelPipeline;
 import us.codecraft.webmagic.model.OOSpider;
 import us.codecraft.webmagic.model.annotation.ExtractBy;
 import us.codecraft.webmagic.model.annotation.ExtractByUrl;
 import us.codecraft.webmagic.model.annotation.TargetUrl;
+
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by xn on 2017/4/8.
@@ -93,7 +99,7 @@ public class Test {
     }
 
     public static void main(String[] args) {
-        BasicConfigurator.configure();
+        /*BasicConfigurator.configure();
         OOSpider.create(
                 Site.me(),
                 new ConsolePageModelPipeline(),
@@ -101,7 +107,14 @@ public class Test {
 //                .setDownloader(new SeleniumDownloader("E:/myData/IDE/git-graduate/graduate-idea/chromedriver.exe"))
                 .addUrl("http://www.100ppi.com/sf/")
 //                .thread(5)
-                .run();
+                .run();*/
+
+//        PropertyConfigurator.configure("log4j.properties");
+//        System.setProperty("log4j.configuration", "./log4j.properties");
+//        Logger logger = LoggerFactory.getLogger(Test.class);
+//        logger.info("111,添加,用户");
+
+//        System.out.println(new File("log.log").exists());
 
 //        String s = "http://www.100ppi.com 2017年04月07日 16:30    来源：生意社";
 //
