@@ -232,8 +232,8 @@
                         </li>
                         <li id="send-warning-list">
                             <a href="sendWarningList" title="warning">已发预警列表</a>
-                        </li id="handle-warning-list">
-                        <li><a href="handleWarningList" title="warning">预警处理任务列表</a>
+                        </li>
+                        <li id="handle-warning-list"><a href="handleWarningList" title="warning">预警处理任务列表</a>
                         </li>
                     </ul>
                 </li>

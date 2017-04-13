@@ -180,35 +180,22 @@
                             <a href="#" title="log management">
                                 月报告
                             </a>
+                        </li>
                     </ul>
                 </li>
-                <li id="user-management" class="nav-dropdown">
-                    <a href="#" title="user management">
-                        <i class="fa  fa-fw  icon-users"></i> 用户管理
+                <li id="gage-management" class="nav-dropdown">
+                    <a href="#" title="gage management">
+                        <i class="fa  fa-fw  icon-users"></i> 存货管理
                     </a>
                     <ul class="nav-sub">
-                        <li id="user-management-list">
-                            <a href="userlist" title="user list">
-                                用户信息列表
+                        <li id="inventory-list">
+                            <a href="#" title="inventory list">
+                                存货信息
                             </a>
                         </li>
-                        <li><a href="#" title="batch add">批量导入</a>
+                        <li><a href="#" title="notice">出入库通知单</a>
                         </li>
-                        <li id="staff-list">
-                            <a href="staffList" title="staff management">
-                                员工列表
-                            </a>
-                        </li>
-                        <li id="regulators-list">
-                            <a href="regulatorsList" title="regulators management">
-                                监管机构列表
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#" title="company management">
-                                企业客户列表
-                            </a>
-                        </li>
+
                     </ul>
                 </li>
                 <li id="warning-management" class="nav-dropdown">
@@ -221,8 +208,9 @@
                         </li>
                         <li id="send-warning-list">
                             <a href="sendWarningList" title="warning">已发预警列表</a>
-                        </li id="handle-warning-list">
-                        <li><a href="handleWarningList" title="warning">预警处理任务列表</a>
+                        </li>
+                        <li id="handle-warning-list">
+                            <a href="handleWarningList" title="warning">预警处理任务列表</a>
                         </li>
                     </ul>
                 </li>

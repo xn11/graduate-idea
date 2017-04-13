@@ -72,6 +72,17 @@
                                     <th>当前状态</th>
                                 </tr>
                             </thead>
+                            <tfoot>
+                                <tr>
+                                    <th>序号</th>
+                                    <th>用户ID</th>
+                                    <th>用户名</th>
+                                    <th>角色</th>
+                                    <th>联系电话</th>
+                                    <th>注册时间</th>
+                                    <th>当前状态</th>
+                                </tr>
+                            </tfoot>
 
                             <%--<tbody>
                                 <c:forEach items="${userlist}" var="itr">
@@ -338,7 +349,7 @@
                 }
 
             ],
-            dom: "<'row'<'col-xs-12 col-sm-7'B><'col-xs-12 col-sm-5'f>r>"+"t" +
+            dom: "<'row'<'hidden-xs col-sm-2'l><'col-xs-12 col-sm-6'B><'col-xs-12 col-sm-4'f>r>"+"t" +
             "<'row'<'hidden-xs col-sm-6'i><'col-xs-12 col-sm-6'p>>",
 //                dom: 'Bfrtip',
             buttons: [
@@ -391,8 +402,33 @@
                     className:"btn btn-primary btn-trans"
                 }
             ],
-            select: true,
-            stateSave: true
+            //tfoot变为筛选框
+            initComplete: function () {
+                this.api().columns().every( function () {
+                    let column = this;
+                    //第一列序号不变
+                    if (column[0][0] != 0) {
+                        let select = $('<select><option value=""></option></select>')
+                            .appendTo($(column.footer()).empty())
+                            .on('change', function () {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+                                );
+
+                                column
+                                    .search(val ? '^' + val + '$' : '', true, false)
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function (d, j) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    }
+                } );
+            },
+
+            select: true
+//            stateSave: true
         });
 
         //添加序号
