@@ -30,7 +30,7 @@ public class AdminController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView homeView(@ModelAttribute("user") User user, HttpServletRequest request) {
         request.getSession().setAttribute("user", user);
-        return new ModelAndView("admin/home", "user", user);
+        return new ModelAndView("/admin/home", "user", user);
     }
 
     /*@RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)

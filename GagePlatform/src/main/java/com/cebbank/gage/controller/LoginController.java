@@ -43,7 +43,7 @@ public class LoginController {
     public ModelAndView login(HttpServletRequest request, HttpServletResponse response, RedirectAttributes redirectAttributes)
             throws IOException, ServletException {
         HttpSession session = request.getSession();
-        String view = "login";
+        String view = "/login";
 
 
         String uid = request.getParameter("uid");
@@ -83,7 +83,7 @@ public class LoginController {
         userService.update(user);
         switch (user.getRole()) {
             case ADMIN:
-                view = "admin/home";
+                view = "/admin/home";
                 break;
 //            case REGULATORS:
 //                view = "regulator/home";
@@ -92,6 +92,7 @@ public class LoginController {
                 break;
         }
 
+        GageUtils.saveRequest(session.getId(), user);
         redirectAttributes.addFlashAttribute("user", user);
 //        redirectAttributes.addAttribute("user", user);
         return new ModelAndView(new RedirectView(view));
@@ -112,6 +113,7 @@ public class LoginController {
         }
 
         //添加提示信息
+        GageUtils.removeRequest(session.getId());
         redirectAttributes.addFlashAttribute("error", error);
         session.invalidate();
         return "redirect:/login";
