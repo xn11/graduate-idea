@@ -69,7 +69,8 @@ public class AuthInterceptor extends HandlerInterceptorAdapter{
             return true;
         }else {
             //未授权访问401
-            response.setStatus(401);
+            response.sendError(401);
+//            response.sendRedirect("/login");
             return false;
         }
     }
