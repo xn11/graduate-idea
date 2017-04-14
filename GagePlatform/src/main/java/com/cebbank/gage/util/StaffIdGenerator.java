@@ -64,7 +64,7 @@ public class StaffIdGenerator implements IdentifierGenerator {
             seq++;
         }
 
-        logger.info("THE STAFF ID IS :" + Integer.parseInt(sb.substring(0, 10)));
+//        logger.info("THE STAFF ID IS :" + Integer.parseInt(sb.substring(0, 10)));
 
         return Integer.parseInt(sb.substring(0, 10));
     }

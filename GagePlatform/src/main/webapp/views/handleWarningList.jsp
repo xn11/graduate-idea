@@ -234,8 +234,8 @@
                     }
                 }
             ],
-            dom: "<'row'<'col-xs-7'B><'col-xs-5'f>r>"+"t" +
-            "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+            dom: "<'row'<'col-xs-12 col-sm-7'B><'col-xs-12 col-sm-5'f>r>"+"t" +
+            "<'row'<'hidden-xs col-sm-6'i><'col-xs-12 col-sm-6'p>>",
             buttons: [
                 {
                     text: '<button class="btn btn-info btn-trans btn-disabled" data-toggle="modal" data-target="#checkModal" disabled="disabled" id="checkBtn">查看</button>',

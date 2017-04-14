@@ -34,7 +34,8 @@ public class Organization {
     @Transient
     private String text;
     @Transient
-    private List<String> tags = new ArrayList<String>();;
+    private List<String> tags = new ArrayList<String>();
+    ;
 
     //外键关联属性
     //    @JsonIgnore

@@ -9,6 +9,7 @@ import com.cebbank.gage.model.Warning;
 import com.cebbank.gage.service.CompanyService;
 import com.cebbank.gage.service.UserService;
 import com.cebbank.gage.service.WarningService;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -26,6 +27,9 @@ import java.util.*;
 @Controller
 @RequestMapping("/user")
 public class UserController {
+    private Logger logger = org.slf4j.LoggerFactory.getLogger("gage.file");
+
+
     @Autowired
     private UserService userService;
 
@@ -49,6 +53,8 @@ public class UserController {
         GeneralResult result = userService.update(user);
         if (result.isNormal()) {
             session.setAttribute("user", user);
+
+            logger.info(user.getId() + "," + "修改个人信息");
         }
 
         return result;
@@ -64,6 +70,8 @@ public class UserController {
         GeneralResult result = userService.update(user);
         if (result.isNormal()) {
             session.setAttribute("user", user);
+
+            logger.info(user.getId() + "," + "修改密码");
         }
 
         return result;
@@ -105,6 +113,8 @@ public class UserController {
             warning.setStatus(StatusTypeEnum.IN_PROCESS);
             result = warningService.update(warning);
             if (result.isNormal()) {
+                logger.info(user.getId() + "," + "接受预警" + warningId);
+
                 return new GeneralResult();
             }
         }
@@ -170,17 +180,23 @@ public class UserController {
         }
 
         warning.setReceivers(new HashSet<User>(receivers));
+
+        logger.info(request.getSession().getAttribute("uid") + "," + "发送预警");
+
         return warningService.saveOrUpdate(warning);
     }
 
     @RequestMapping(value = {"/handleWarning"}, method = RequestMethod.POST)
     @ResponseBody
-    public GeneralResult handleWarning(@RequestParam(value = "warningId") int warningId, @RequestParam(value = "note") String note, @RequestParam(value = "status") int status) {
+    public GeneralResult handleWarning(HttpServletRequest request, @RequestParam(value = "warningId") int warningId, @RequestParam(value = "note") String note, @RequestParam(value = "status") int status) {
         GeneralResult<Warning> result = warningService.getById(warningId);
         if (result.isNormal()) {
             Warning warning = result.getData();
             warning.setNote(note);
             warning.setStatus(StatusTypeEnum.values()[status]);
+
+            logger.info(request.getSession().getAttribute("uid") + "," + "处理预警" + warningId);
+
             return warningService.update(warning);
         }
         return result;

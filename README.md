@@ -462,6 +462,33 @@ key、value
 
 
 
+### notice 通知
+
+id,
+
+type  ——出入库、出质通知、结清
+
+gage_id
+
+amount
+
+监管机构id
+
+客户经理id
+
+主管id
+
+状态   ——待审批、待确认、已确认、已执行
+
+timestamp
+
+check_time 监管公司确认时间
+
+note
+
+
+
+
 ## model
 
 ### → 用户User

@@ -72,6 +72,7 @@ public class LoginController {
         String action = request.getParameter("action");
         if (action.equals("logout")) {
             session.setAttribute("user", user);
+            session.setAttribute("uid",user.getId());
             session.setAttribute("error", "    签退成功！");
             return new ModelAndView("forward:/logout");
         } else if (user.getStatus() == 1) {
@@ -85,8 +86,11 @@ public class LoginController {
             case ADMIN:
                 view = "admin/home";
                 break;
+            case REGULATOR:
+                view = "regulator/home";
+                break;
 //            case REGULATORS:
-//                view = "regulator/home";
+//                view = "regulators/home";
 //                break;
             default:
                 break;
