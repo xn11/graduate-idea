@@ -1,5 +1,6 @@
 package com.cebbank.gage.service;
 
+import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.model.Company;
 
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface CompanyService {
     public void saveList(List<Company> list);
 
-    public List<Company> getAll();
+    public GeneralResult<List<Company>> getAll();
 
     public Company getById(int id);
 

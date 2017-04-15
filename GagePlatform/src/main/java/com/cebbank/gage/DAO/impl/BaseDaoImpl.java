@@ -1,6 +1,6 @@
 //package com.cebbank.gage.DAO.impl;
 //
-//import com.cebbank.gage.DAO.BaseDao;
+//import com.cebbank.gage.dao.BaseDao;
 //import com.cebbank.gage.util.Page;
 //import com.cebbank.gage.util.Parameter;
 //import org.hibernate.HibernateException;

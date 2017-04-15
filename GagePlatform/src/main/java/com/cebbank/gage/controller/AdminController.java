@@ -2,14 +2,8 @@ package com.cebbank.gage.controller;
 
 import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.common.RoleEnum;
-import com.cebbank.gage.model.Organization;
-import com.cebbank.gage.model.Regulators;
-import com.cebbank.gage.model.Staff;
-import com.cebbank.gage.model.User;
-import com.cebbank.gage.service.AdminService;
-import com.cebbank.gage.service.RegulatorsService;
-import com.cebbank.gage.service.StaffService;
-import com.cebbank.gage.service.UserService;
+import com.cebbank.gage.model.*;
+import com.cebbank.gage.service.*;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,7 +22,7 @@ import java.util.Map;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    private Logger logger = org.slf4j.LoggerFactory.getLogger(this.getClass());
+    private Logger logger = org.slf4j.LoggerFactory.getLogger("gage.file");
 
     @Autowired
     private UserService userService;
@@ -36,7 +30,7 @@ public class AdminController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView homeView(@ModelAttribute("user") User user, HttpServletRequest request) {
         request.getSession().setAttribute("user", user);
-        return new ModelAndView("admin/home", "user", user);
+        return new ModelAndView("/admin/home", "user", user);
     }
 
     /*@RequestMapping(value = {"/userlist"}, method = RequestMethod.GET)
@@ -56,7 +50,7 @@ public class AdminController {
 
     @RequestMapping(value = {"/getUserListMap"})
     @ResponseBody
-    public Map<String, Object> getUserListMap() {
+    public Map<String, Object> getUserListMap(HttpServletRequest request) {
         GeneralResult<List<User>> result = userService.getAll();
         List<User> data = result.getData();
         Map<String, Object> info = new HashMap<String, Object>();
@@ -74,7 +68,8 @@ public class AdminController {
 
     @RequestMapping(value = {"/delUsers"}, method = RequestMethod.POST)
     @ResponseBody
-    public GeneralResult delUsers(@RequestParam(value = "data[]") int[] ids) {
+    public GeneralResult delUsers(@RequestParam(value = "data[]") int[] ids, HttpServletRequest request) {
+        logger.info(request.getSession().getAttribute("uid") + "," + "删除用户" + ids);
         return userService.delAll(ids);
     }
 
@@ -98,6 +93,9 @@ public class AdminController {
             if (id == currentUser.getId() && update.isNormal()) {
                 session.setAttribute("user", user);
             }
+
+            logger.info(session.getAttribute("uid") + "," + "更新用户" + user.getId());
+
             return update;
         } else {
             return result;
@@ -117,6 +115,9 @@ public class AdminController {
         String telephone = request.getParameter("telephone");
         String note = request.getParameter("note");
         User user = new User(uname, roleId, password, telephone, note);
+
+        logger.info(request.getSession().getAttribute("uid") + "," + "添加用户name=" + uname);
+
         return userService.save(user);
     }
 
@@ -155,7 +156,8 @@ public class AdminController {
 
     @RequestMapping(value = {"/delRegulators"}, method = RequestMethod.POST)
     @ResponseBody
-    public GeneralResult delRegulators(@RequestParam(value = "data[]") int[] ids) {
+    public GeneralResult delRegulators(@RequestParam(value = "data[]") int[] ids, HttpServletRequest request) {
+        logger.info(request.getSession().getAttribute("uid") + "," + "删除监管机构" + ids);
         return regulatorsService.delAll(ids);
     }
 
@@ -173,6 +175,8 @@ public class AdminController {
             regulators.setEmail(request.getParameter("email"));
             regulators.setScore(Double.parseDouble(request.getParameter("score")));
             regulators.setNote(request.getParameter("note"));
+
+            logger.info(request.getSession().getAttribute("uid") + "," + "更新监管机构" + id);
             return regulatorsService.update(regulators);
         } else {
             return result;
@@ -189,6 +193,8 @@ public class AdminController {
         String email = request.getParameter("email");
         String note = request.getParameter("note");
         Regulators regulators = new Regulators(name, address, contact, telephone, email, note);
+
+        logger.info(request.getSession().getAttribute("uid") + "," + "添加监管机构name=" + name);
         return regulatorsService.save(regulators);
     }
 
@@ -244,5 +250,44 @@ public class AdminController {
     public String receivedWarningListView() {
         return "/admin/receivedWarningList";
     }
+
+    @RequestMapping(value = {"/sendWarningList"}, method = RequestMethod.GET)
+    public String sendWarningListView(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+
+        //companyList放入session
+        @SuppressWarnings("unchecked")
+        List<Company> companyList = (List<Company>) session.getAttribute("companyList");
+        if (null == companyList) {
+            GeneralResult<List<Company>> result = companyService.getAll();
+            if (result.isNormal()) {
+                request.getSession().setAttribute("companyList", result.getData());
+            }
+        }
+
+        //userList放入session
+        @SuppressWarnings("unchecked")
+        List<User> userList = (List<User>) session.getAttribute("userList");
+
+        if (null == userList) {
+            GeneralResult<List<User>> result = userService.getAll();
+            if (result.isNormal()) {
+                request.getSession().setAttribute("userList", result.getData());
+            }
+        }
+
+        return "/admin/sendWarningList";
+    }
+
+    @RequestMapping(value = {"/handleWarningList"}, method = RequestMethod.GET)
+    public String handleWarningListView() {
+        return "/admin/handleWarningList";
+    }
+
+    /**
+     * company
+     */
+    @Autowired
+    private CompanyService companyService;
 
 }

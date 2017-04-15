@@ -230,10 +230,10 @@
                         <li id="received-warning-list">
                             <a href="receivedWarningList" title="warning">预警列表</a>
                         </li>
-                        <li>
-                            <a href="#" title="warning">已发送预警</a>
+                        <li id="send-warning-list">
+                            <a href="sendWarningList" title="warning">已发预警列表</a>
                         </li>
-                        <li><a href="#" title="info">处理任务</a>
+                        <li id="handle-warning-list"><a href="handleWarningList" title="warning">预警处理任务列表</a>
                         </li>
                     </ul>
                 </li>

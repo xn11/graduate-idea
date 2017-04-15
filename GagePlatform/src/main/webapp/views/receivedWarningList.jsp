@@ -160,7 +160,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="e-saveUser" onclick="handle();">接受任务</button>
+                <button type="button" class="btn btn-primary" id="accept-warning" onclick="accept();">接受任务</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -235,8 +235,8 @@
                     }
                 }
             ],
-            dom: "<'row'<'col-xs-7'B><'col-xs-5'f>r>"+"t" +
-            "<'row'<'col-xs-6'i><'col-xs-6'p>>",
+            dom: "<'row'<'col-xs-12 col-sm-7'B><'col-xs-12 col-sm-5'f>r>"+"t" +
+            "<'row'<'hidden-xs col-sm-6'i><'col-xs-12 col-sm-6'p>>",
             buttons: [
                 {
                     text: '<button class="btn btn-info btn-trans btn-disabled" data-toggle="modal" data-target="#checkModal" disabled="disabled" id="checkBtn">查看</button>',
@@ -277,6 +277,13 @@
                         }
 
                         $("#note").val(printNull(row.note));
+
+                        if (row.status != "未处理") {
+                            $('#accept-warning').hide();
+                        }else {
+                            $('#accept-warning').show();
+
+                        }
                     }
                 },
                 {
@@ -318,10 +325,10 @@
 
     });
 
-    function handle() {
+    function accept() {
         let companyId = $('#companyId').val();
         $.ajax({
-            url: "/user/handleWarning",
+            url: "/user/acceptWarning",
             method : "post",
             data: {
                 id: companyId

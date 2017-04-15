@@ -4,7 +4,7 @@ import org.codehaus.jackson.annotate.JsonValue;
 
 /**
  * Created by xn on 2017/3/6.
- *
+ * <p>
  * 用户角色Role(name, id)
  */
 public enum RoleEnum {
