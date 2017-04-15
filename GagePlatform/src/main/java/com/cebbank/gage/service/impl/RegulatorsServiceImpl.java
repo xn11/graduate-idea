@@ -3,11 +3,11 @@ package com.cebbank.gage.service.impl;
 import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.common.ResultEnum;
 import com.cebbank.gage.dao.RegulateAccountDao;
-import com.cebbank.gage.dao.RegulatorsCompanyDao;
+//import com.cebbank.gage.dao.RegulatorsCompanyDao;
 import com.cebbank.gage.dao.RegulatorsDao;
 import com.cebbank.gage.model.RegulateAccount;
 import com.cebbank.gage.model.Regulators;
-import com.cebbank.gage.model.RegulatorsCompany;
+//import com.cebbank.gage.model.RegulatorsCompany;
 import com.cebbank.gage.service.RegulatorsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ public class RegulatorsServiceImpl implements RegulatorsService {
 
     @Autowired
     private RegulatorsDao dao;
-    @Autowired
-    private RegulatorsCompanyDao regulatorsCompanyDao;
+//    @Autowired
+//    private RegulatorsCompanyDao regulatorsCompanyDao;
     @Autowired
     private RegulateAccountDao regulateAccountDao;
 
@@ -91,7 +91,7 @@ public class RegulatorsServiceImpl implements RegulatorsService {
     }
 
     //gages of contract
-    public void save(RegulatorsCompany regulatorsCompany) {
+    /*public void save(RegulatorsCompany regulatorsCompany) {
         try {
             regulatorsCompanyDao.save(regulatorsCompany);
         } catch (Exception e) {
@@ -105,7 +105,7 @@ public class RegulatorsServiceImpl implements RegulatorsService {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     //regulate account
     public void save(RegulateAccount regulateAccount) {

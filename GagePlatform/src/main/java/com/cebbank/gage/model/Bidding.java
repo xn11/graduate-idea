@@ -25,7 +25,7 @@ public class Bidding {
 
     private double fee;
 
-    //竞价中、已结束、无效
+    //竞价中0、已结束1、无效-1
     private int status;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
@@ -35,7 +35,7 @@ public class Bidding {
 
     //外键关联属性
 //    @JsonIgnore
-    @OneToMany(mappedBy = "bidding", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @OneToMany(mappedBy = "bidding", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<BiddingRegulators> regulatorses = new HashSet<BiddingRegulators>();
 
     //constructor
@@ -44,6 +44,10 @@ public class Bidding {
 
     public Bidding(int id) {
         this.id = id;
+    }
+
+    public Bidding(Company company) {
+        this.company = company;
     }
 
     public int getId() {

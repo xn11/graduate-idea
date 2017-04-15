@@ -51,7 +51,8 @@ public class Notice {
 
     //外键关联属性
 //    @JsonIgnore
-    @OneToMany(mappedBy = "notice", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+//    @OneToMany(mappedBy = "notice", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "notice", fetch=FetchType.EAGER, cascade = {CascadeType.ALL})
     private Set<NoticeGage> gages = new HashSet<NoticeGage>();
 
     //constructor
@@ -60,6 +61,13 @@ public class Notice {
 
     public Notice(int id) {
         this.id = id;
+    }
+
+    public Notice(NoticeTypeEnum type, Contract contract, User director) {
+        this.type = type;
+        this.contract = contract;
+        this.director = director;
+        this.status = NoticeStatusTypeEnum.APPROVAL_PENDING;
     }
 
     public int getId() {

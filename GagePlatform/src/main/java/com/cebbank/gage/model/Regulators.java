@@ -24,9 +24,13 @@ public class Regulators {
     private String note;
 
     //外键关联属性
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "regulators", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+//    private Set<RegulatorsCompany> companies = new HashSet<RegulatorsCompany>();
+
     @JsonIgnore
     @OneToMany(mappedBy = "regulators", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
-    private Set<RegulatorsCompany> companies = new HashSet<RegulatorsCompany>();
+    private Set<Bidding> biddings = new HashSet<Bidding>();
 
     //constructor
     public Regulators() {
@@ -117,11 +121,19 @@ public class Regulators {
         this.note = note;
     }
 
-    public Set<RegulatorsCompany> getCompanies() {
+    /*public Set<RegulatorsCompany> getCompanies() {
         return companies;
     }
 
     public void setCompanies(Set<RegulatorsCompany> companies) {
         this.companies = companies;
+    }*/
+
+    public Set<Bidding> getBiddings() {
+        return biddings;
+    }
+
+    public void setBiddings(Set<Bidding> biddings) {
+        this.biddings = biddings;
     }
 }

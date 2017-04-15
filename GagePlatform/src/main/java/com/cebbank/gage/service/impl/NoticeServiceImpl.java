@@ -17,6 +17,16 @@ public class NoticeServiceImpl implements NoticeService {
     @Autowired
     private NoticeDao noticeDao;
 
+    public void saveList(List<Notice> list) {
+        try {
+            for (Notice obj : list) {
+                noticeDao.save(obj);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Notice> getAll() {
         return noticeDao.getAll();
     }

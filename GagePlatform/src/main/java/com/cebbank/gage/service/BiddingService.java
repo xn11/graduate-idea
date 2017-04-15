@@ -10,6 +10,8 @@ import java.util.List;
 public interface BiddingService {
 //    public void saveList(List<Gage> list);
 
+    public void save(Bidding bidding);
+
     public List<Bidding> getAll();
 
     public Bidding getById(int id);

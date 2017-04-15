@@ -8,7 +8,7 @@ import java.util.List;
  * Created by xn on 2017/3/6.
  */
 public interface NoticeService {
-//    public void saveList(List<Gage> list);
+    public void saveList(List<Notice> list);
 
     public List<Notice> getAll();
 

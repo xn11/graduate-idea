@@ -17,6 +17,14 @@ public class BiddingServiceImpl implements BiddingService {
     @Autowired
     private BiddingDao biddingDao;
 
+    public void save(Bidding bidding) {
+        try {
+            biddingDao.save(bidding);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public List<Bidding> getAll() {
         return biddingDao.getAll();
     }

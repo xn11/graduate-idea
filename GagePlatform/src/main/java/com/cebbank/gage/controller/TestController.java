@@ -1,10 +1,8 @@
 package com.cebbank.gage.controller;
 
+import com.cebbank.gage.common.NoticeTypeEnum;
 import com.cebbank.gage.model.*;
-import com.cebbank.gage.service.MysteelService;
-import com.cebbank.gage.service.NoticeService;
-import com.cebbank.gage.service.UserService;
-import com.cebbank.gage.service.WarningService;
+import com.cebbank.gage.service.*;
 import org.apache.log4j.BasicConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,6 +15,8 @@ import us.codecraft.webmagic.model.ConsolePageModelPipeline;
 import us.codecraft.webmagic.model.OOSpider;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 
@@ -32,8 +32,8 @@ public class TestController {
 //    private OrganizationService organizationService;
 //    @Autowired
 //    private DepartmentService departmentService;
-//    @Autowired
-//    private CompanyService companyService;
+    @Autowired
+    private CompanyService companyService;
     @Autowired
     private WarningService warningService;
     @Autowired
@@ -46,10 +46,12 @@ public class TestController {
 //    private AdminService adminService;
 //    @Autowired
 //    private ContractService contractService;
-//    @Autowired
-//    private RegulatorsService regulatorsService;
     @Autowired
-    private NoticeService noticeService;
+    private RegulatorsService regulatorsService;
+//    @Autowired
+//    private NoticeService noticeService;
+    @Autowired
+    private BiddingService biddingService;
 
 
     @RequestMapping("/")
@@ -100,17 +102,25 @@ public class TestController {
 //        RegulateAccount regulateAccount = new RegulateAccount(regulatorsCompany, gageService.getById(1), 10000);
 //        regulatorsService.save(regulateAccount);
 
+//        List<Notice> list = new ArrayList<Notice>();
+//        Notice notice = new Notice(NoticeTypeEnum.PLEDGE_START, contractService.getAll().get(0),userService.getById(9).getData());
+//        notice.getGages().add(new NoticeGage(notice, gageService.getById(1),50));
+//        list.add(notice);
+//        noticeService.saveList(list);
 
+        Bidding bidding = new Bidding(companyService.getAll().getData().get(0));
+        bidding.getRegulatorses().add(new BiddingRegulators(bidding,regulatorsService.getAll().getData().get(0)));
+        biddingService.save(bidding);
 
         return "index";
     }
 
     @RequestMapping("/json")
     @ResponseBody
-    public Set<Warning> json() {
+    public Set<BiddingRegulators> json() {
 //        List<Organization> data = adminService.getRootOrg().getData();
 //        data.get(0).getNodes().iterator().next().setNodes(null);
-        return userService.getById(8).getData().getReceiveWarnings();
+        return biddingService.getAll().get(0).getRegulatorses();
     }
 
     @RequestMapping("/json2")

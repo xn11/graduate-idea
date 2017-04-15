@@ -16,7 +16,7 @@ public class BiddingRegulators {
     private int id;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "bidding_id")
     private Bidding bidding;
 
@@ -26,7 +26,7 @@ public class BiddingRegulators {
 
     private double fee;
 
-    //未出价、等待结果、中标、未中标、无效
+    //未出价0、等待结果1、中标2、未中标3、无效-1
     private int status;
 
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
@@ -39,6 +39,11 @@ public class BiddingRegulators {
 
     public BiddingRegulators(int id) {
         this.id = id;
+    }
+
+    public BiddingRegulators(Bidding bidding, Regulators regulators) {
+        this.bidding = bidding;
+        this.regulators = regulators;
     }
 
     public int getId() {

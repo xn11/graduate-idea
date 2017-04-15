@@ -8,14 +8,14 @@ import javax.persistence.*;
  * Created by xn on 2017/3/15.
  */
 @Entity
-@Table(name = "contract_gage")
+@Table(name = "notice_gage")
 public class NoticeGage {
     @Id
     @GeneratedValue
     private int id;
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.MERGE})
+    @ManyToOne
     @JoinColumn(name = "notice_id")
     private Notice notice;
 
@@ -32,6 +32,12 @@ public class NoticeGage {
 
     public NoticeGage(int id) {
         this.id = id;
+    }
+
+    public NoticeGage(Notice notice, Gage gage, double quantity) {
+        this.notice = notice;
+        this.gage = gage;
+        this.quantity = quantity;
     }
 
     public int getId() {
