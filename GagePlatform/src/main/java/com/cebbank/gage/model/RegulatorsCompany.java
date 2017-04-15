@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Created by xn on 2017/3/15.
  */
-@Entity
+/*@Entity
 @Table(name = "regulators_company")
 public class RegulatorsCompany {
     @Id
@@ -131,4 +131,4 @@ public class RegulatorsCompany {
     public void setRegulateAccounts(Set<RegulateAccount> regulateAccounts) {
         this.regulateAccounts = regulateAccounts;
     }
-}
+}*/

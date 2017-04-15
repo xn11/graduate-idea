@@ -5,7 +5,7 @@ import java.util.Date;
 
 /**
  * Created by xn on 2017/3/15.
- *
+ * <p>
  * 台账
  */
 @Entity
@@ -15,11 +15,15 @@ public class RegulateAccount {
     @GeneratedValue
     private int id;
 
-    @ManyToOne(cascade = {CascadeType.MERGE})
-    @JoinColumn(name = "regulator_id")
-    private RegulatorsCompany regulator;
+//    @ManyToOne(cascade = {CascadeType.MERGE})
+//    @JoinColumn(name = "regulator_id")
+//    private RegulatorsCompany regulator;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
+    @JoinColumn(name = "company_id")
+    private Company company;
+
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "gage_id")
     private Gage gage;
 
@@ -38,8 +42,8 @@ public class RegulateAccount {
         this.id = id;
     }
 
-    public RegulateAccount(RegulatorsCompany regulator, Gage gage, double quantity) {
-        this.regulator = regulator;
+    public RegulateAccount(Company company, Gage gage, double quantity) {
+        this.company = company;
         this.gage = gage;
         this.quantity = quantity;
     }
@@ -52,12 +56,12 @@ public class RegulateAccount {
         this.id = id;
     }
 
-    public RegulatorsCompany getRegulator() {
-        return regulator;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setRegulator(RegulatorsCompany regulator) {
-        this.regulator = regulator;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     public Gage getGage() {

@@ -1,10 +1,8 @@
 package com.cebbank.gage.controller;
 
-import com.cebbank.gage.model.MyBlog;
-import com.cebbank.gage.model.Mysteel;
-import com.cebbank.gage.model.User;
-import com.cebbank.gage.model.Warning;
+import com.cebbank.gage.model.*;
 import com.cebbank.gage.service.MysteelService;
+import com.cebbank.gage.service.NoticeService;
 import com.cebbank.gage.service.UserService;
 import com.cebbank.gage.service.WarningService;
 import org.apache.log4j.BasicConfigurator;
@@ -50,6 +48,9 @@ public class TestController {
 //    private ContractService contractService;
 //    @Autowired
 //    private RegulatorsService regulatorsService;
+    @Autowired
+    private NoticeService noticeService;
+
 
     @RequestMapping("/")
     public String home() throws ParseException {
@@ -98,6 +99,8 @@ public class TestController {
 //        regulatorsService.save(regulatorsCompany);
 //        RegulateAccount regulateAccount = new RegulateAccount(regulatorsCompany, gageService.getById(1), 10000);
 //        regulatorsService.save(regulateAccount);
+
+
 
         return "index";
     }
