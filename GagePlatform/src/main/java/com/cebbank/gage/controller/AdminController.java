@@ -110,7 +110,9 @@ public class AdminController {
         if (roleId == RoleEnum.REGULATORS.getId()) {
             uname = "r";
         }
-        uname += request.getParameter("uid");
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        //0补齐10位
+        uname += String.format("%010d", uid);;
         String password = request.getParameter("password");
         String telephone = request.getParameter("telephone");
         String note = request.getParameter("note");

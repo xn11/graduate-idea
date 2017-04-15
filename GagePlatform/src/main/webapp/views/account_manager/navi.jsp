@@ -71,6 +71,11 @@
                             账号信息
                         </a>
                     </li>
+                    <%--<li>
+                        <a href="javascript:void(0);">
+                                <span class="icon"><i class="fa fa-envelope"></i>
+                                </span>账户安全</a>
+                    </li>--%>
                     <li>
                         <a href="modifyPassword">
                             <span class="icon"><i class="fa fa-cog"></i></span>
@@ -163,34 +168,58 @@
                 </li>
                 <li id="system-management" class="nav-dropdown">
                     <a href="#"  title="system management">
-                        <i class="fa  fa-fw fa-cogs"></i>监管
+                        <i class="fa  fa-fw fa-th-list"></i>业务信息
                     </a>
                     <ul class="nav-sub">
                         <li  id="organization-list">
                             <a href="organizationList" title="org management">
-                                台账
+                                企业客户列表
                             </a>
                         </li>
                         <li>
                             <a href="#" title="log management">
-                                月报告
+                                质押合同列表
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li id="gage-management" class="nav-dropdown">
                     <a href="#" title="gage management">
-                        <i class="fa  fa-fw  icon-users"></i> 通知
+                        <i class="fa fa-cubes"></i> 存货管理
                     </a>
                     <ul class="nav-sub">
                         <li id="inventory-list">
                             <a href="#" title="inventory list">
-                                待确认通知
+                                存货信息列表
                             </a>
                         </li>
-                        <li><a href="#" title="notice">通知记录</a>
+                        <li><a href="#" title="notice">存货权利证明</a>
+                        </li>
+                        <li><a href="#" title="notice">远程监控</a>
+                        </li>
+                        <li><a href="#" title="notice">监管台账</a>
+                        </li>
+                        <li><a href="#" title="notice">监管月报告</a>
+                        </li>
+                        <li><a href="#" title="notice">盘货日志</a>
                         </li>
 
+                    </ul>
+                </li>
+                <li id="notice" class="nav-dropdown">
+                    <a href="#" title="notice management">
+                        <i class="fa fa-fw fa-envelope-o"></i> 通知
+                    </a>
+                    <ul class="nav-sub">
+                        <li id="handle-notice">
+                            <a href="" title="notice">待处理通知</a>
+                        </li>
+                        <li id="approval-pending-notice">
+                            <a href="" title="notice">待审通知</a>
+                        </li>
+                        <li id="confirm-pending-notice">
+                            <a href="" title="notice">待确认通知</a>
+                        </li>
                     </ul>
                 </li>
                 <li id="warning-management" class="nav-dropdown">

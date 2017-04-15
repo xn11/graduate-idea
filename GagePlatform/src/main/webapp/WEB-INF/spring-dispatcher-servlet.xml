@@ -31,6 +31,9 @@
                      <!--<mvc:mapping path="/" />-->
                      <mvc:mapping path="/admin/**" />
                      <mvc:mapping path="/regulator/**" />
+                     <mvc:mapping path="/regulators/**" />
+                     <mvc:mapping path="/account_manager/**" />
+                     <mvc:mapping path="/marketing_director/**" />
                      <!--<mvc:mapping path="/test/**" />-->
                      <bean class="com.cebbank.gage.interceptor.AuthInterceptor"></bean>
               </mvc:interceptor>

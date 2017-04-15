@@ -89,6 +89,15 @@ public class LoginController {
             case REGULATOR:
                 view = "/regulator/home";
                 break;
+            case REGULATORS:
+                view = "/regulators/home";
+                break;
+            case ACCOUNT_MANAGER:
+                view = "/account_manager/home";
+                break;
+            case MARKETING_DIRECTOR:
+                view = "/marketing_director/home";
+                break;
 //            case REGULATORS:
 //                view = "regulators/home";
 //                break;
