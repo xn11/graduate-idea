@@ -14,7 +14,7 @@ public enum NoticeStatusTypeEnum {
     IN_BIIDING(2, "竞价中"),
     OFFLINE(3, "线下处理中"),
     CONFIRM_PENDING(4, "待确认"),
-    CONFIRMED(5, "已确认"),
+    CONFIRMED(5, "已确认")
     ;
 
     private int id;

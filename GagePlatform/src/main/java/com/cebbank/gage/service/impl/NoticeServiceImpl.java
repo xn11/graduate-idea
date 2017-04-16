@@ -1,5 +1,7 @@
 package com.cebbank.gage.service.impl;
 
+import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.ResultEnum;
 import com.cebbank.gage.dao.NoticeDao;
 import com.cebbank.gage.model.Notice;
 import com.cebbank.gage.service.NoticeService;
@@ -25,6 +27,17 @@ public class NoticeServiceImpl implements NoticeService {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public GeneralResult<Integer> save(Notice notice) {
+        GeneralResult<Integer> result = new GeneralResult<Integer>();
+        try {
+            int id = noticeDao.save(notice);
+            result.setData(id);
+        } catch (Exception e) {
+            result.setResultCode(ResultEnum.E_DATABASE_INSERT);
+        }
+        return result;
     }
 
     public List<Notice> getAll() {

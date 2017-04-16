@@ -166,18 +166,18 @@
                         <i class="fa  fa-fw fa-tachometer"></i> 主页
                     </a>
                 </li>
-                <li id="system-management" class="nav-dropdown">
-                    <a href="#"  title="system management">
+                <li id="business-info-management" class="nav-dropdown">
+                    <a href="#"  title="business info management">
                         <i class="fa  fa-fw fa-th-list"></i>业务信息
                     </a>
                     <ul class="nav-sub">
-                        <li  id="organization-list">
-                            <a href="organizationList" title="org management">
+                        <li id="company-list">
+                            <a href="companyList" title="company management">
                                 企业客户列表
                             </a>
                         </li>
-                        <li>
-                            <a href="#" title="log management">
+                        <li id="contract-list">
+                            <a href="contractList" title="contract management">
                                 质押合同列表
                             </a>
                         </li>

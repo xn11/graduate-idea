@@ -1,5 +1,6 @@
 package com.cebbank.gage.service;
 
+import com.cebbank.gage.common.GeneralResult;
 import com.cebbank.gage.model.Notice;
 
 import java.util.List;
@@ -9,6 +10,8 @@ import java.util.List;
  */
 public interface NoticeService {
     public void saveList(List<Notice> list);
+
+    public GeneralResult<Integer> save(Notice notice);
 
     public List<Notice> getAll();
 

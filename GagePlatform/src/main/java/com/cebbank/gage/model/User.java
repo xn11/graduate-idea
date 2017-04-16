@@ -65,6 +65,11 @@ public class User implements Serializable {
     @OrderBy(value = "id DESC")
     private Set<Warning> handleWarnings = new HashSet<Warning>();
 
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "accountManager", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+//    @OrderBy(value = "from_date DESC")
+//    private Set<Contract> contracts = new HashSet<Contract>();
+
     //Constructors
     public User() {
     }
@@ -204,4 +209,12 @@ public class User implements Serializable {
     public void setHandleWarnings(Set<Warning> handleWarnings) {
         this.handleWarnings = handleWarnings;
     }
+
+    /*public Set<Contract> getContracts() {
+        return contracts;
+    }
+
+    public void setContracts(Set<Contract> contracts) {
+        this.contracts = contracts;
+    }*/
 }

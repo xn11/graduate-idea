@@ -1,6 +1,8 @@
 package com.cebbank.gage.model;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
+import com.cebbank.gage.common.ContractStatusTypeEnum;
+import com.cebbank.gage.util.DateJsonSerializer;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -17,32 +19,36 @@ public class Contract {
     private int id;
     private int type;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "company_id")
     private Company company;
 
     //客户经理
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "account_manager_id")
     private Staff accountManager;
 
     //协办
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "co_manager_id")
     private Staff coManager;
 
+    @JsonSerialize(using = DateJsonSerializer.class)
     @Column(name = "from_date", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date fromDate;
 
+    @JsonSerialize(using = DateJsonSerializer.class)
     @Column(name = "to_date", columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date toDate;
 
     private double loan;
-    private int status;
+
+    //0未入库，1待审批，2已入库，3已结清出库，4未结清出库，5处置中，6已处置
+    private ContractStatusTypeEnum status;
     private String note;
 
     //外键关联属性
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "contract", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private Set<ContractGage> contractGages = new HashSet<ContractGage>();
 
@@ -55,7 +61,7 @@ public class Contract {
         this.id = id;
     }
 
-    public Contract(int id, int type, Company company, Staff accountManager, Staff coManager, Date fromDate, Date toDate, double loan, int status) {
+    public Contract(int id, int type, Company company, Staff accountManager, Staff coManager, Date fromDate, Date toDate, double loan, ContractStatusTypeEnum status) {
         this.id = id;
         this.type = type;
         this.company = company;
@@ -131,11 +137,11 @@ public class Contract {
         this.loan = loan;
     }
 
-    public int getStatus() {
+    public ContractStatusTypeEnum getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(ContractStatusTypeEnum status) {
         this.status = status;
     }
 

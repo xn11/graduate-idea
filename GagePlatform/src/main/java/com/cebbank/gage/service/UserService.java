@@ -15,6 +15,8 @@ public interface UserService {
 
     public GeneralResult<User> getById(int id);
 
+    public GeneralResult<User> getByUid(String uid);
+
     public GeneralResult update(User user);
 
     public GeneralResult delete(int id);

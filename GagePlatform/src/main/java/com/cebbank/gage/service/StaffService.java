@@ -15,6 +15,10 @@ public interface StaffService {
 
     public GeneralResult<Staff> getById(int id);
 
+    public GeneralResult<Staff> getDirector(int id);
+
+    public GeneralResult<Staff> getByUid(String uid);
+
 //    public void update(Staff obj);
 
 //    public void delete(int id);

@@ -132,4 +132,12 @@ public class Company {
     public void setRegulateAccounts(Set<RegulateAccount> regulateAccounts) {
         this.regulateAccounts = regulateAccounts;
     }
+
+    public Bidding getBidding() {
+        return bidding;
+    }
+
+    public void setBidding(Bidding bidding) {
+        this.bidding = bidding;
+    }
 }

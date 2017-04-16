@@ -1,5 +1,7 @@
 package com.cebbank.gage.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 
 /**
@@ -13,23 +15,24 @@ public class Department {
     private int id;
     private String name;
 
-    @ManyToOne(cascade={CascadeType.MERGE})
+    @ManyToOne(cascade = {CascadeType.MERGE})
     @JoinColumn(name = "organization_id")
     private Organization organization;
+
+    @JsonIgnore
+    @OneToOne
+    @JoinColumn(name = "director_id")
+    private Staff director;
+
     private String note;
 
     //Constructor
-    public Department(){
+    public Department() {
 
     }
 
-    public Department(int id){
+    public Department(int id) {
         this.id = id;
-    }
-
-    public Department(String name, Organization organization) {
-        this.name = name;
-        this.organization = organization;
     }
 
     //Getter and Setter
@@ -63,5 +66,13 @@ public class Department {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    public Staff getDirector() {
+        return director;
+    }
+
+    public void setDirector(Staff director) {
+        this.director = director;
     }
 }

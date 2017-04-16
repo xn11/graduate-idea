@@ -40,8 +40,8 @@ public class TestController {
     private UserService userService;
 //    @Autowired
 //    private  StaffService staffService;
-//    @Autowired
-//    private GageService gageService;
+    @Autowired
+    private GageService gageService;
 //    @Autowired
 //    private AdminService adminService;
 //    @Autowired
@@ -108,9 +108,11 @@ public class TestController {
 //        list.add(notice);
 //        noticeService.saveList(list);
 
-        Bidding bidding = new Bidding(companyService.getAll().getData().get(0));
-        bidding.getRegulatorses().add(new BiddingRegulators(bidding,regulatorsService.getAll().getData().get(0)));
-        biddingService.save(bidding);
+//        Bidding bidding = new Bidding(companyService.getAll().getData().get(0));
+//        bidding.getRegulatorses().add(new BiddingRegulators(bidding,regulatorsService.getAll().getData().get(0)));
+//        biddingService.save(bidding);
+
+//        gageService.init();
 
         return "index";
     }

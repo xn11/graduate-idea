@@ -1,5 +1,7 @@
 package com.cebbank.gage.common;
 
+import org.codehaus.jackson.annotate.JsonValue;
+
 /**
  * Created by xn on 2017/3/27.
  */
@@ -31,11 +33,17 @@ public enum ResultEnum {
         this.code = code;
     }
 
+//    @JsonValue
     public String getDesc() {
         return desc;
     }
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    @Override
+    public String toString() {
+        return desc;
     }
 }
