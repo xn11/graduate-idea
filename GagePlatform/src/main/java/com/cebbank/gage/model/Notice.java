@@ -2,6 +2,8 @@ package com.cebbank.gage.model;
 
 import com.cebbank.gage.common.NoticeStatusTypeEnum;
 import com.cebbank.gage.common.NoticeTypeEnum;
+import com.cebbank.gage.util.DateJsonSerializer;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -38,10 +40,12 @@ public class Notice {
     //待审批、退回、竞价中；线下处理中；待确认、已确认（上传仓单）
     private NoticeStatusTypeEnum status;
 
+    @JsonSerialize(using = DateJsonSerializer.class)
     @Column(columnDefinition = "timestamp default CURRENT_TIMESTAMP")
     private Date timestamp;
 
     //监管公司确认时间
+    @JsonSerialize(using = DateJsonSerializer.class)
     @Column(name = "check_time", columnDefinition = "timestamp default CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP")
     private Date checkTime;
 
@@ -68,6 +72,18 @@ public class Notice {
         this.contract = contract;
         this.director = director;
         this.status = NoticeStatusTypeEnum.APPROVAL_PENDING;
+    }
+
+    public Notice(int id, NoticeTypeEnum type, Contract contract, User director, NoticeStatusTypeEnum status, Date timestamp, Date checkTime, String attachPath, String note) {
+        this.id = id;
+        this.type = type;
+        this.contract = contract;
+        this.director = director;
+        this.status = status;
+        this.timestamp = timestamp;
+        this.checkTime = checkTime;
+        this.attachPath = attachPath;
+        this.note = note;
     }
 
     public int getId() {
@@ -108,6 +124,9 @@ public class Notice {
 
     public void setStatus(NoticeStatusTypeEnum status) {
         this.status = status;
+    }
+    public void setStatus(int status) {
+        this.status = NoticeStatusTypeEnum.values()[status];
     }
 
     public Date getTimestamp() {

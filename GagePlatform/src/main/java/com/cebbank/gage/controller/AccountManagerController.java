@@ -2,6 +2,7 @@ package com.cebbank.gage.controller;
 
 import com.cebbank.gage.common.ContractStatusTypeEnum;
 import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.NoticeStatusTypeEnum;
 import com.cebbank.gage.common.NoticeTypeEnum;
 import com.cebbank.gage.model.*;
 import com.cebbank.gage.service.*;
@@ -13,10 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by xn on 2017/3/28.
@@ -214,5 +212,75 @@ public class AccountManagerController {
             return result;
         }
     }
+
+
+    /**
+     * notice
+     */
+    @RequestMapping(value = "/handleNoticeList", method = RequestMethod.GET)
+    public String handleNoticeListView() {
+        return "/account_manager/handleNoticeList";
+    }
+
+    //按通知状态获取列表
+    private List<Notice> getNoticeList(HttpServletRequest request, NoticeStatusTypeEnum[] statusEnums, String attr) {
+        HttpSession session = request.getSession();
+        List<Notice> noticeList = (List<Notice>) session.getAttribute(attr);
+        if (null == noticeList) {
+            noticeList = new ArrayList<Notice>();
+            String uid = (String) session.getAttribute("uid");
+            for (NoticeStatusTypeEnum status : statusEnums) {
+                GeneralResult<List<Notice>> result = noticeService.getNoticeList(uid, status);
+                if (result.isNormal()) {
+                    noticeList.addAll(result.getData());
+                }
+            }
+            session.setAttribute(attr,noticeList);
+        }
+        return noticeList;
+    }
+
+    @RequestMapping(value = {"/getHandleNoticeListMap"})
+    @ResponseBody
+    public Map<String, Object> getHandleNoticeListMap(HttpServletRequest request) {
+        String attr = "handleNoticeList";
+        //待处理的通知：被退回、线下处理
+        NoticeStatusTypeEnum[] statusEnums = {NoticeStatusTypeEnum.SEND_BACK, NoticeStatusTypeEnum.OFFLINE};
+        List<Notice> noticeList = getNoticeList(request, statusEnums, attr);
+
+        Map<String, Object> info = new HashMap<String, Object>();
+        info.put("data", noticeList);
+        info.put("recordsTotal", noticeList.size());
+        return info;
+    }
+
+    @RequestMapping(value = {"/handleNotice"})
+    @ResponseBody
+    public GeneralResult handleNotice(HttpServletRequest request, @RequestParam(value = "id") int id, @RequestParam(value = "status") int status, @RequestParam(value = "note") String note) {
+        GeneralResult<Notice> result = noticeService.getById(id);
+        NoticeStatusTypeEnum statusType = NoticeStatusTypeEnum.values()[status];
+        if (result.isNormal()) {
+            Notice notice = result.getData();
+            notice.setNote(note);
+            notice.setStatus(statusType);
+            GeneralResult updateResult = noticeService.update(notice);
+
+            if (updateResult.isNormal()) {
+                logger.info(request.getSession().getAttribute("uid") + "," + "更新合同通知" + id);
+                request.getSession().removeAttribute("handleNoticeList");
+            }
+
+            return updateResult;
+        } else {
+            return result;
+        }
+    }
+
+    @RequestMapping(value = {"/refreshNotice"})
+    @ResponseBody
+    public void refreshNotice(HttpServletRequest request, @RequestParam(value = "attr") String attr){
+        request.getSession().removeAttribute(attr);
+    }
+
 
 }

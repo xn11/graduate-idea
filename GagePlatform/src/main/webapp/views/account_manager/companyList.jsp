@@ -28,14 +28,14 @@
 <!--main content start-->
 <section class="main-content-wrapper">
     <div class="pageheader">
-        <h1>质押合同列表</h1>
+        <h1>企业客户列表</h1>
         <div class="breadcrumb-wrapper hidden-xs">
             <span class="label">你的位置:</span>
             <ol class="breadcrumb">
                 <li><a href="home">主页</a>
                 </li>
                 <li class="active">业务信息</li>
-                <li class="active">质押合同列表</li>
+                <li class="active">企业客户列表</li>
             </ol>
         </div>
     </div>
@@ -45,7 +45,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">质押合同列表</h3>
+                        <h3 class="panel-title">企业客户列表</h3>
                         <div class="actions pull-right">
                             <i class="fa fa-expand"></i>
                             <i class="fa fa-chevron-down"></i>
@@ -58,7 +58,7 @@
                             <thead>
                                 <tr>
                                     <th>序号</th>
-                                    <th>合同编号</th>
+                                    <th>企业名称</th>
                                     <th>企业客户</th>
                                     <th>协办</th>
                                     <th>合同期限</th>
@@ -127,9 +127,6 @@
                     <hr>
                     <div id="gage-list" class="form-group">
                         <label class="col-sm-3 control-label">质押品清单：</label>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control" id="gage-list-input" readonly="readonly">
-                        </div>
                     </div>
 
                 </form>
@@ -246,7 +243,6 @@
                         let gages = row.contractGages;
 //                        $("#gages-table tbody").empty();
                         $(".gages-div").remove();
-                        $("#gage-list-input").val("");
                         if (null != gages && 0 < gages.length) {
                             for (x of gages) {
                                 /*$("#gages-table tbody").appendChild("<tr>" +
@@ -262,8 +258,6 @@
                                     "<div class='col-sm-3'><input type='text' class='form-control' readonly='readonly' value=" + x.quantity +"></div>" +
                                     "</div>");
                             }
-                        }else{
-                            $("#gage-list-input").val("暂无");
                         }
 
                         //未入库且有质押物，则可以入库操作

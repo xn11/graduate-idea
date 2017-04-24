@@ -161,7 +161,7 @@
         <nav>
             <h5 class="sidebar-header">功能栏</h5>
             <ul class="nav nav-pills nav-stacked">
-                <li>
+                <li id="home">
                     <a href="home" title="Dashboard">
                         <i class="fa  fa-fw fa-tachometer"></i> 主页
                     </a>
@@ -206,13 +206,13 @@
 
                     </ul>
                 </li>
-                <li id="notice" class="nav-dropdown">
+                <li id="notice-management" class="nav-dropdown">
                     <a href="#" title="notice management">
                         <i class="fa fa-fw fa-envelope-o"></i> 通知
                     </a>
                     <ul class="nav-sub">
-                        <li id="handle-notice">
-                            <a href="" title="notice">待处理通知</a>
+                        <li id="handle-notice-list">
+                            <a href="handleNoticeList" title="notice">待处理通知</a>
                         </li>
                         <li id="approval-pending-notice">
                             <a href="" title="notice">待审通知</a>

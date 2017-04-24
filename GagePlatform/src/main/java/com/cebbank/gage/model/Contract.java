@@ -2,6 +2,7 @@ package com.cebbank.gage.model;
 
 import com.cebbank.gage.common.ContractStatusTypeEnum;
 import com.cebbank.gage.util.DateJsonSerializer;
+import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import javax.persistence.*;
@@ -51,6 +52,10 @@ public class Contract {
 //    @JsonIgnore
     @OneToMany(mappedBy = "contract", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
     private Set<ContractGage> contractGages = new HashSet<ContractGage>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "contract", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    private Set<Notice> notices = new HashSet<Notice>();
 
 
     //constructor
@@ -159,5 +164,13 @@ public class Contract {
 
     public void setContractGages(Set<ContractGage> contractGages) {
         this.contractGages = contractGages;
+    }
+
+    public Set<Notice> getNotices() {
+        return notices;
+    }
+
+    public void setNotices(Set<Notice> notices) {
+        this.notices = notices;
     }
 }

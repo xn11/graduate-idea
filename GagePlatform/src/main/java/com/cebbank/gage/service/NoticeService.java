@@ -1,6 +1,7 @@
 package com.cebbank.gage.service;
 
 import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.NoticeStatusTypeEnum;
 import com.cebbank.gage.model.Notice;
 
 import java.util.List;
@@ -13,11 +14,13 @@ public interface NoticeService {
 
     public GeneralResult<Integer> save(Notice notice);
 
+    public GeneralResult<List<Notice>> getNoticeList(String uid, NoticeStatusTypeEnum status);
+
     public List<Notice> getAll();
 
-    public Notice getById(int id);
+    public GeneralResult<Notice> getById(int id);
 
-    public void update(Notice notice);
+    public GeneralResult update(Notice notice);
 
     public void delete(int id);
 

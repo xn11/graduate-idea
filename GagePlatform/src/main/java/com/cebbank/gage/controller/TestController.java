@@ -1,5 +1,6 @@
 package com.cebbank.gage.controller;
 
+import com.cebbank.gage.common.NoticeStatusTypeEnum;
 import com.cebbank.gage.common.NoticeTypeEnum;
 import com.cebbank.gage.model.*;
 import com.cebbank.gage.service.*;
@@ -48,8 +49,8 @@ public class TestController {
 //    private ContractService contractService;
     @Autowired
     private RegulatorsService regulatorsService;
-//    @Autowired
-//    private NoticeService noticeService;
+    @Autowired
+    private NoticeService noticeService;
     @Autowired
     private BiddingService biddingService;
 
@@ -119,10 +120,11 @@ public class TestController {
 
     @RequestMapping("/json")
     @ResponseBody
-    public Set<BiddingRegulators> json() {
+    public List<Notice> json() {
 //        List<Organization> data = adminService.getRootOrg().getData();
 //        data.get(0).getNodes().iterator().next().setNodes(null);
-        return biddingService.getAll().get(0).getRegulatorses();
+//        return noticeService.getAll();
+        return noticeService.getNoticeList("s2010060000", NoticeStatusTypeEnum.APPROVAL_PENDING).getData();
     }
 
     @RequestMapping("/json2")

@@ -161,7 +161,7 @@
         <nav>
             <h5 class="sidebar-header">功能栏</h5>
             <ul class="nav nav-pills nav-stacked">
-                <li>
+                <li id="home">
                     <a href="home" title="Dashboard">
                         <i class="fa  fa-fw fa-tachometer"></i> 主页
                     </a>
