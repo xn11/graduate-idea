@@ -21,14 +21,14 @@
 <!--main content start-->
 <section class="main-content-wrapper">
     <div class="pageheader">
-        <h1>通知处理任务</h1>
+        <h1>待反馈通知</h1>
         <div class="breadcrumb-wrapper hidden-xs">
             <span class="label">你的位置:</span>
             <ol class="breadcrumb">
                 <li><a href="home">主页</a>
                 </li>
                 <li class="active">通知</li>
-                <li class="active">通知处理任务</li>
+                <li class="active">待反馈通知</li>
             </ol>
         </div>
     </div>
@@ -38,7 +38,7 @@
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">通知处理任务</h3>
+                        <h3 class="panel-title">待反馈通知</h3>
                         <div class="actions pull-right">
                             <i class="fa fa-expand"></i>
                             <i class="fa fa-chevron-down"></i>
@@ -109,16 +109,6 @@
                             <input type="text" class="form-control" id="contactTel" readonly="readonly">
                         </div>
                     </div>
-                    <div id="offline" class="form-group">
-                        <label for="contractId" class="col-sm-3 control-label">合同编号</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="contractId" readonly="readonly">
-                        </div>
-                        <label for="contractLoan" class="col-sm-2 control-label">贷款金额</label>
-                        <div class="col-sm-3">
-                            <input type="text" class="form-control" id="contractLoan" readonly="readonly">
-                        </div>
-                    </div>
                     <div class="form-group">
                         <label for="status" class="col-sm-3 control-label">通知单状态</label>
                         <div class="col-sm-7">
@@ -148,8 +138,6 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="resubmitBtn" onclick="resubmit();">重新提交</button>
-                <button type="button" class="btn btn-primary" id="sendBtn" onclick="send();">发送出质单</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
             </div>
         </div>
@@ -180,7 +168,7 @@
 <script>
     //导航栏激活标识
     $('#notice-management').addClass("open active");
-    $('#handle-notice-list').addClass("active");
+    $('#pending-notice-list').addClass("active");
 
     let t;
     $(()=>{
@@ -192,7 +180,7 @@
                 "url": "/assets/lang/datatable_CN.json"
             },
             ajax:{
-                url:"/account_manager/getHandleNoticeListMap"
+                url:"/account_manager/getpendingNoticeListMap"
             },
             columns:[
                 {data: null},
@@ -240,19 +228,6 @@
                             return;
                         }
                         let row = this.row(".selected").data();
-
-                        if ("退回" == row.status) {
-                            $("#resubmitBtn").show();
-                            $("#sendBtn").hide();
-                            $("#offline").hide();
-                        }else {
-                            $("#resubmitBtn").hide();
-                            $("#sendBtn").show();
-                            $("#offline").show();
-
-                            $("#contractId").val(row.contract.id);
-                            $("#contractId").val(row.contract.loan);
-                        }
 
                         $("#noticeId").val(row.id);
                         $("#type").val(row.type);
@@ -330,77 +305,9 @@
 
     });
 
-    function resubmit() {
-        let json = {
-            id: $("#noticeId").val(),
-            status: 0,
-            note: $("#note").val()
-        };
-
-        $.ajax({
-            url: "/account_manager/handleNotice",
-            method : "post",
-            data: json,
-            async:false,//异步加载
-            success: function (result) {
-                if (result.resultCode == "NORMAL") {
-
-                    alert("提交成功!");
-                    $("#checkModal").modal("hide");
-                    t.api().ajax.reload();  //刷新数据
-                    //若有无选中行则按钮失效
-                    if ($('tr.selected').length <= 0){
-                        disButtons(["checkBtn"]);
-                    }
-                }else{
-                    alert("提交失败，请稍后重试！");
-                }
-            },
-            error(XMLHttpRequest, textStatus, errorThrown){
-                console.log(XMLHttpRequest.status);
-                console.log(XMLHttpRequest.readyState);
-                console.log(textStatus);
-            }
-        });
-    }
-
-    function send() {
-        let json = {
-            id: $("#noticeId").val(),
-            status: 4,
-            note: $("#note").val()
-        };
-
-        $.ajax({
-            url: "/account_manager/handleNotice",
-            method : "post",
-            data: json,
-            async:false,//异步加载
-            success: function (result) {
-                if (result.resultCode == "NORMAL") {
-
-                    alert("发送成功!");
-                    $("#checkModal").modal("hide");
-                    t.api().ajax.reload();  //刷新数据
-                    //若有无选中行则按钮失效
-                    if ($('tr.selected').length <= 0){
-                        disButtons(["checkBtn"]);
-                    }
-                }else{
-                    alert("发送失败，请稍后重试！");
-                }
-            },
-            error(XMLHttpRequest, textStatus, errorThrown){
-                console.log(XMLHttpRequest.status);
-                console.log(XMLHttpRequest.readyState);
-                console.log(textStatus);
-            }
-        });
-    }
-
     function refresh() {
         let json = {
-            attr: "handleNoticeList"
+            attr: "pendingNoticeList"
         };
 
         $.ajax({

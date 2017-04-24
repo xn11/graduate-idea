@@ -222,6 +222,12 @@ public class AccountManagerController {
         return "/account_manager/handleNoticeList";
     }
 
+    @RequestMapping(value = {"/refreshNotice"})
+    @ResponseBody
+    public void refreshNotice(HttpServletRequest request, @RequestParam(value = "attr") String attr){
+        request.getSession().removeAttribute(attr);
+    }
+
     //按通知状态获取列表
     private List<Notice> getNoticeList(HttpServletRequest request, NoticeStatusTypeEnum[] statusEnums, String attr) {
         HttpSession session = request.getSession();
@@ -268,6 +274,7 @@ public class AccountManagerController {
             if (updateResult.isNormal()) {
                 logger.info(request.getSession().getAttribute("uid") + "," + "更新合同通知" + id);
                 request.getSession().removeAttribute("handleNoticeList");
+                request.getSession().removeAttribute("pendingNoticeList");
             }
 
             return updateResult;
@@ -276,11 +283,22 @@ public class AccountManagerController {
         }
     }
 
-    @RequestMapping(value = {"/refreshNotice"})
-    @ResponseBody
-    public void refreshNotice(HttpServletRequest request, @RequestParam(value = "attr") String attr){
-        request.getSession().removeAttribute(attr);
+    @RequestMapping(value = "/pendingNoticeList", method = RequestMethod.GET)
+    public String pendingNoticeListView() {
+        return "/account_manager/pendingNoticeList";
     }
 
+    @RequestMapping(value = {"/getpendingNoticeListMap"})
+    @ResponseBody
+    public Map<String, Object> getPendingNoticeListMap(HttpServletRequest request) {
+        String attr = "pendingNoticeList";
+        //待审、竞价中、待确认
+        NoticeStatusTypeEnum[] statusEnums = {NoticeStatusTypeEnum.APPROVAL_PENDING, NoticeStatusTypeEnum.IN_BIIDING, NoticeStatusTypeEnum.CONFIRM_PENDING};
+        List<Notice> noticeList = getNoticeList(request, statusEnums, attr);
 
+        Map<String, Object> info = new HashMap<String, Object>();
+        info.put("data", noticeList);
+        info.put("recordsTotal", noticeList.size());
+        return info;
+    }
 }

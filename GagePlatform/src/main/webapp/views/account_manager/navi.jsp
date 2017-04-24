@@ -212,14 +212,14 @@
                     </a>
                     <ul class="nav-sub">
                         <li id="handle-notice-list">
-                            <a href="handleNoticeList" title="notice">待处理通知</a>
+                            <a href="handleNoticeList" title="notice">通知处理任务</a>
                         </li>
-                        <li id="approval-pending-notice">
-                            <a href="" title="notice">待审通知</a>
+                        <li id="pending-notice-list">
+                            <a href="pendingNoticeList" title="notice">待反馈通知</a>
                         </li>
-                        <li id="confirm-pending-notice">
+                        <%--<li id="confirm-pending-notice">
                             <a href="" title="notice">待确认通知</a>
-                        </li>
+                        </li>--%>
                     </ul>
                 </li>
                 <li id="warning-management" class="nav-dropdown">
