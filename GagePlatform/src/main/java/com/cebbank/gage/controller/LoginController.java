@@ -72,7 +72,6 @@ public class LoginController {
         String action = request.getParameter("action");
         if (action.equals("logout")) {
             session.setAttribute("user", user);
-            session.setAttribute("uid",user.getId());
             session.setAttribute("error", "    签退成功！");
             return new ModelAndView("forward:/logout");
         } else if (user.getStatus() == 1) {
@@ -89,6 +88,15 @@ public class LoginController {
             case REGULATOR:
                 view = "/regulator/home";
                 break;
+            case REGULATORS:
+                view = "/regulators/home";
+                break;
+            case ACCOUNT_MANAGER:
+                view = "/account_manager/home";
+                break;
+            case MARKETING_DIRECTOR:
+                view = "/marketing_director/home";
+                break;
 //            case REGULATORS:
 //                view = "regulators/home";
 //                break;
@@ -96,6 +104,8 @@ public class LoginController {
                 break;
         }
 
+
+        session.setAttribute("uid",user.getName());
         GageUtils.saveRequest(session.getId(), user);
         redirectAttributes.addFlashAttribute("user", user);
 //        redirectAttributes.addAttribute("user", user);

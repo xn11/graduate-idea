@@ -44,6 +44,19 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
+    public GeneralResult<User> getByUid(String uid) {
+        String hql = "from User where name=:uid";
+        User user = userDao.findOne(hql, new Parameter(new Object[][]{{"uid", uid}}));
+
+        GeneralResult<User> result = new GeneralResult<User>();
+        if (null != user) {
+            result.setData(user);
+        } else {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        }
+        return result;
+    }
+
     public GeneralResult update(User user) {
         try {
             userDao.update(user);

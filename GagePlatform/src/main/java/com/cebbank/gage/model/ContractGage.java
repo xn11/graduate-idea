@@ -1,5 +1,7 @@
 package com.cebbank.gage.model;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +15,7 @@ public class ContractGage {
     @GeneratedValue
     private int id;
 
+    @JsonIgnore
     @ManyToOne(cascade={CascadeType.MERGE})
     @JoinColumn(name = "contract_id")
     private Contract contract;

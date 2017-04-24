@@ -1,12 +1,15 @@
 package com.cebbank.gage.controller;
 
 import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.NoticeStatusTypeEnum;
 import com.cebbank.gage.common.StatusTypeEnum;
 import com.cebbank.gage.common.WarningTypeEnum;
 import com.cebbank.gage.model.Company;
+import com.cebbank.gage.model.Notice;
 import com.cebbank.gage.model.User;
 import com.cebbank.gage.model.Warning;
 import com.cebbank.gage.service.CompanyService;
+import com.cebbank.gage.service.NoticeService;
 import com.cebbank.gage.service.UserService;
 import com.cebbank.gage.service.WarningService;
 import org.slf4j.Logger;
@@ -201,6 +204,5 @@ public class UserController {
         }
         return result;
     }
-
 
 }

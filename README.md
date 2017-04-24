@@ -288,21 +288,22 @@ name、
 
 
 
-### √→ 监管公司（监管员）—企业客户regulators_company
-
-监管员账号（企业id+监管公司id+开始时间，自动加到user表，密码为监管公司密码，角色为监管员）regulator_uid、
-
-企业客户id、  ` company表`
-
-监管公司id、    `regulators表`
-
-开始时间from_date、到期时间to_date、
-
-监管费（百分比）fee、
-
-状态、
-
-备注
+> ### √→ 监管公司（监管员）—企业客户regulators_company
+>
+> 监管员账号（企业id+监管公司id+开始时间，自动加到user表，密码为监管公司密码，角色为监管员）regulator_uid、
+>
+> 企业客户id、  ` company表`
+>
+> 监管公司id、    `regulators表`
+>
+> 开始时间from_date、到期时间to_date、
+>
+> 监管费（百分比）fee、
+>
+> 状态、
+>
+> 备注
+>
 
 
 
@@ -410,8 +411,6 @@ type（数量、价值、监管预警）、
 
 > 比对报告结果：比对日期、监管公司id、企业公司id、核对错误总数、备注
 
-> 竞价记录：合同id、监管公司id（中标）、出价（中标）、监管公司id、出价、监管公司id、出价、竞价时间
-
 
 
 ### 抵押品处置
@@ -462,29 +461,77 @@ key、value
 
 
 
-### notice 通知
+### √notice 通知
 
 id,
 
-type  ——出入库、出质通知、结清
+type  ——出质通知书、结清通知书、质押物变更通知书、提货通知书
 
-gage_id
+公司id（其他通知单，出质为空）
 
-amount
+合同id（出质，其他时候为空）
 
-监管机构id
+审批人id
 
-客户经理id
-
-主管id
-
-状态   ——待审批、待确认、已确认、已执行
+状态   ——待审批、退回、竞价中；线下处理中；待确认、已确认（上传仓单）
 
 timestamp
 
 check_time 监管公司确认时间
 
+attach_path附件路径
+
 note
+
+
+
+### √notice_gage
+
+id
+
+notice_id
+
+gage_id
+
+amount
+
+note
+
+
+
+### √竞价 bidding
+
+id
+
+企业id
+
+监管机构（中标）
+
+出价fee
+
+状态——竞价中、已结束、无效
+
+时间戳
+
+备注
+
+
+
+### √bidding_regulators
+
+id
+
+bidding_id
+
+监管机构
+
+出价
+
+状态——未出价、等待结果、中标、未中标、无效
+
+时间戳
+
+备注
 
 
 
@@ -540,6 +587,10 @@ name、
 备注note
 
 ***contracts***
+
+***regulateAccounts***
+
+***bidding***
 
 
 
@@ -621,6 +672,8 @@ name   、
 
 银行机构**organization**--无（单向）
 
+负责人id          `staff表`
+
 备注
 
 
@@ -677,11 +730,13 @@ id、  `auto`
 
 贷款价值loan、
 
-？状态status、（0进行中，-1已结清，1逾期未结清，2处置中，3已处置）
+？状态status、（0未入库，1待审批，2已入库，3已结清出库，4未结清出库，5处置中，6已处置）
 
 备注note
 
 ***contractGages***
+
+***notices***
 
 
 
@@ -713,27 +768,28 @@ name、
 
 备注
 
-***companies***
+> ***companies***
 
 
 
-### → 监管公司（监管员）—企业客户regulators_company--regulatorsService
-
-监管员账号（“1” + 企业id+监管公司id+“0”，自动加到user表，密码为监管公司密码，角色为监管员）id、
-
-企业客户**company**--无
-
-监管公司**regulators**--Regulators
-
-开始时间from_date、到期时间to_date、
-
-监管费（百分比）fee、
-
-状态、（进行中，未开始，已结束）
-
-备注
-
-***regulateAccounts***
+> ### → 监管公司（监管员）—企业客户regulators_company--regulatorsService
+>
+> 监管员账号（“1” + 企业id+监管公司id+“0”，自动加到user表，密码为监管公司密码，角色为监管员）id、
+>
+> 企业客户**company**--无
+>
+> 监管公司**regulators**--Regulators
+>
+> 开始时间from_date、到期时间to_date、
+>
+> 监管费（百分比）fee、
+>
+> 状态、（进行中，未开始，已结束）
+>
+> 备注
+>
+> ***regulateAccounts***
+>
 
 
 
@@ -741,7 +797,9 @@ name、
 
 台账id、       `auto`
 
-监管员**regulator**-- `regulators_company表`
+> 监管员**regulator**-- `regulators_company表`
+
+公司**company**--`company表`
 
 存货**gage**--无
 
@@ -773,3 +831,83 @@ id、  `auto`
 
 备注
 
+
+
+### → notice 通知
+
+id,
+
+
+NoticeTypeEnum  type  ——出质通知书、结清通知书、质押物变更通知书、提货通知书、比对错误通知书
+
+> 公司id（其他通知单，出质为空）
+
+合同**contract**（用于出质，其他通知单只取company信息）
+
+> 客户经理**account_manager**--`User表`
+
+审批人**director**--`User表`
+
+NoticeStatusTypeEnum 状态   ——待审批、退回、竞价中；线下处理中；待确认、已确认（上传仓单）
+
+timestamp
+
+check_time 监管公司确认时间
+
+attach_path附件路径
+
+note
+
+***gages***
+
+
+
+### → noticeGage ——NoticeService
+
+id
+
+**notice**
+
+**gage**--Notice
+
+quantity
+
+note
+
+
+
+### → 竞价 bidding
+
+id
+
+企业**company**--company(一对一)
+
+监管机构**regulators**（中标）
+
+出价fee
+
+状态——竞价中、已结束、无效
+
+时间戳
+
+备注
+
+***regulators***
+
+
+
+### → bidding_regulators
+
+id
+
+**bidding**--bidding表
+
+监管机构**regulators**
+
+出价
+
+状态——未出价、等待结果、中标、未中标、无效
+
+时间戳
+
+备注

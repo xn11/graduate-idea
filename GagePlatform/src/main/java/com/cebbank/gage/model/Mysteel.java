@@ -24,7 +24,7 @@ public class Mysteel {
     private String name;
 
 //    @ExtractByUrl("http://index.mysteel.com/xpic/detail.ms?tabName=(\\w+)")
-//    private String specification;
+    private String unit = "元/吨";
 
     //    @ExtractBy(value = "//table/tbody/tr[2]/td[1]/text()", notNull = true)
     @ExtractBy(value = "//div[@class='title2']/text()", source = ExtractBy.Source.RawHtml)

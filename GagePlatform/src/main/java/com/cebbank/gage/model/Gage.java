@@ -1,5 +1,7 @@
 package com.cebbank.gage.model;
 
+import com.cebbank.gage.common.GageTypeEnum;
+
 import javax.persistence.*;
 
 /**
@@ -12,7 +14,7 @@ public class Gage {
     @GeneratedValue
     private int id;
     private String name;
-    private int type;
+    private GageTypeEnum type;
 
     //最高质押率
     @Column(name = "max_pledge_rate")
@@ -36,7 +38,7 @@ public class Gage {
         this.id = id;
     }
 
-    public Gage(String name, int type, double maxPledgeRate, double warningLine, double disposeLine) {
+    public Gage(String name, GageTypeEnum type, double maxPledgeRate, double warningLine, double disposeLine) {
         this.name = name;
         this.type = type;
         MaxPledgeRate = maxPledgeRate;
@@ -60,11 +62,11 @@ public class Gage {
         this.name = name;
     }
 
-    public int getType() {
+    public GageTypeEnum getType() {
         return type;
     }
 
-    public void setType(int type) {
+    public void setType(GageTypeEnum type) {
         this.type = type;
     }
 

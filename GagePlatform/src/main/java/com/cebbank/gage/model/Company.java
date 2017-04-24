@@ -29,6 +29,15 @@ public class Company {
     @OrderBy(value = "fromDate DESC")
     private Set<Contract> contracts = new HashSet<Contract>();
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    @OrderBy(value = "fromDate DESC")
+    private Set<RegulateAccount> regulateAccounts = new HashSet<RegulateAccount>();
+
+    @JsonIgnore
+    @OneToOne(mappedBy = "company", fetch = FetchType.LAZY, cascade = {CascadeType.MERGE})
+    private Bidding bidding;
+
     //constructor
     public Company() {
     }
@@ -114,5 +123,21 @@ public class Company {
 
     public void setContracts(Set<Contract> contracts) {
         this.contracts = contracts;
+    }
+
+    public Set<RegulateAccount> getRegulateAccounts() {
+        return regulateAccounts;
+    }
+
+    public void setRegulateAccounts(Set<RegulateAccount> regulateAccounts) {
+        this.regulateAccounts = regulateAccounts;
+    }
+
+    public Bidding getBidding() {
+        return bidding;
+    }
+
+    public void setBidding(Bidding bidding) {
+        this.bidding = bidding;
     }
 }

@@ -4,7 +4,8 @@ package com.cebbank.gage.common;
  * Created by xn on 2017/3/27.
  */
 public class GeneralResult<T> {
-    private ResultEnum resultCode = ResultEnum.NORMAL;;
+    private ResultEnum resultCode = ResultEnum.NORMAL;
+    ;
     private String message;
     private T data;
 
@@ -29,7 +30,8 @@ public class GeneralResult<T> {
     }
 
     public String getMessage() {
-        return message;
+        String msg = message == null ? "" : message;
+        return resultCode + "！ " + msg;
     }
 
     public void setMessage(String message) {
@@ -44,7 +46,8 @@ public class GeneralResult<T> {
         this.data = data;
     }
 
-    public  boolean isNormal(){
+    public boolean isNormal() {
         return resultCode == ResultEnum.NORMAL;
     }
+
 }

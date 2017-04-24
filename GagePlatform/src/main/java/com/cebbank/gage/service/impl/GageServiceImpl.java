@@ -1,8 +1,10 @@
 package com.cebbank.gage.service.impl;
 
 import com.cebbank.gage.dao.GageDao;
+import com.cebbank.gage.dao.MysteelDao;
 import com.cebbank.gage.dao.PriceDao;
 import com.cebbank.gage.model.Gage;
+import com.cebbank.gage.model.Mysteel;
 import com.cebbank.gage.model.Price;
 import com.cebbank.gage.service.GageService;
 import com.cebbank.gage.util.Parameter;
@@ -21,6 +23,8 @@ public class GageServiceImpl implements GageService {
     private GageDao gageDao;
     @Autowired
     private PriceDao priceDao;
+    @Autowired
+    private MysteelDao mysteelDao;
 
 
     public void saveList(List<Gage> list) {
@@ -54,6 +58,18 @@ public class GageServiceImpl implements GageService {
             gageDao.delete(new Gage(id));
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void init() {
+        List<Mysteel> mysteelList = mysteelDao.getAll();
+        for (Mysteel m:mysteelList) {
+            /*Gage gage = new Gage(m.getName(),0,0.7,0.75,0.8);
+            try {
+                gageDao.saveOrUpdate(gage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }*/
         }
     }
 

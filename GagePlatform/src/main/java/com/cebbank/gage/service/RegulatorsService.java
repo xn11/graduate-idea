@@ -29,9 +29,9 @@ public interface RegulatorsService {
     /*
      * regulator = regulators_company
      */
-    public void save(RegulatorsCompany regulatorsCompany);
+    /*public void save(RegulatorsCompany regulatorsCompany);
 
-    public void update(RegulatorsCompany contractGage);
+    public void update(RegulatorsCompany contractGage);*/
 
     /*
      * regulate account

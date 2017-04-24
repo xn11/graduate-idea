@@ -20,6 +20,8 @@ public interface GageService {
 
     public void delete(int id);
 
+    public void init();
+
     //price
     public double getLatestPrice(int id);
 

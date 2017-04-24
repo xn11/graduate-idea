@@ -1,7 +1,7 @@
 GagePlatform/.idea/
 GagePlatform/out/
 GagePlatform/target/
-GagePlatform/log/
+GagePlatform/logs/
 GagePlatform/*.iml
 plugin/
 theme/

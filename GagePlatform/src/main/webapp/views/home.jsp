@@ -145,6 +145,8 @@
 <%--<script src="../assets/plugins/switchery/switchery.min.js"></script>--%>
 <!--Load these page level functions-->
 <script>
+    $('#home').addClass("active");
+
     $(document).ready(function () {
 //        $('.calendar-block').clndr();
         app.dateRangePicker();

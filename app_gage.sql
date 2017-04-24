@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 2017-04-07 03:47:52
+-- Generation Time: 2017-04-16 01:56:18
 -- 服务器版本： 5.6.21
 -- PHP Version: 5.6.2
 
@@ -19,6 +19,85 @@ SET time_zone = "+00:00";
 --
 -- Database: `app_gage`
 --
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bidding`
+--
+
+CREATE TABLE IF NOT EXISTS `bidding` (
+`id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `regulators_id` int(11) DEFAULT NULL,
+  `fee` double DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `bidding_regulators`
+--
+
+CREATE TABLE IF NOT EXISTS `bidding_regulators` (
+`id` int(11) NOT NULL,
+  `bidding_id` int(11) NOT NULL,
+  `regulators_id` int(11) NOT NULL,
+  `fee` double DEFAULT NULL,
+  `status` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `blog`
+--
+
+CREATE TABLE IF NOT EXISTS `blog` (
+`id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `date` varchar(50) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `blog`
+--
+
+INSERT INTO `blog` (`id`, `title`, `date`, `timestamp`) VALUES
+(1, ' 【error】tomcat一直报错找不到类或者方法 ', '2017-04-09 17:44', '2017-04-09 10:14:50'),
+(2, ' 【error】tomcat一直报错找不到类或者方法 ', '2017-04-09 17:44', '2017-04-09 10:14:50'),
+(3, ' 清除浏览器js和css缓存 ', '2017-04-06 00:13', '2017-04-09 10:14:55'),
+(4, ' 清除浏览器js和css缓存 ', '2017-04-06 00:13', '2017-04-09 10:14:55'),
+(5, ' 【error】jQuery ajax请求错误返回status 0和错误error的问题 ', '2017-04-05 11:31', '2017-04-09 10:15:01'),
+(6, ' 【error】jQuery ajax请求错误返回status 0和错误error的问题 ', '2017-04-05 11:31', '2017-04-09 10:15:01'),
+(7, ' 【error】Tomcat启动报错com.mchange.v2.async.ThreadPoolAsynchronousRunner$DeadlockDetector ', '2017-04-04 21:03', '2017-04-09 10:15:06'),
+(8, ' 【error】Tomcat启动报错com.mchange.v2.async.ThreadPoolAsynchronousRunner$DeadlockDetector ', '2017-04-04 21:03', '2017-04-09 10:15:06'),
+(9, ' 在JSP中如何使用JSTL（EL表达式）格式化日期 ', '2017-04-04 11:39', '2017-04-09 10:15:11'),
+(10, ' 在JSP中如何使用JSTL（EL表达式）格式化日期 ', '2017-04-04 11:39', '2017-04-09 10:15:11'),
+(11, ' SpringMVC controller重定向传值 ', '2017-03-30 01:15', '2017-04-09 10:15:17'),
+(12, ' SpringMVC controller重定向传值 ', '2017-03-30 01:15', '2017-04-09 10:15:17'),
+(13, ' JSP隐含变量和Spring中Model在EL表达式中的读取顺序 ', '2017-03-29 21:13', '2017-04-09 10:15:22'),
+(14, ' JSP隐含变量和Spring中Model在EL表达式中的读取顺序 ', '2017-03-29 21:13', '2017-04-09 10:15:23'),
+(15, ' Hibernate HQL详解 ', '2017-03-23 19:08', '2017-04-09 10:15:28'),
+(16, ' Hibernate HQL详解 ', '2017-03-23 19:08', '2017-04-09 10:15:29'),
+(17, ' 【git】git push免用户名密码，用公钥 ', '2017-03-21 02:35', '2017-04-09 10:15:34'),
+(18, ' 【git】git push免用户名密码，用公钥 ', '2017-03-21 02:35', '2017-04-09 10:15:34'),
+(19, ' 【转】Git图形化界面客户端大汇总 ', '2017-03-19 01:23', '2017-04-09 10:15:41'),
+(20, ' 【转】Git图形化界面客户端大汇总 ', '2017-03-19 01:23', '2017-04-09 10:15:42'),
+(21, ' 【git】git分支branch和标签tag之增删改查 ', '2017-03-18 01:12', '2017-04-09 10:15:46'),
+(22, ' 【git】git分支branch和标签tag之增删改查 ', '2017-03-18 01:12', '2017-04-09 10:15:47'),
+(23, ' slf4j-log4j日志框架配置+错误处理 ', '2017-03-16 02:34', '2017-04-09 10:15:52'),
+(24, ' slf4j-log4j日志框架配置+错误处理 ', '2017-03-16 02:34', '2017-04-09 10:15:53'),
+(25, ' Log日志框架 ', '2017-03-16 02:11', '2017-04-09 10:15:59'),
+(26, ' Log日志框架 ', '2017-03-16 02:11', '2017-04-09 10:16:00'),
+(27, ' 根据时间生成唯一ID ', '2017-03-16 00:57', '2017-04-09 10:16:04'),
+(28, ' 根据时间生成唯一ID ', '2017-03-16 00:57', '2017-04-09 10:16:05');
 
 -- --------------------------------------------------------
 
@@ -182,24 +261,110 @@ CREATE TABLE IF NOT EXISTS `mail` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `mysteel`
+--
+
+CREATE TABLE IF NOT EXISTS `mysteel` (
+`id` int(11) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `time` varchar(50) NOT NULL,
+  `price` double NOT NULL,
+  `url` varchar(200) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;
+
+--
+-- 转存表中的数据 `mysteel`
+--
+
+INSERT INTO `mysteel` (`id`, `name`, `time`, `price`, `url`, `timestamp`) VALUES
+(1, '铜', '2017年04月07日 16:30', 47570, 'http://www.100ppi.com/sf/792.html', '2017-04-09 22:34:14'),
+(2, '螺纹钢', '2017年04月07日 16:30', 3519.38, 'http://www.100ppi.com/sf/927.html', '2017-04-09 22:34:14'),
+(3, '锌', '2017年04月07日 16:30', 23100, 'http://www.100ppi.com/sf/826.html', '2017-04-09 22:34:14'),
+(4, '铝', '2017年04月07日 16:30', 13840, 'http://www.100ppi.com/sf/827.html', '2017-04-09 22:34:14'),
+(5, '黄金', '2017年04月07日 16:30', 283.28, 'http://www.100ppi.com/sf/551.html', '2017-04-09 22:34:14'),
+(6, '线材', '2017年04月07日 16:30', 3704.29, 'http://www.100ppi.com/sf/740.html', '2017-04-09 22:34:14'),
+(7, '燃料油', '2017年04月07日 16:30', 3370, 'http://www.100ppi.com/sf/387.html', '2017-04-09 22:34:14'),
+(8, '天然橡胶', '2017年04月07日 16:30', 14783.33, 'http://www.100ppi.com/sf/586.html', '2017-04-09 22:34:14'),
+(9, '铅', '2017年04月07日 16:30', 17450, 'http://www.100ppi.com/sf/825.html', '2017-04-09 22:34:14'),
+(10, '白银', '2017年04月07日 16:30', 4183.67, 'http://www.100ppi.com/sf/544.html', '2017-04-09 22:34:14'),
+(11, '石油沥青', '2017年04月07日 16:30', 2848.47, 'http://www.100ppi.com/sf/1022.html', '2017-04-09 22:34:14'),
+(12, '热轧卷板', '2017年04月07日 16:30', 3305.33, 'http://www.100ppi.com/sf/195.html', '2017-04-09 22:34:14'),
+(13, '镍', '2017年04月07日 16:30', 83850, 'http://www.100ppi.com/sf/1182.html', '2017-04-09 22:34:14'),
+(14, '锡', '2017年04月07日 16:30', 145500, 'http://www.100ppi.com/sf/1181.html', '2017-04-09 22:34:15'),
+(15, 'PTA', '2017年04月07日 16:30', 4996.36, 'http://www.100ppi.com/sf/356.html', '2017-04-09 22:34:15'),
+(16, '白糖', '2017年04月07日 16:30', 6652, 'http://www.100ppi.com/sf/1076.html', '2017-04-09 22:34:15'),
+(17, '棉花', '2017年04月07日 16:30', 15847.43, 'http://www.100ppi.com/sf/344.html', '2017-04-09 22:34:15'),
+(18, '普麦', '2017年04月07日 16:30', 2490, 'http://www.100ppi.com/sf/349.html', '2017-04-09 22:34:15'),
+(19, '菜籽油OI', '2017年04月07日 16:30', 6275, 'http://www.100ppi.com/sf/1085.html', '2017-04-09 22:34:15'),
+(20, '早籼稻RI', '2017年04月07日 16:30', 2644, 'http://www.100ppi.com/sf/1082.html', '2017-04-09 22:34:15'),
+(21, '玻璃', '2017年04月07日 16:30', 15.79, 'http://www.100ppi.com/sf/959.html', '2017-04-09 22:34:15'),
+(22, '菜籽粕', '2017年04月07日 16:30', 2467.14, 'http://www.100ppi.com/sf/1088.html', '2017-04-09 22:34:15'),
+(23, '油菜籽', '2017年04月07日 16:30', 5112.5, 'http://www.100ppi.com/sf/1087.html', '2017-04-09 22:34:15'),
+(24, '粳稻', '2017年04月07日 16:30', 2988, 'http://www.100ppi.com/sf/1083.html', '2017-04-09 22:34:15'),
+(25, '晚籼稻', '2017年04月07日 16:30', 2703, 'http://www.100ppi.com/sf/1096.html', '2017-04-09 22:34:15'),
+(26, '硅铁', '2017年04月07日 16:30', 5645, 'http://www.100ppi.com/sf/1154.html', '2017-04-09 22:34:15'),
+(27, '锰硅', '2017年04月07日 16:30', 6918.75, 'http://www.100ppi.com/sf/1155.html', '2017-04-09 22:34:15'),
+(28, '甲醇MA', '2017年04月07日 16:30', 2705, 'http://www.100ppi.com/sf/817.html', '2017-04-09 22:34:15'),
+(29, '动力煤ZC', '2017年04月07日 16:30', 604, 'http://www.100ppi.com/sf/369.html', '2017-04-09 22:34:15'),
+(30, '棕榈油', '2017年04月07日 16:30', 5865, 'http://www.100ppi.com/sf/1084.html', '2017-04-09 22:34:15'),
+(31, '聚氯乙烯', '2017年04月07日 16:30', 5975, 'http://www.100ppi.com/sf/821.html', '2017-04-09 22:34:15'),
+(32, '聚乙烯', '2017年04月07日 16:30', 9480, 'http://www.100ppi.com/sf/435.html', '2017-04-09 22:34:15'),
+(33, '豆一', '2017年04月07日 16:30', 3790, 'http://www.100ppi.com/sf/1080.html', '2017-04-09 22:34:15'),
+(34, '豆粕', '2017年04月07日 16:30', 2933.33, 'http://www.100ppi.com/sf/1078.html', '2017-04-09 22:34:15'),
+(35, '豆油', '2017年04月07日 16:30', 6023.33, 'http://www.100ppi.com/sf/1079.html', '2017-04-09 22:34:15'),
+(36, '玉米', '2017年04月07日 16:30', 1581.67, 'http://www.100ppi.com/sf/1077.html', '2017-04-09 22:34:15'),
+(37, '焦炭', '2017年04月07日 16:30', 1763.33, 'http://www.100ppi.com/sf/617.html', '2017-04-09 22:34:15'),
+(38, '焦煤', '2017年04月07日 16:30', 1346, 'http://www.100ppi.com/sf/978.html', '2017-04-09 22:34:15'),
+(39, '铁矿石', '2017年04月07日 16:30', 629.44, 'http://www.100ppi.com/sf/961.html', '2017-04-09 22:34:16'),
+(40, '鸡蛋', '2017年04月07日 16:30', 4.83, 'http://www.100ppi.com/sf/1086.html', '2017-04-09 22:34:16');
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `notice`
+--
+
+CREATE TABLE IF NOT EXISTS `notice` (
+`id` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `contract_id` int(11) NOT NULL,
+  `director_id` int(11) NOT NULL,
+  `status` int(11) NOT NULL,
+  `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `check_time` int(11) DEFAULT NULL,
+  `attach_path` varchar(255) DEFAULT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `notice_gage`
+--
+
+CREATE TABLE IF NOT EXISTS `notice_gage` (
+`id` int(11) NOT NULL,
+  `notice_id` int(11) NOT NULL,
+  `gage_id` int(11) NOT NULL,
+  `quantity` double NOT NULL,
+  `note` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `regulate_account`
 --
 
 CREATE TABLE IF NOT EXISTS `regulate_account` (
 `id` int(11) NOT NULL,
-  `regulator_id` int(11) NOT NULL,
+  `company_id` int(11) NOT NULL,
   `gage_id` int(11) NOT NULL,
   `quantity` double NOT NULL,
   `timestamp` timestamp NOT NULL ON UPDATE CURRENT_TIMESTAMP,
   `note` text
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
-
---
--- 转存表中的数据 `regulate_account`
---
-
-INSERT INTO `regulate_account` (`id`, `regulator_id`, `gage_id`, `quantity`, `timestamp`, `note`) VALUES
-(1, 10010050, 1, 10000, '2017-03-24 21:30:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -337,10 +502,10 @@ CREATE TABLE IF NOT EXISTS `user` (
 --
 
 INSERT INTO `user` (`id`, `name`, `role_id`, `password`, `telephone`, `register_time`, `status`, `last_login_time`, `last_change_time`, `note`) VALUES
-(1, 'a', 1, 'b', '123', '2017-03-09 08:34:08', 0, '2017-03-09 08:34:08', '2017-03-18 20:37:39', NULL),
+(1, 'a', 1, 'a', '123', '2017-03-09 08:34:08', 0, '2017-03-09 08:34:08', '2017-03-18 20:37:39', ''),
 (8, 'c', 1, 'c', '223333', '2017-03-09 09:20:51', 0, '2017-03-09 09:20:51', '2017-03-09 09:20:51', ''),
-(9, 'q', 0, 'q', '111', '2017-03-09 14:37:25', 0, '2017-03-09 14:37:25', '2017-03-09 14:37:25', ''),
-(14, 'w', 0, 'w', '123123000', '2017-03-11 06:30:54', 1, '2017-03-11 06:30:54', '2017-03-11 06:30:54', ''),
+(9, 'q', 0, 'q', '111', '2017-03-09 14:37:25', 1, '2017-03-09 14:37:25', '2017-03-09 14:37:25', ''),
+(14, 'w', 0, 'w', '0510-85231198', '2017-03-11 06:30:54', 0, '2017-03-11 06:30:54', '2017-03-11 06:30:54', ''),
 (26, '33', 0, '33', NULL, '2017-03-12 22:37:58', 0, '2017-03-12 22:37:58', '2017-03-12 22:37:58', NULL),
 (28, 'try2', 6, 't', '12312312312', '2017-03-14 09:15:29', 0, '2017-03-14 09:15:29', '2017-03-14 09:15:29', 'note'),
 (33, 's2314', 1, '8888', '123456324487', '2017-04-03 04:18:26', 0, '2017-04-03 04:18:26', '2017-04-03 04:18:26', ''),
@@ -381,14 +546,15 @@ CREATE TABLE IF NOT EXISTS `warning` (
   `handle_id` int(11) DEFAULT NULL,
   `timestamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `note` text
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 --
 -- 转存表中的数据 `warning`
 --
 
 INSERT INTO `warning` (`id`, `company_id`, `type`, `from_id`, `severity`, `status`, `handle_id`, `timestamp`, `note`) VALUES
-(1, 1, 0, 1, 0, 1, 14, '2017-04-06 14:20:59', NULL);
+(1, 1, 0, 1, 0, 2, 14, '2017-04-06 14:20:59', '清收处理'),
+(2, 2, 2, 14, 2, 3, NULL, '2017-04-07 13:06:04', '解除');
 
 -- --------------------------------------------------------
 
@@ -406,9 +572,18 @@ CREATE TABLE IF NOT EXISTS `warning_user` (
 --
 
 INSERT INTO `warning_user` (`warning_id`, `user_id`) VALUES
+(2, 1),
 (1, 8),
+(2, 8),
 (1, 9),
-(1, 14);
+(2, 9),
+(1, 14),
+(2, 14),
+(2, 26),
+(2, 28),
+(2, 33),
+(2, 34),
+(2, 35);
 
 -- --------------------------------------------------------
 
@@ -461,6 +636,24 @@ CREATE TABLE IF NOT EXISTS `_view` (
 --
 
 --
+-- Indexes for table `bidding`
+--
+ALTER TABLE `bidding`
+ ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `bidding_regulators`
+--
+ALTER TABLE `bidding_regulators`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `bidding_id` (`bidding_id`,`regulators_id`), ADD KEY `regulators_id` (`regulators_id`);
+
+--
+-- Indexes for table `blog`
+--
+ALTER TABLE `blog`
+ ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `contract_gage`
 --
 ALTER TABLE `contract_gage`
@@ -503,10 +696,28 @@ ALTER TABLE `mail`
  ADD PRIMARY KEY (`id`), ADD KEY `from_id` (`from_uid`);
 
 --
+-- Indexes for table `mysteel`
+--
+ALTER TABLE `mysteel`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `name` (`name`,`time`);
+
+--
+-- Indexes for table `notice`
+--
+ALTER TABLE `notice`
+ ADD PRIMARY KEY (`id`), ADD KEY `account_manager_id` (`contract_id`), ADD KEY `director_id` (`director_id`);
+
+--
+-- Indexes for table `notice_gage`
+--
+ALTER TABLE `notice_gage`
+ ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `notice_id` (`notice_id`,`gage_id`), ADD KEY `gage_id` (`gage_id`);
+
+--
 -- Indexes for table `regulate_account`
 --
 ALTER TABLE `regulate_account`
- ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`regulator_id`), ADD KEY `gage_id` (`gage_id`);
+ ADD PRIMARY KEY (`id`), ADD KEY `company_id` (`company_id`), ADD KEY `gage_id` (`gage_id`);
 
 --
 -- Indexes for table `regulators`
@@ -585,6 +796,21 @@ ALTER TABLE `_view`
 --
 
 --
+-- AUTO_INCREMENT for table `bidding`
+--
+ALTER TABLE `bidding`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `bidding_regulators`
+--
+ALTER TABLE `bidding_regulators`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `blog`
+--
+ALTER TABLE `blog`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=29;
+--
 -- AUTO_INCREMENT for table `contract_gage`
 --
 ALTER TABLE `contract_gage`
@@ -608,6 +834,21 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 -- AUTO_INCREMENT for table `mail`
 --
 ALTER TABLE `mail`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `mysteel`
+--
+ALTER TABLE `mysteel`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=41;
+--
+-- AUTO_INCREMENT for table `notice`
+--
+ALTER TABLE `notice`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `notice_gage`
+--
+ALTER TABLE `notice_gage`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `regulate_account`
@@ -648,7 +889,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `warning`
 --
 ALTER TABLE `warning`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `_config`
 --
@@ -667,6 +908,13 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- 限制导出的表
 --
+
+--
+-- 限制表 `bidding_regulators`
+--
+ALTER TABLE `bidding_regulators`
+ADD CONSTRAINT `bidding_regulators_ibfk_1` FOREIGN KEY (`bidding_id`) REFERENCES `bidding` (`id`),
+ADD CONSTRAINT `bidding_regulators_ibfk_2` FOREIGN KEY (`regulators_id`) REFERENCES `regulators` (`id`);
 
 --
 -- 限制表 `contract_gage`
@@ -702,11 +950,25 @@ ALTER TABLE `mail`
 ADD CONSTRAINT `mail_ibfk_1` FOREIGN KEY (`from_uid`) REFERENCES `user` (`id`);
 
 --
+-- 限制表 `notice`
+--
+ALTER TABLE `notice`
+ADD CONSTRAINT `notice_ibfk_2` FOREIGN KEY (`director_id`) REFERENCES `user` (`id`),
+ADD CONSTRAINT `notice_ibfk_5` FOREIGN KEY (`contract_id`) REFERENCES `ex_contract` (`id`);
+
+--
+-- 限制表 `notice_gage`
+--
+ALTER TABLE `notice_gage`
+ADD CONSTRAINT `notice_gage_ibfk_1` FOREIGN KEY (`notice_id`) REFERENCES `notice` (`id`),
+ADD CONSTRAINT `notice_gage_ibfk_2` FOREIGN KEY (`gage_id`) REFERENCES `gage` (`id`);
+
+--
 -- 限制表 `regulate_account`
 --
 ALTER TABLE `regulate_account`
 ADD CONSTRAINT `regulate_account_ibfk_2` FOREIGN KEY (`gage_id`) REFERENCES `gage` (`id`),
-ADD CONSTRAINT `regulate_account_ibfk_3` FOREIGN KEY (`regulator_id`) REFERENCES `regulators_company` (`id`);
+ADD CONSTRAINT `regulate_account_ibfk_3` FOREIGN KEY (`company_id`) REFERENCES `ex_company` (`id`);
 
 --
 -- 限制表 `regulators_company`

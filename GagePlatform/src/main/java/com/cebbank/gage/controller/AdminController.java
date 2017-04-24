@@ -30,6 +30,7 @@ public class AdminController {
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public ModelAndView homeView(@ModelAttribute("user") User user, HttpServletRequest request) {
         request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("uid",user.getName());
         return new ModelAndView("/admin/home", "user", user);
     }
 
@@ -110,7 +111,9 @@ public class AdminController {
         if (roleId == RoleEnum.REGULATORS.getId()) {
             uname = "r";
         }
-        uname += request.getParameter("uid");
+        int uid = Integer.parseInt(request.getParameter("uid"));
+        //0补齐10位
+        uname += String.format("%010d", uid);;
         String password = request.getParameter("password");
         String telephone = request.getParameter("telephone");
         String note = request.getParameter("note");

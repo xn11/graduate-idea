@@ -1,5 +1,7 @@
 package com.cebbank.gage.service.impl;
 
+import com.cebbank.gage.common.GeneralResult;
+import com.cebbank.gage.common.ResultEnum;
 import com.cebbank.gage.dao.ContractDao;
 import com.cebbank.gage.dao.ContractGageDao;
 import com.cebbank.gage.model.Contract;
@@ -22,53 +24,77 @@ public class ContractServiceImpl implements ContractService {
     private ContractGageDao contractGageDao;
 
 
-    public void save(Contract contract) {
+    public GeneralResult save(Contract contract) {
+        GeneralResult<Integer> result = new GeneralResult<Integer>();
         try {
             dao.save(contract);
         } catch (Exception e) {
-            e.printStackTrace();
+            result.setResultCode(ResultEnum.E_DATABASE_INSERT);
         }
+        return new GeneralResult();
     }
 
     public List<Contract> getAll() {
         return dao.getAll();
     }
 
-    public Contract getById(int id) {
-        return dao.getById(id);
+    public GeneralResult<Contract> getById(int id) {
+        Contract contract = dao.getById(id);
+        GeneralResult<Contract> result = new GeneralResult<Contract>();
+        if (null != contract) {
+            result.setData(contract);
+        } else {
+            result.setResultCode(ResultEnum.E_NOT_EXIST);
+        }
+        return result;
     }
 
-    public void update(Contract obj) {
+    public GeneralResult update(Contract obj) {
         try {
             dao.update(obj);
         } catch (Exception e) {
-            e.printStackTrace();
+            return new GeneralResult(ResultEnum.E_DATABASE_UPDATE);
         }
+        return new GeneralResult();
     }
 
-    public void delete(int id) {
+    public GeneralResult saveOrUpdate(Contract contract) {
+        try {
+            dao.saveOrUpdate(contract);
+        } catch (Exception e) {
+            return new GeneralResult(ResultEnum.E_DATABASE_UPDATE);
+        }
+        return new GeneralResult();
+    }
+
+    public GeneralResult delete(int id) {
         try {
             dao.delete(new Contract(id));
         } catch (Exception e) {
-            e.printStackTrace();
+            return new GeneralResult(ResultEnum.E_DATABASE_DELETE);
         }
+        return new GeneralResult();
+
     }
 
     //gages of contract
-    public void save(ContractGage contractGage) {
+    public GeneralResult save(ContractGage contractGage) {
+        GeneralResult<Integer> result = new GeneralResult<Integer>();
         try {
             contractGageDao.save(contractGage);
         } catch (Exception e) {
-            e.printStackTrace();
+            result.setResultCode(ResultEnum.E_DATABASE_INSERT);
         }
+        return new GeneralResult();
     }
 
-    public void update(ContractGage contractGage) {
+    public GeneralResult update(ContractGage contractGage) {
         try {
             contractGageDao.update(contractGage);
         } catch (Exception e) {
-            e.printStackTrace();
+            return new GeneralResult(ResultEnum.E_DATABASE_UPDATE);
         }
+        return new GeneralResult();
     }
 
 

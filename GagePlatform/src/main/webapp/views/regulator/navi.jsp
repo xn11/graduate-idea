@@ -71,11 +71,6 @@
                             账号信息
                         </a>
                     </li>
-                    <%--<li>
-                        <a href="javascript:void(0);">
-                                <span class="icon"><i class="fa fa-envelope"></i>
-                                </span>账户安全</a>
-                    </li>--%>
                     <li>
                         <a href="modifyPassword">
                             <span class="icon"><i class="fa fa-cog"></i></span>
@@ -161,7 +156,7 @@
         <nav>
             <h5 class="sidebar-header">功能栏</h5>
             <ul class="nav nav-pills nav-stacked">
-                <li>
+                <li id="home">
                     <a href="home" title="Dashboard">
                         <i class="fa  fa-fw fa-tachometer"></i> 主页
                     </a>
@@ -185,15 +180,15 @@
                 </li>
                 <li id="gage-management" class="nav-dropdown">
                     <a href="#" title="gage management">
-                        <i class="fa  fa-fw  icon-users"></i> 存货管理
+                        <i class="fa  fa-fw  icon-users"></i> 通知
                     </a>
                     <ul class="nav-sub">
                         <li id="inventory-list">
                             <a href="#" title="inventory list">
-                                存货信息
+                                待确认通知
                             </a>
                         </li>
-                        <li><a href="#" title="notice">出入库通知单</a>
+                        <li><a href="#" title="notice">通知记录</a>
                         </li>
 
                     </ul>
